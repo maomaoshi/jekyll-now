@@ -16,10 +16,15 @@
   
   
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...">
+    <meta name="description" content="title:hexo+github搭建个人博客心得#前言
+10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。
+#安装hexo在安装hexo之前，必须安装：
+1.Node.js
+2.Git
+如果两个都安装好后就可以直接安装hexo
+在要安装hexo的路径下打开Git Bash输入1$ n...">
   
-  <title>Hello World [ GWJ_AJ ]</title>
+  <title> [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,15 +43,15 @@ Qu...">
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2017/10/13/hexo+github搭建个人博客心得/">
+  
+    <div class="item next">
+      <a href="/2017/10/02/hello-world/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        
+        Hello World
       </div>
     </div>
-  
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -119,25 +124,39 @@ Qu...">
       
       
   <article id="post">
-    <h1>Hello World</h1>
+    <h1>空标题</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2017-10-02</span>
+      <span id = "post-title-date">撰写于 2017-10-13</span>
       
-        <span id = "post-title-updated">修改于 2017-10-02</span>
+        <span id = "post-title-updated">修改于 2017-10-13</span>
       
       
       
     </p>
     
-    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+    <hr>
+<h2 id="title-hexo-github搭建个人博客心得"><a href="#title-hexo-github搭建个人博客心得" class="headerlink" title="title:hexo+github搭建个人博客心得"></a>title:hexo+github搭建个人博客心得</h2><p>#前言</p>
+<p>10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。</p>
+<p>#安装hexo<br>在安装hexo之前，必须安装：</p>
+<p>1.<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></p>
+<p>2.<a href="https://git-scm.com/" target="_blank" rel="external">Git</a></p>
+<p>如果两个都安装好后就可以直接安装hexo</p>
+<p>在要安装hexo的路径下打开Git Bash输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
+<p>然后在要搭建博客的路径下，单击右键，打开Git Bash</p>
+<figure class="highlight plain"><figcaption><span>hexo init```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">```$ npm install</div></pre></td></tr></table></figure>
+<p>新建完成后，当前文件夹的目录如下：</p>
+<p><img src="../../images/blog_catalog.png" alt="blog_catalog"></p>
+<p>#部署到github</p>
+<p>##注册github账号<br><a href="https://github.com" target="_blank" rel="external">github官网</a></p>
+<p>##创建新仓库<br>创建一个新的仓库，仓库名为 用户名.github.io<br>比如：maomaoshi.github.io<br>maomaoshi就是我github的用户名</p>
+<p>##配置SSH<br>输入<figure class="highlight plain"><figcaption><span>-t rsa -C "注册的github邮箱"```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然后一路回车，之后会在本地~/.ssh生成id_rsa(密钥)和id_rsa.pub（公钥）</div><div class="line"></div><div class="line">查看公钥里面的内容：```cat ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure></p>
+<p><img src="../../images/id_rsa.jpb" alt="id_rsa.pub"></p>
+<p>将公钥的里的内容复制下来添加到github的SSH Key</p>
+<p><img src="../../images/sshkey1.jpg" alt="sshkey1"></p>
+<p><img src="../../images/sshkey2.jpg" alt="sshkey2"></p>
+<p>最后可以输入<figure class="highlight plain"><figcaption><span>-T git@github```检测是否配置成功</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">##修改config文件</div><div class="line">在目录下打开_config.yml修改config文件</div><div class="line">![config](../../images/config.jpg)</div><div class="line"></div><div class="line">参照下面的图，把用户名改成你的用户名</div><div class="line"></div><div class="line">##最后</div><div class="line">```$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure></p>
+<p><code>$ hexo d -g</code></p>
+<p>这样就部署完成了，然后可以通过<code>http://你的用户名.github.io</code>访问自己博客</p>
 
   </article>
   <div class="random-toc-area">
@@ -145,18 +164,18 @@ Qu...">
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title-hexo-github搭建个人博客心得"><span class="toc-text">title:hexo+github搭建个人博客心得</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2017/10/13/hexo+github搭建个人博客心得/" class="prev">&larr; 上一篇 </a>
-  
 
   
 
+  
+    <a href="/2017/10/02/hello-world/" class="next">下一篇 Hello World &rarr;</a>
   
 </nav>
 
