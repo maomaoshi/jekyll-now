@@ -16,13 +16,18 @@
   
   
   
-    <meta name="description" content="前言10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。
-安装hexo在安装hexo之前，必须安装：
-1.Node.js
-2.Git
-如果两个都安装好后就可以直接安装hexo
-在要安装hexo的路径下打开Git Bash输入$ npm install -g hexo-cli
-然后在要搭建...">
+    <meta name="description" content="#0x00 前言
+
+10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。
+
+#0x01 安装hexo
+
+在安装hexo之前，必须安装：
+  1.Node.js
+  2.Git
+  如果两个都安装好后就可以直接安装hexo
+
+在要安装hexo的路径下打开Git Bash输入 $ npm i...">
   
   <title>hexo+github搭建个人博客心得 [ GWJ_AJ ]</title>
   
@@ -126,49 +131,76 @@
   <article id="post">
     <h1>hexo+github搭建个人博客心得</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2017-10-13</span>
+      <span id = "post-title-date">Created at 2017-10-13</span>
       
-        <span id = "post-title-updated">修改于 2017-10-13</span>
+        <span id = "post-title-updated">Updated at 2017-10-13</span>
       
       
       
     </p>
     
-    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。</p>
-<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><p>在安装hexo之前，必须安装：</p>
-<p>1.<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></p>
-<p>2.<a href="https://git-scm.com/" target="_blank" rel="external">Git</a></p>
-<p>如果两个都安装好后就可以直接安装hexo</p>
-<p>在要安装hexo的路径下打开Git Bash输入<br><code>$ npm install -g hexo-cli</code></p>
-<p>然后在要搭建博客的路径下，单击右键，打开Git Bash</p>
-<p><code>$ hexo init</code></p>
-<p><code>$ npm install</code></p>
-<p>新建完成后，当前文件夹的目录如下：</p>
+    <p>#0x00 前言</p>
+<blockquote>
+<p>10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。</p>
+</blockquote>
+<p>#0x01 安装hexo</p>
+<ul>
+<li><p>在安装hexo之前，必须安装：</p>
+<p>  1.<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></p>
+<p>  2.<a href="https://git-scm.com/" target="_blank" rel="external">Git</a></p>
+<p>  如果两个都安装好后就可以直接安装hexo</p>
+</li>
+<li><p>在要安装hexo的路径下打开Git Bash输入<br> <code>$ npm install -g hexo-cli</code></p>
+</li>
+<li><p>然后在要搭建博客的路径下，单击右键，打开Git Bash</p>
+<p>   <code>$ hexo init</code></p>
+<p>   <code>$ npm install</code></p>
+</li>
+</ul>
+<ul>
+<li>新建完成后，当前文件夹的目录如下：</li>
+</ul>
 <p><img src="/images/blog_catalog.png" alt="blog_catalog"></p>
-<h1 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h1><h3 id="注册github账号"><a href="#注册github账号" class="headerlink" title="注册github账号"></a>注册github账号</h3><p><a href="https://github.com" target="_blank" rel="external">github官网</a></p>
-<h3 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h3><p>创建一个新的仓库，仓库名为 用户名.github.io<br>比如：maomaoshi.github.io<br>maomaoshi就是我github的用户名</p>
-<h3 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h3><p>输入<code>ssh-keygen -t rsa -C &quot;注册的github邮箱&quot;</code></p>
-<p>然后一路回车，之后会在本地~/.ssh生成id_rsa(密钥)和id_rsa.pub（公钥）</p>
-<p>查看公钥里面的内容： <code>cat ~/.ssh/id_rsa.pub</code></p>
+<p>#0x02 部署到github</p>
+<h4 id="注册github账号"><a href="#注册github账号" class="headerlink" title="注册github账号"></a>注册github账号</h4><p><a href="https://github.com" target="_blank" rel="external">github官网</a></p>
+<h4 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h4><ul>
+<li>创建一个新的仓库，仓库名为 用户名.github.io<br>比如：maomaoshi.github.io<br>maomaoshi就是我github的用户名</li>
+</ul>
+<h4 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h4><ul>
+<li><p>输入<code>ssh-keygen -t rsa -C &quot;注册的github邮箱&quot;</code></p>
+</li>
+<li><p>然后一路回车，之后会在本地~/.ssh生成id_rsa(密钥)和    id_rsa.pub（公钥）</p>
+</li>
+<li><p>查看公钥里面的内容： <code>cat ~/.ssh/id_rsa.pub</code></p>
+</li>
+</ul>
 <p><img src="/images/id_rsa.jpb" alt="id_rsa.pub"></p>
-<p>将公钥的里的内容复制下来添加到github的SSH Key</p>
+<ul>
+<li>将公钥的里的内容复制下来添加到github的SSH Key</li>
+</ul>
 <p><img src="/images/sshkey1.jpg" alt="sshkey1"></p>
 <p><img src="/images/sshkey2.jpg" alt="sshkey2"></p>
-<p>最后可以输入<code>ssh -T git@github</code>检测是否配置成功</p>
-<h3 id="修改config文件"><a href="#修改config文件" class="headerlink" title="修改config文件"></a>修改config文件</h3><p>在目录下打开_config.yml修改config文件</p>
+<ul>
+<li>最后可以输入<code>ssh -T git@github</code>检测是否配置成功</li>
+</ul>
+<h4 id="修改config文件"><a href="#修改config文件" class="headerlink" title="修改config文件"></a>修改config文件</h4><ul>
+<li>在目录下打开_config.yml修改config文件</li>
+</ul>
 <p><img src="/images/config.jpg" alt="config"></p>
-<p>参照上面的图，把用户名改成你的用户名</p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p><code>$ npm install hexo-deployer-git --save</code></p>
+<ul>
+<li>参照上面的图，把用户名改成你的用户名</li>
+</ul>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p><code>$ npm install hexo-deployer-git --save</code></p>
 <p><code>$ hexo d -g</code></p>
-<p>这样就部署完成了，然后可以通过<code>http://你的用户名.github.io</code>访问自己博客</p>
+<p>*这样就部署完成了，然后可以通过<code>http://你的用户名.github.io</code>访问自己博客</p>
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装hexo"><span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#部署到github"><span class="toc-text">部署到github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注册github账号"><span class="toc-text">注册github账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建新仓库"><span class="toc-text">创建新仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置SSH"><span class="toc-text">配置SSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改config文件"><span class="toc-text">修改config文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol></li></ol></li></ol>
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#注册github账号"><span class="toc-text">注册github账号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建新仓库"><span class="toc-text">创建新仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置SSH"><span class="toc-text">配置SSH</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改config文件"><span class="toc-text">修改config文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol>
   </div>
 </div>
 
@@ -179,7 +211,7 @@
   
 
   
-    <a href="/2017/10/02/hello-world/" class="next">下一篇 Hello World &rarr;</a>
+    <a href="/2017/10/02/hello-world/" class="next">Next post Hello World &rarr;</a>
   
 </nav>
 
