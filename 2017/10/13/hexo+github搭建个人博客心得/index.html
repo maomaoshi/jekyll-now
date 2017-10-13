@@ -144,19 +144,19 @@
 <p><code>$ hexo init</code></p>
 <p><code>$ npm install</code></p>
 <p>新建完成后，当前文件夹的目录如下：</p>
-<p><img src="../../images/blog_catalog.png" alt="blog_catalog"></p>
+<p><img src="/images/blog_catalog.png" alt="blog_catalog"></p>
 <h1 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h1><h3 id="注册github账号"><a href="#注册github账号" class="headerlink" title="注册github账号"></a>注册github账号</h3><p><a href="https://github.com" target="_blank" rel="external">github官网</a></p>
 <h3 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h3><p>创建一个新的仓库，仓库名为 用户名.github.io<br>比如：maomaoshi.github.io<br>maomaoshi就是我github的用户名</p>
 <h3 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h3><p>输入<code>ssh-keygen -t rsa -C &quot;注册的github邮箱&quot;</code></p>
 <p>然后一路回车，之后会在本地~/.ssh生成id_rsa(密钥)和id_rsa.pub（公钥）</p>
 <p>查看公钥里面的内容： <code>cat ~/.ssh/id_rsa.pub</code></p>
-<p><img src="../../images/id_rsa.jpb" alt="id_rsa.pub"></p>
+<p><img src="/images/id_rsa.jpb" alt="id_rsa.pub"></p>
 <p>将公钥的里的内容复制下来添加到github的SSH Key</p>
-<p><img src="../../images/sshkey1.jpg" alt="sshkey1"></p>
-<p><img src="../../images/sshkey2.jpg" alt="sshkey2"></p>
+<p><img src="/images/sshkey1.jpg" alt="sshkey1"></p>
+<p><img src="/images/sshkey2.jpg" alt="sshkey2"></p>
 <p>最后可以输入<code>ssh -T git@github</code>检测是否配置成功</p>
 <h3 id="修改config文件"><a href="#修改config文件" class="headerlink" title="修改config文件"></a>修改config文件</h3><p>在目录下打开_config.yml修改config文件</p>
-<p><img src="../../images/config.jpg" alt="config"></p>
+<p><img src="/images/config.jpg" alt="config"></p>
 <p>参照上面的图，把用户名改成你的用户名</p>
 <h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p><code>$ npm install hexo-deployer-git --save</code></p>
 <p><code>$ hexo d -g</code></p>
