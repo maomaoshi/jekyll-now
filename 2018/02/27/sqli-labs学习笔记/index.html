@@ -16,9 +16,12 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="0x00前言
+仅以此篇记录sqli-labs学习过程，便于回顾。
+
+0x01 Lese-1 基于错误的-get单引号-字符型注入">
   
-  <title>Categories [ GWJ_AJ ]</title>
+  <title>sqli-labs学习笔记 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -37,6 +40,24 @@
 <body>
 <div class="side-navigate hide-area">
   
+    <div class="item prev">
+      <a href="/2018/09/29/MVC学习/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2018/02/27/C++sort()用法/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        C++ sort()用法
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -76,7 +97,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/categories">Categories</a>
             
@@ -108,20 +129,60 @@
     <div id="content-inner">
       
       
-  <article id="page">
+  <article id="post">
+    <h1>sqli-labs学习笔记</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-02-27</span>
+      
+        <span id = "post-title-updated">Updated at 2018-02-27</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/sql注入/">sql注入</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/sqli-labs/">sqli-labs</a>
+      
+      </span>
+      
+    </p>
     
-    
-      <h1 class="center-title">Categories</h1>
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Blog/">Blog</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/sql注入/">sql注入</a><span class="category-list-count">1</span></li></ul>
-    
+    <h2 id="0x00前言"><a href="#0x00前言" class="headerlink" title="0x00前言"></a>0x00前言</h2><blockquote>
+<p>仅以此篇记录sqli-labs学习过程，便于回顾。</p>
+</blockquote>
+<h2 id="0x01-Lese-1-基于错误的-get单引号-字符型注入"><a href="#0x01-Lese-1-基于错误的-get单引号-字符型注入" class="headerlink" title="0x01 Lese-1 基于错误的-get单引号-字符型注入"></a>0x01 Lese-1 基于错误的-get单引号-字符型注入</h2>
   </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00前言"><span class="toc-text">0x00前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-Lese-1-基于错误的-get单引号-字符型注入"><span class="toc-text">0x01 Lese-1 基于错误的-get单引号-字符型注入</span></a></li></ol>
+  </div>
+</div>
 
   
 <nav id="pagination">
   
+    <a href="/2018/09/29/MVC学习/" class="prev">&larr; Prev post </a>
+  
 
   
 
+  
+    <a href="/2018/02/27/C++sort()用法/" class="next">Next post C++ sort()用法 &rarr;</a>
   
 </nav>
 
@@ -230,6 +291,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";

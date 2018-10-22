@@ -1,0 +1,466 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="0x00 为什么使用命名空间命名空间一个最明确的目的就是解决重名问题，PHP中不允许两个函数或者类出现相同的名字，否则会产生一个致命的错误。这种情况下只要避免重复就可以解决，最常见的一种做法就是约定一个前缀。
+例：项目中有两个模块：article和message board，它们各自有一个处理用户留言的类Comment。之后我可能想要增加对所有用户留言的一些信息统计功能，被逼入说我想得到某个...">
+  
+  <title>PHP命名空间 [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2018/09/29/MVC学习/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>PHP命名空间</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-10-13</span>
+      
+        <span id = "post-title-updated">Updated at 2018-10-22</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/PHP/">PHP</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/命名空间/">命名空间</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="0x00-为什么使用命名空间"><a href="#0x00-为什么使用命名空间" class="headerlink" title="0x00 为什么使用命名空间"></a>0x00 为什么使用命名空间</h2><p></p><p>命名空间一个最明确的目的就是解决重名问题，PHP中不允许两个函数或者类出现相同的名字，否则会产生一个致命的错误。这种情况下只要避免重复就可以解决，最常见的一种做法就是约定一个前缀。</p>
+<p></p><p>例：项目中有两个模块：article和message board，它们各自有一个处理用户留言的类Comment。之后我可能想要增加对所有用户留言的一些信息统计功能，被逼入说我想得到某个用户所有留言的数量。这时候调用它们Comment提供的方法是很好的办法，但是同时引入各自的Comment类显然是不行的，代码会出错，在另一个地方重写一个Comment也会降低维护性。那这时只能重构类名，我约定了一个命名规则，在类名前面加上模块名，像这样：Article_Comment、MessageBoard_Comment</p>
+<p></p><p>可以看到，名字变得很长，那意味着以后使用Comment的时候会写上更多的代码（至少字符多了）。并且，以后如果要对各个模块增加更多的一些整合功能，或者是互相调用，发生重名的时候就需要重构名字。当然在项目开始的就注意到这个问题，并规定命名规则就能很好的避免这个问题。<strong>另一个解决方法可以考虑使用命名空间。</strong></p>
+<h2 id="0x01-注明"><a href="#0x01-注明" class="headerlink" title="0x01 注明"></a>0x01 注明</h2><p></p><p>本文提到的常量：PHP5.3开发const关键字可以用在类的外部。const和define都是用来声明变量的，但是对于命名空间,define的作用是全局的，而const则作用于当前空间。我在文中提到的常量是指使用const声明的常量。</p>
+<h2 id="0x02-基础"><a href="#0x02-基础" class="headerlink" title="0x02 基础"></a>0x02 基础</h2><p></p><p>命名空间将代码划分出不同的空间（区域），每个空间的常量、函数、类（为了偷懒，我下边都将它们称为元素）的名字互不影响，这个有点类似我们常常提到的“封装”的概念。</p>
+<h2 id="0x03-创建一个命名空间需要namespace关键字"><a href="#0x03-创建一个命名空间需要namespace关键字" class="headerlink" title="0x03 创建一个命名空间需要namespace关键字"></a>0x03 创建一个命名空间需要namespace关键字</h2><pre><code>&lt;?php
+    //创建一个名为“Article”的命名空间
+    namespace Article;
+?&gt;
+</code></pre><p></p><p>要注意的是，当前脚本文件的<strong>第一个命名空间</strong>前面不能有任何代码，下面的写法是错误的：</p>
+<pre><code>&lt;?php
+    $path = &quot;/&quot;;
+    class Comment{}
+    namespace Article;
+?&gt;
+</code></pre><p></p><p>为什么要说第一个命名空间呢？<strong>因为同一脚本文件中可以创建搓个命名空间。</strong></p>
+<p></p><p>下面我创建了两个命名空间，顺便为这两个空间各自添加了一个Comment类元素：</p>
+<pre><code>&lt;?php
+    //创建一个名为“Aricle”的命名空间
+    namespace Article;
+
+    //此Comment属于Article空间的元素
+    class Comment{}
+
+    //创建一个名为“MessageBoard”的命名空间
+    namespace MessageBoard;
+
+    //此Comment属于MessageBoard空间的元素
+    class Comment{}
+?&gt;
+</code></pre><p></p><p>在不同空间之间不可以直接调用其它元素，需要使用命名空间的语法：</p>
+<pre><code>&lt;?php
+    namesapce Article;
+    class Comment{}
+
+    namespace MessageBoard;
+    class Comment{}
+
+    //调用当前空间（MessageBoard）的Comment类
+    $comment = new Comment();
+
+    //调用Article空间的Comment类
+    $article_comment = new \Article\Comment();
+?&gt;
+</code></pre><p></p><p>可以看到，在MessageBoard空间中调用article空间里的Comment类时，使用了一种像文件路径的语法：\空间名\元素名</p>
+<p></p><p>除了类之外，对函数和常量的用法是一样的，下面我为两个空间创建了新的元素，并在MessageBoard空间中输出了它们的值。</p>
+<pre><code>&lt;?php
+namespace Article;
+const PATH = &apos;/articl&apos;;
+
+funtion getCommentTotal(){
+    return 100;
+}
+class Comment{}
+
+namespace MessageBoard;
+const PATH = &apos;/message_board&apos;;
+
+funtion getCommentTotal(){
+    return 300;
+}
+class Comment{}
+
+//调用当前空间的常量、函数和类
+echo PATH;//message_board
+echo getCommentTotal();//300
+$comment = new Comment();
+
+//调用Article空间的常量、函数和类
+echo \Article\PATH;//article
+echo \Article\getCommentTotal();//100
+$article_comment = new \Article\Comment();
+?&gt;
+</code></pre><h2 id="0x04-子空间"><a href="#0x04-子空间" class="headerlink" title="0x04 子空间"></a>0x04 子空间</h2><p></p><p>命名空间的调用语法像文件路径一样是有道理的，它允许我们自定义子空间来描述各个空间之间的关系。article和message_board这两个模块其实都是处于同一个blog项目内。如果用命名空间来表达它们的关系，是这样的：</p>
+<pre><code>&lt;?php
+namespace Blog\Article;
+class Comment{}
+
+//我用这样的命名空间表示处于blog下的message board模块
+namesapce Blog\MessageBoard;
+class Comment{}
+//调用当前空间的类
+$comment = new Comment();
+
+//调用Blog\Article空间的类
+$article_comment = new \Blog\Article\Comment();
+?&gt;
+</code></pre><p></p><p>而且，子空间还可以定义很多层次，比如Blog\Article\Archives\Date</p>
+<h2 id="0x05公共空间"><a href="#0x05公共空间" class="headerlink" title="0x05公共空间"></a>0x05公共空间</h2><p></p><p>我有一个common_inc.php脚本文件，里面有一些好用的函数和类：<br>    &lt;?php<br>    funtion getIP(){}<br>    class FilterXSS{}<br>    ?&gt;</p>
+<p></p><p><strong>在一个命名空间里引入这种脚本，脚本里的元素不会归属到这个命名空间</strong>。如果这个脚本里没有定义其它的命名空间，它的元素就始终处于公共空间中:<br>    &lt;?php<br>    namesapce Blog\Article;</p>
+<pre><code>//引入脚本文件
+include &apos;./common_inc.php&apos;;
+
+$filter_XSS = new FilterXSS();//出现错误，找不到Blog\Article\FilterXSS类
+$filter_XSS = new \FilterXSS();//正确
+?&gt;
+</code></pre><p></p><p>调用公共空间的方式是直接在元素名称上加\就可以了，否则PHP解析器会认为我想调用当前空间下的元素。除了自定义的元素，还包括PHP自带的元素，都属于公共空间。</p>
+<p></p><p>要提一下，其实公共空间的函数和常量不用加\也可以正常调用（不明白PHP为什么要这样做），但是为了正确区分元素，还是建议调用函数的时候加上\</p>
+<h2 id="0x06-名称术语"><a href="#0x06-名称术语" class="headerlink" title="0x06 名称术语"></a>0x06 名称术语</h2><p></p><p>在说别名和导入之前，需要知道关于空间三种名称的术语，以及PHP是怎样解析它们的。</p>
+<p></p><p>1.非限定名称，或不包含前缀的类名称，例如$comment = new Comment();。如果当前命名空间是Blog\Article,Comment将被解析为Blog\Article\Comment.如果使用Comment的代码不包含在任何命名空间中的代码（全局空间中），则Comment会被解析为Comment.</p>
+<p></p><p>2.限定名称，或包含前缀的名称，例如$comment = new Article\Comment();如果当前命名空间是Blog,则Comment会被解析为Blog\Article\Comment.如果使用Comment的代码不包含在任何命名空间中的代码（全局空间中），则Comment会被解析为Comment.</p>
+<p></p><p>3.完全限定名称，或包含了全局前缀操作符的名称，例如$comment = new \Article\Comment();在这种情况下，Comment总是被解析为代码中的文字名（literal name）Article\Comment.</p>
+<p></p><p>其实可以把这三种名称类比为文件名（例如 comment.php）、相对路径名（例如 ./article/comment.php）、绝对路径名（例如 /blog/article/comment.php），这样可能会更容易理解。<br>    &lt;?php<br>    namespace Blog;<br>    class Comment{}</p>
+<pre><code>//非限定名称，表示当前Blog空间
+//这个调用将被解析成Blog\Comment();
+$blog_comment = new Comment();
+
+//限定名称，表示相对于Blog空间
+//这个调用将被解析成Blog\Article\Comment();
+$article_comment = new Article\Comment();//类前面没有烦斜干\
+
+//完全限定名称，表示绝对于Blog空间
+//这个调用将被解析成Blog\Comment();
+$article_comment = new \Blog\Comment();
+</code></pre><h2 id="0x07-别名和导入"><a href="#0x07-别名和导入" class="headerlink" title="0x07 别名和导入"></a>0x07 别名和导入</h2><p></p><p>别名和导入可以看作是调用命名空间元素的一种快捷方式。PHP并不支持导入函数或常量。</p>
+<p></p><p><strong>它们都是通过使用use操作符来实现</strong><br>    &lt;&gt;php</p>
+<pre><code>namespace Blog\Article;;
+class Comment{}
+
+//创建一个BBS空间
+namespace BBS;
+
+//导入一个命名空间
+use Blog\Article;
+//导入命名空间后可使用限定名称调用元素
+$article_comment = new Article\Comment();
+
+//为命名空间使用别名
+use Blog\Article as Arte;
+//使用别名代替空间名
+$article_comment = new Arte\Comment();
+
+//导入一个类
+use Blog\Article\Comment;
+//导入类后可使用非限定名称调用元素
+$article_comment = new Comment();
+
+//为类使用别名
+use Blog\Article\Comment as Comt;
+//使用别名代替空间名
+$article_comment = new Comt();
+?&gt;
+</code></pre><p></p><p><strong>来源：<a href="https://www.cnblogs.com/kuyuecs/p/3556421.html" target="_blank" rel="external">https://www.cnblogs.com/kuyuecs/p/3556421.html</a></strong></p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-为什么使用命名空间"><span class="toc-text">0x00 为什么使用命名空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-注明"><span class="toc-text">0x01 注明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-基础"><span class="toc-text">0x02 基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-创建一个命名空间需要namespace关键字"><span class="toc-text">0x03 创建一个命名空间需要namespace关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-子空间"><span class="toc-text">0x04 子空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05公共空间"><span class="toc-text">0x05公共空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-名称术语"><span class="toc-text">0x06 名称术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-别名和导入"><span class="toc-text">0x07 别名和导入</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/09/29/MVC学习/" class="next">Next post  &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
