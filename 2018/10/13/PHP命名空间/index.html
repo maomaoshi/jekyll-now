@@ -132,7 +132,7 @@
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-10-13</span>
       
-        <span id = "post-title-updated">Updated at 2018-10-22</span>
+        <span id = "post-title-updated">Updated at 2018-10-26</span>
       
       
       <span id = "post-title-categories">Category
@@ -162,144 +162,28 @@
 <p></p><p>可以看到，名字变得很长，那意味着以后使用Comment的时候会写上更多的代码（至少字符多了）。并且，以后如果要对各个模块增加更多的一些整合功能，或者是互相调用，发生重名的时候就需要重构名字。当然在项目开始的就注意到这个问题，并规定命名规则就能很好的避免这个问题。<strong>另一个解决方法可以考虑使用命名空间。</strong></p>
 <h2 id="0x01-注明"><a href="#0x01-注明" class="headerlink" title="0x01 注明"></a>0x01 注明</h2><p></p><p>本文提到的常量：PHP5.3开发const关键字可以用在类的外部。const和define都是用来声明变量的，但是对于命名空间,define的作用是全局的，而const则作用于当前空间。我在文中提到的常量是指使用const声明的常量。</p>
 <h2 id="0x02-基础"><a href="#0x02-基础" class="headerlink" title="0x02 基础"></a>0x02 基础</h2><p></p><p>命名空间将代码划分出不同的空间（区域），每个空间的常量、函数、类（为了偷懒，我下边都将它们称为元素）的名字互不影响，这个有点类似我们常常提到的“封装”的概念。</p>
-<h2 id="0x03-创建一个命名空间需要namespace关键字"><a href="#0x03-创建一个命名空间需要namespace关键字" class="headerlink" title="0x03 创建一个命名空间需要namespace关键字"></a>0x03 创建一个命名空间需要namespace关键字</h2><pre><code>&lt;?php
-    //创建一个名为“Article”的命名空间
-    namespace Article;
-?&gt;
-</code></pre><p></p><p>要注意的是，当前脚本文件的<strong>第一个命名空间</strong>前面不能有任何代码，下面的写法是错误的：</p>
-<pre><code>&lt;?php
-    $path = &quot;/&quot;;
-    class Comment{}
-    namespace Article;
-?&gt;
-</code></pre><p></p><p>为什么要说第一个命名空间呢？<strong>因为同一脚本文件中可以创建搓个命名空间。</strong></p>
-<p></p><p>下面我创建了两个命名空间，顺便为这两个空间各自添加了一个Comment类元素：</p>
-<pre><code>&lt;?php
-    //创建一个名为“Aricle”的命名空间
-    namespace Article;
-
-    //此Comment属于Article空间的元素
-    class Comment{}
-
-    //创建一个名为“MessageBoard”的命名空间
-    namespace MessageBoard;
-
-    //此Comment属于MessageBoard空间的元素
-    class Comment{}
-?&gt;
-</code></pre><p></p><p>在不同空间之间不可以直接调用其它元素，需要使用命名空间的语法：</p>
-<pre><code>&lt;?php
-    namesapce Article;
-    class Comment{}
-
-    namespace MessageBoard;
-    class Comment{}
-
-    //调用当前空间（MessageBoard）的Comment类
-    $comment = new Comment();
-
-    //调用Article空间的Comment类
-    $article_comment = new \Article\Comment();
-?&gt;
-</code></pre><p></p><p>可以看到，在MessageBoard空间中调用article空间里的Comment类时，使用了一种像文件路径的语法：\空间名\元素名</p>
-<p></p><p>除了类之外，对函数和常量的用法是一样的，下面我为两个空间创建了新的元素，并在MessageBoard空间中输出了它们的值。</p>
-<pre><code>&lt;?php
-namespace Article;
-const PATH = &apos;/articl&apos;;
-
-funtion getCommentTotal(){
-    return 100;
-}
-class Comment{}
-
-namespace MessageBoard;
-const PATH = &apos;/message_board&apos;;
-
-funtion getCommentTotal(){
-    return 300;
-}
-class Comment{}
-
-//调用当前空间的常量、函数和类
-echo PATH;//message_board
-echo getCommentTotal();//300
-$comment = new Comment();
-
-//调用Article空间的常量、函数和类
-echo \Article\PATH;//article
-echo \Article\getCommentTotal();//100
-$article_comment = new \Article\Comment();
-?&gt;
-</code></pre><h2 id="0x04-子空间"><a href="#0x04-子空间" class="headerlink" title="0x04 子空间"></a>0x04 子空间</h2><p></p><p>命名空间的调用语法像文件路径一样是有道理的，它允许我们自定义子空间来描述各个空间之间的关系。article和message_board这两个模块其实都是处于同一个blog项目内。如果用命名空间来表达它们的关系，是这样的：</p>
-<pre><code>&lt;?php
-namespace Blog\Article;
-class Comment{}
-
-//我用这样的命名空间表示处于blog下的message board模块
-namesapce Blog\MessageBoard;
-class Comment{}
-//调用当前空间的类
-$comment = new Comment();
-
-//调用Blog\Article空间的类
-$article_comment = new \Blog\Article\Comment();
-?&gt;
-</code></pre><p></p><p>而且，子空间还可以定义很多层次，比如Blog\Article\Archives\Date</p>
-<h2 id="0x05公共空间"><a href="#0x05公共空间" class="headerlink" title="0x05公共空间"></a>0x05公共空间</h2><p></p><p>我有一个common_inc.php脚本文件，里面有一些好用的函数和类：<br>    &lt;?php<br>    funtion getIP(){}<br>    class FilterXSS{}<br>    ?&gt;</p>
-<p></p><p><strong>在一个命名空间里引入这种脚本，脚本里的元素不会归属到这个命名空间</strong>。如果这个脚本里没有定义其它的命名空间，它的元素就始终处于公共空间中:<br>    &lt;?php<br>    namesapce Blog\Article;</p>
-<pre><code>//引入脚本文件
-include &apos;./common_inc.php&apos;;
-
-$filter_XSS = new FilterXSS();//出现错误，找不到Blog\Article\FilterXSS类
-$filter_XSS = new \FilterXSS();//正确
-?&gt;
-</code></pre><p></p><p>调用公共空间的方式是直接在元素名称上加\就可以了，否则PHP解析器会认为我想调用当前空间下的元素。除了自定义的元素，还包括PHP自带的元素，都属于公共空间。</p>
+<h2 id="0x03-创建一个命名空间需要namespace关键字"><a href="#0x03-创建一个命名空间需要namespace关键字" class="headerlink" title="0x03 创建一个命名空间需要namespace关键字"></a>0x03 创建一个命名空间需要namespace关键字</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//创建一个名为“Article”的命名空间</div><div class="line">namespace Article;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p></p><p>要注意的是，当前脚本文件的<strong>第一个命名空间</strong>前面不能有任何代码，下面的写法是错误的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"><span class="variable">$path</span> = <span class="string">"/"</span>;</div><div class="line">	class Comment&#123;&#125;</div><div class="line">namespace Article;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p></p><p>为什么要说第一个命名空间呢？<strong>因为同一脚本文件中可以创建搓个命名空间。</strong></p>
+<p></p><p>下面我创建了两个命名空间，顺便为这两个空间各自添加了一个Comment类元素：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	//创建一个名为“Aricle”的命名空间</div><div class="line">	namespace Article;</div><div class="line"></div><div class="line">	//此Comment属于Article空间的元素</div><div class="line">	class Comment&#123;&#125;</div><div class="line">	</div><div class="line">	//创建一个名为“MessageBoard”的命名空间</div><div class="line">	namespace MessageBoard;</div><div class="line">	</div><div class="line">	//此Comment属于MessageBoard空间的元素</div><div class="line">	class Comment&#123;&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p></p><p>在不同空间之间不可以直接调用其它元素，需要使用命名空间的语法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">	namesapce Article;</div><div class="line">	class Comment&#123;&#125;</div><div class="line"></div><div class="line">	namespace MessageBoard;</div><div class="line">	class Comment&#123;&#125;</div><div class="line"></div><div class="line">	//调用当前空间（MessageBoard）的Comment类</div><div class="line">	<span class="variable">$comment</span> = new Comment();</div><div class="line"></div><div class="line">	//调用Article空间的Comment类</div><div class="line">	<span class="variable">$article_comment</span> = new \Article\Comment();</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p></p><p>可以看到，在MessageBoard空间中调用article空间里的Comment类时，使用了一种像文件路径的语法：\空间名\元素名</p>
+<p></p><p>除了类之外，对函数和常量的用法是一样的，下面我为两个空间创建了新的元素，并在MessageBoard空间中输出了它们的值。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namespace Article;</div><div class="line">const PATH = <span class="string">'/articl'</span>;</div><div class="line"></div><div class="line">funtion <span class="function"><span class="title">getCommentTotal</span></span>()&#123;</div><div class="line">	<span class="built_in">return</span> 100;</div><div class="line">&#125;</div><div class="line">class Comment&#123;&#125;</div><div class="line"></div><div class="line">namespace MessageBoard;</div><div class="line">const PATH = <span class="string">'/message_board'</span>;</div><div class="line"></div><div class="line">funtion <span class="function"><span class="title">getCommentTotal</span></span>()&#123;</div><div class="line">	<span class="built_in">return</span> 300;</div><div class="line">&#125;</div><div class="line">class Comment&#123;&#125;</div><div class="line"></div><div class="line">//调用当前空间的常量、函数和类</div><div class="line"><span class="built_in">echo</span> PATH;//message_board</div><div class="line"><span class="built_in">echo</span> getCommentTotal();//300</div><div class="line"><span class="variable">$comment</span> = new Comment();</div><div class="line"></div><div class="line">//调用Article空间的常量、函数和类</div><div class="line"><span class="built_in">echo</span> \Article\PATH;//article</div><div class="line"><span class="built_in">echo</span> \Article\getCommentTotal();//100</div><div class="line"><span class="variable">$article_comment</span> = new \Article\Comment();</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="0x04-子空间"><a href="#0x04-子空间" class="headerlink" title="0x04 子空间"></a>0x04 子空间</h2><p></p><p>命名空间的调用语法像文件路径一样是有道理的，它允许我们自定义子空间来描述各个空间之间的关系。article和message_board这两个模块其实都是处于同一个blog项目内。如果用命名空间来表达它们的关系，是这样的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namespace Blog\Article;</div><div class="line">class Comment&#123;&#125;</div><div class="line"></div><div class="line">//我用这样的命名空间表示处于blog下的message board模块</div><div class="line">namesapce Blog\MessageBoard;</div><div class="line">class Comment&#123;&#125;</div><div class="line">//调用当前空间的类</div><div class="line"><span class="variable">$comment</span> = new Comment();</div><div class="line"></div><div class="line">//调用Blog\Article空间的类</div><div class="line"><span class="variable">$article_comment</span> = new \Blog\Article\Comment();</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p></p><p>而且，子空间还可以定义很多层次，比如Blog\Article\Archives\Date</p>
+<h2 id="0x05公共空间"><a href="#0x05公共空间" class="headerlink" title="0x05公共空间"></a>0x05公共空间</h2><p></p><p>我有一个common_inc.php脚本文件，里面有一些好用的函数和类：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">funtion <span class="function"><span class="title">getIP</span></span>()&#123;&#125;</div><div class="line">class FilterXSS&#123;&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p></p><p><strong>在一个命名空间里引入这种脚本，脚本里的元素不会归属到这个命名空间</strong>。如果这个脚本里没有定义其它的命名空间，它的元素就始终处于公共空间中:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namesapce Blog\Article;</div><div class="line"></div><div class="line">//引入脚本文件</div><div class="line">include <span class="string">'./common_inc.php'</span>;</div><div class="line"></div><div class="line"><span class="variable">$filter_XSS</span> = new FilterXSS();//出现错误，找不到Blog\Article\FilterXSS类</div><div class="line"><span class="variable">$filter_XSS</span> = new \FilterXSS();//正确</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p></p><p>调用公共空间的方式是直接在元素名称上加\就可以了，否则PHP解析器会认为我想调用当前空间下的元素。除了自定义的元素，还包括PHP自带的元素，都属于公共空间。</p>
 <p></p><p>要提一下，其实公共空间的函数和常量不用加\也可以正常调用（不明白PHP为什么要这样做），但是为了正确区分元素，还是建议调用函数的时候加上\</p>
 <h2 id="0x06-名称术语"><a href="#0x06-名称术语" class="headerlink" title="0x06 名称术语"></a>0x06 名称术语</h2><p></p><p>在说别名和导入之前，需要知道关于空间三种名称的术语，以及PHP是怎样解析它们的。</p>
 <p></p><p>1.非限定名称，或不包含前缀的类名称，例如$comment = new Comment();。如果当前命名空间是Blog\Article,Comment将被解析为Blog\Article\Comment.如果使用Comment的代码不包含在任何命名空间中的代码（全局空间中），则Comment会被解析为Comment.</p>
 <p></p><p>2.限定名称，或包含前缀的名称，例如$comment = new Article\Comment();如果当前命名空间是Blog,则Comment会被解析为Blog\Article\Comment.如果使用Comment的代码不包含在任何命名空间中的代码（全局空间中），则Comment会被解析为Comment.</p>
 <p></p><p>3.完全限定名称，或包含了全局前缀操作符的名称，例如$comment = new \Article\Comment();在这种情况下，Comment总是被解析为代码中的文字名（literal name）Article\Comment.</p>
-<p></p><p>其实可以把这三种名称类比为文件名（例如 comment.php）、相对路径名（例如 ./article/comment.php）、绝对路径名（例如 /blog/article/comment.php），这样可能会更容易理解。<br>    &lt;?php<br>    namespace Blog;<br>    class Comment{}</p>
-<pre><code>//非限定名称，表示当前Blog空间
-//这个调用将被解析成Blog\Comment();
-$blog_comment = new Comment();
-
-//限定名称，表示相对于Blog空间
-//这个调用将被解析成Blog\Article\Comment();
-$article_comment = new Article\Comment();//类前面没有烦斜干\
-
-//完全限定名称，表示绝对于Blog空间
-//这个调用将被解析成Blog\Comment();
-$article_comment = new \Blog\Comment();
-</code></pre><h2 id="0x07-别名和导入"><a href="#0x07-别名和导入" class="headerlink" title="0x07 别名和导入"></a>0x07 别名和导入</h2><p></p><p>别名和导入可以看作是调用命名空间元素的一种快捷方式。PHP并不支持导入函数或常量。</p>
-<p></p><p><strong>它们都是通过使用use操作符来实现</strong><br>    &lt;&gt;php</p>
-<pre><code>namespace Blog\Article;;
-class Comment{}
-
-//创建一个BBS空间
-namespace BBS;
-
-//导入一个命名空间
-use Blog\Article;
-//导入命名空间后可使用限定名称调用元素
-$article_comment = new Article\Comment();
-
-//为命名空间使用别名
-use Blog\Article as Arte;
-//使用别名代替空间名
-$article_comment = new Arte\Comment();
-
-//导入一个类
-use Blog\Article\Comment;
-//导入类后可使用非限定名称调用元素
-$article_comment = new Comment();
-
-//为类使用别名
-use Blog\Article\Comment as Comt;
-//使用别名代替空间名
-$article_comment = new Comt();
-?&gt;
-</code></pre><p></p><p><strong>来源：<a href="https://www.cnblogs.com/kuyuecs/p/3556421.html" target="_blank" rel="external">https://www.cnblogs.com/kuyuecs/p/3556421.html</a></strong></p>
+<p></p><p>其实可以把这三种名称类比为文件名（例如 comment.php）、相对路径名（例如 ./article/comment.php）、绝对路径名（例如 /blog/article/comment.php），这样可能会更容易理解。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namespace Blog;</div><div class="line">class Comment&#123;&#125;</div><div class="line"></div><div class="line">//非限定名称，表示当前Blog空间</div><div class="line">//这个调用将被解析成Blog\Comment();</div><div class="line"><span class="variable">$blog_comment</span> = new Comment();</div><div class="line"></div><div class="line">//限定名称，表示相对于Blog空间</div><div class="line">//这个调用将被解析成Blog\Article\Comment();</div><div class="line"><span class="variable">$article_comment</span> = new Article\Comment();//类前面没有烦斜干\</div><div class="line"></div><div class="line">//完全限定名称，表示绝对于Blog空间</div><div class="line">//这个调用将被解析成Blog\Comment();</div><div class="line"><span class="variable">$article_comment</span> = new \Blog\Comment();</div></pre></td></tr></table></figure></p>
+<h2 id="0x07-别名和导入"><a href="#0x07-别名和导入" class="headerlink" title="0x07 别名和导入"></a>0x07 别名和导入</h2><p></p><p>别名和导入可以看作是调用命名空间元素的一种快捷方式。PHP并不支持导入函数或常量。</p>
+<p></p><p><strong>它们都是通过使用use操作符来实现</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">namespace Blog\Article;;</div><div class="line">class Comment&#123;&#125;</div><div class="line"></div><div class="line">//创建一个BBS空间</div><div class="line">namespace BBS;</div><div class="line"></div><div class="line">//导入一个命名空间</div><div class="line">use Blog\Article;</div><div class="line">//导入命名空间后可使用限定名称调用元素</div><div class="line"><span class="variable">$article_comment</span> = new Article\Comment();</div><div class="line"></div><div class="line">//为命名空间使用别名</div><div class="line">use Blog\Article as Arte;</div><div class="line">//使用别名代替空间名</div><div class="line"><span class="variable">$article_comment</span> = new Arte\Comment();</div><div class="line"></div><div class="line">//导入一个类</div><div class="line">use Blog\Article\Comment;</div><div class="line">//导入类后可使用非限定名称调用元素</div><div class="line"><span class="variable">$article_comment</span> = new Comment();</div><div class="line"></div><div class="line">//为类使用别名</div><div class="line">use Blog\Article\Comment as Comt;</div><div class="line">//使用别名代替空间名</div><div class="line"><span class="variable">$article_comment</span> = new Comt();</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p></p><p><strong>来源：<a href="https://www.cnblogs.com/kuyuecs/p/3556421.html" target="_blank" rel="external">https://www.cnblogs.com/kuyuecs/p/3556421.html</a></strong></p>
 
   </article>
   <div class="random-toc-area">
