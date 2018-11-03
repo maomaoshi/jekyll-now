@@ -1,0 +1,360 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="0x00序言
+最近操作系统课要求写网络编程，记录一下。来源：https://blog.csdn.net/u012234115/article/details/54142273https://blog.csdn.net/ZH0314/article/details/77387162加上了一些自己的理解
+
+0x01 一些函数Linux下socket编程可以概括为以下几个函数的运用
+
+sockee...">
+  
+  <title>Linux下c语言网络编程:基于tcp连接 [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2018/10/26/基于ThinkPHP5实现注册登录/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        基于ThinkPHP5.0实现注册登录验证
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>Linux下c语言网络编程:基于tcp连接</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-11-03</span>
+      
+        <span id = "post-title-updated">Updated at 2018-11-03</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/网络编程/">网络编程</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/网络编程/">网络编程</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="0x00序言"><a href="#0x00序言" class="headerlink" title="0x00序言"></a>0x00序言</h2><blockquote>
+<p>最近操作系统课要求写网络编程，记录一下。<br>来源：<a href="https://blog.csdn.net/u012234115/article/details/54142273" target="_blank" rel="external">https://blog.csdn.net/u012234115/article/details/54142273</a><br><a href="https://blog.csdn.net/ZH0314/article/details/77387162" target="_blank" rel="external">https://blog.csdn.net/ZH0314/article/details/77387162</a><br>加上了一些自己的理解</p>
+</blockquote>
+<h2 id="0x01-一些函数"><a href="#0x01-一些函数" class="headerlink" title="0x01 一些函数"></a>0x01 一些函数</h2><p></p><p>Linux下socket编程可以概括为以下几个函数的运用</p>
+<ul>
+<li><strong>sockeet()</strong></li>
+<li><strong>bind()</strong></li>
+<li><strong>listen()</strong></li>
+<li><strong>connect()</strong></li>
+<li><strong>accept()</strong></li>
+<li><strong>read()</strong></li>
+<li><strong>write()</strong></li>
+<li><strong>close()</strong></li>
+</ul>
+<p></p><p><strong>基于tcp实现，流程图如下：</strong><br><img src="/images/登录验证流程图" alt=""></p>
+<h2 id="0x02-一些讲解"><a href="#0x02-一些讲解" class="headerlink" title="0x02 一些讲解"></a>0x02 一些讲解</h2><ol>
+<li><p>套接字：TCP用主机的IP地址加上主机上的端口号作为TCP连接的端点，这种端点就叫做套接字（socket）或插口。它是网络通信过程中端点的抽象表示，包含进行网络通信必需的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。常用的TCP/IP协议的2种套接字类型如下：<br></p><p>（1）流式套接字（SOCK_STREAM）：流式套接字用于提供面向连接、可靠的数据传输服务。该服务将保证数据能够实现无差错、无重复发送，并按顺序接收。流式套接字之所以能够实现可靠的数据服务，原因在于其使用了传输控制协议，即TCP（The Transmission Control Protocol）协议。<br></p><p>（2）数据报套接字（SOCK_DGRAM）：数据报套接字提供了一种无连接的服务。该服务并不能保证数据传输的可靠性，数据有可能在传输过程中丢失或出现数据重复，且无法保证顺序地接收到数据。数据报套接字使用UDP（User Datagram Protocol）协议进行数据的传输。由于数据报套接字不能保证数据传输的可靠性，对于有可能出现的数据丢失情况，需要在程序中做相应的处理。</p>
+</li>
+<li><p>基本函数：<br></p><p>(1）创建套接字：<br>#include<sys socket.h=""><br>int socket(int family, int type, intprotocol);<br>af：一个地址描述。目前仅支持AF_INET格式，也就是说ARPA Internet地址格式。<br>type：指定socket类型。新套接口的类型描述类型，如TCP（SOCK_STREAM）和UDP（SOCK_DGRAM）<br>protocol：顾名思义，就是指定协议。套接口所用的协议。如调用者不想指定，可用0。常用的协议有，IPPROTO_TCP、IPPROTO_UDP、IPPROTO_STCP、IPPROTO_TIPC等，它们分别对应TCP传输协议、UDP传输协议、STCP传输协议、TIPC传输协议。<br>socket函数完成正确的操作是返回值大于0的文件描述符，当返回小于0的值时，操作错误。  </sys></p>
+<blockquote>
+<p>套接字包含五种信息，连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。而调用socket()函数，便确定了套接字连接使用的协议。<br>AF_INET（又称 PF_INET）是 IPv4 网络协议的套接字类型，AF_INET6 则是 IPv6 的；而 AF_UNIX 则是 Unix 系统本地通信。选择 AF_INET 的目的就是使用 IPv4 进行通信。因为 IPv4 使用 32 位地址，相比 IPv6 的 128 位来说，计算更快，便于用于局域网通信。而且 AF_INET 相比 AF_UNIX 更具通用性，因为 Windows 上有 AF_INET 而没有 AF_UNIX。</p>
+</blockquote>
+</li>
+</ol>
+<p></p><p>（2）套接字绑定函数：<br>int bind(int sockfd, const struct sockaddr *myaddr, socklen_t addrlen);<br>bind函数主要应用于服务器模式一端，其主要的功能是将addrlen长度 struct sockaddr类型的myaddr地址与sockfd文件描述符绑定到一起，在sockaddr中主要包含服务器端的协议族类型，网络地址和端口号等。在客户端模式中不需要使用bind函数。当bind函数返回0时，为正确绑定，返回-1，则为绑定失败。<br>参数说明：<br>第一个参数socked:是在创建socket套接字时返回的文件描述符<br>第二个参数struct sockaddr类型的数据结构，由于struct sockaddr数据结构类型不方便设置，所以通常会通过对struct sockaddr_in进行结构设置，然后进行强制类型转换成struct sockaddr类型的数据。</p>
+<p></p><p>（3）监听函数：<br>int listen(int sockfd, int backlog);<br>socked:socket()返回的文件描述符<br>backlog:server端可以缓存连接的最大个数，也就是等待队列的长度<br>listen的操作就是当有较多的client发起connect时，server端不能及时的处理已经建立的连接，这时就会将connect连接放在等待队列中缓存起来。这个等待队列的长度有listen中的backlog参数来设定。listen和accept函数是服务器模式特有的函数，客户端不需要这个函数。当listen运行成功时，返回0；运行失败时，返回值为-1.</p>
+<p></p><p>（4）客户端请求连接函数：<br>int connect(int sock_fd, struct sockaddr *serv_addr,int addrlen);<br>连接函数connect是属于client端的操作函数，其目的是向服务器端发送连接请求，这也是从客户端发起TCP三次握手请求的开始，服务器端的协议族，网络地址以及端口都会填充到connect函数的serv_addr地址当中。当connect返回0时说明已经connect成功，返回值是-1时，表示connect失败。<br>参数说明：<br>connect的第一个参数是socket创建的文件描述符；第二个参数是一个struct sockaddr类型的指针，这个参数中设置的是要连接的目标服务器的协议族，网络地址以及端口号；第三个参数表示第二个参数内容的大小，与accept不同，这个值不是一个指针。</p>
+<p></p><p>（5）服务器端请求接收函数：<br>int accept(int sockfd, struct sockaddr *client_addr, socklen_t *len);<br>接收函数accept其实并不是真正的接收，而是客户端向服务器端监听端口发起的连接。对于TCP来说，accept从阻塞状态返回的时候，已经完成了三次握手的操作。Accept其实是取了一个已经处于connected状态的连接，然后把对方的协议族，网络地址以及端口都存在了client_addr中，返回一个用于操作的新的文件描述符，该文件描述符表示客户端与服务器端的连接，通过对该文件描述符操作，可以向client端发送和接收数据。同时之前socket创建的sockfd，则继续监听有没有新的连接到达本地端口。返回大于0的文件描述符则表示accept成功，否则失败。<br>sockfd是socket创建的文件描述符；client_addr是本地服务器端的一个struct sockaddr类型的变量，用于存放新连接的协议族，网络地址以及端口号等；第三个参数len是第二个参数所指内容的长度，对于TCP来说其值可以用sizeof(struct sockaddr_in)来计算大小，说要说明的是accept的第三个参数要是指针的形式，因为这个值是要传给协议栈使用的。</p>
+<h2 id="0x03-一些例子"><a href="#0x03-一些例子" class="headerlink" title="0x03 一些例子"></a>0x03 一些例子</h2><p></p><p>（1）多进程并发服务器：可以同时处理多个客户端，只要有客户端来连接它，他就能响应。在我们这个服务器中，父进程主要负责监听，所以在父进程一开始就要把父进程的接收函数关闭掉，防止父进程在接收函数处阻塞，导致子进程不能创建成功。同理，子进程主要负责接收客户端，并做相关处理，所以子进程在一创建就要把监听函数关闭，不然会导致服务器功能的紊乱。这个服务器有一个特别要注意的是，子进程在退出时会产生僵尸进程，所以我们一定要对子进程退出后进行处理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;sys/types.h&gt;</span></div><div class="line"><span class="comment">#include &lt;sys/socket.h&gt;</span></div><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include &lt;unistd.h&gt;</span></div><div class="line"><span class="comment">#include &lt;string.h&gt;</span></div><div class="line"><span class="comment">#include &lt;arpa/inet.h&gt;</span></div><div class="line"><span class="comment">#include &lt;signal.h&gt;</span></div><div class="line"><span class="comment">#include &lt;sys/wait.h&gt;</span></div><div class="line"> </div><div class="line"><span class="comment">#define PORT 9999</span></div><div class="line"><span class="comment">#define SIZE 1024</span></div><div class="line"> </div><div class="line">//创建套接字和初始化以及监听函数</div><div class="line">int Creat_socket()         </div><div class="line">&#123;</div><div class="line">	//创建一个负责监听的套接字</div><div class="line">	int listen_socket = socket(AF_INET, SOCK_STREAM, 0);        </div><div class="line">	<span class="keyword">if</span>(listen_socket == -1)</div><div class="line">	&#123;</div><div class="line">		perror(<span class="string">"socket"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	struct sockaddr_in addr;</div><div class="line">	memset(&amp;addr, 0, sizeof(addr));</div><div class="line">	</div><div class="line">	addr.sin_family = AF_INET;  /* Internet地址族 */</div><div class="line">    addr.sin_port = htons(PORT);  /* 端口号 */</div><div class="line">    addr.sin_addr.s_addr = htonl(INADDR_ANY);   /* IP地址 */</div><div class="line">	</div><div class="line">	//连接</div><div class="line">	/*</div><div class="line">	<span class="built_in">bind</span>()函数作用是将一本地地址与套接字捆绑 </div><div class="line">	*/</div><div class="line">	int ret = <span class="built_in">bind</span>(listen_socket, (struct sockaddr *)&amp;addr, sizeof(addr));    </div><div class="line">	<span class="keyword">if</span>(ret == -1)</div><div class="line">	&#123;</div><div class="line">		perror(<span class="string">"bind"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	/*</div><div class="line">	创建一个套接口并监听申请的连接，等待连接队列的最大长度为5 </div><div class="line">	*/</div><div class="line">	ret = listen(listen_socket, 5);   //监听</div><div class="line">	<span class="keyword">if</span>(ret == -1)</div><div class="line">	&#123;</div><div class="line">		perror(<span class="string">"listen"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">return</span> listen_socket;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">int wait_client(int listen_socket)</div><div class="line">&#123;</div><div class="line">	struct sockaddr_in cliaddr;</div><div class="line">	int addrlen = sizeof(cliaddr);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"waiting for client connection...\n"</span>);</div><div class="line">	//创建一个和客户端交流的套接字</div><div class="line">	/*</div><div class="line">	cliaddr是一个返回参数，存放客户端的协议族，网络地址和端口号 </div><div class="line">	*/</div><div class="line">	int client_socket = accept(listen_socket, (struct sockaddr *)&amp;cliaddr, &amp;addrlen);     </div><div class="line">	<span class="keyword">if</span>(client_socket == -1)</div><div class="line">	&#123;</div><div class="line">		perror(<span class="string">"accept"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	//inet_ntoa()将一个32位网络字节序的二进制IP地址转换成相应的点分十进制的IP地址 </div><div class="line">	<span class="built_in">printf</span>(<span class="string">"A client was successfully received:%s\n"</span>, inet_ntoa(cliaddr.sin_addr));</div><div class="line">	</div><div class="line">	<span class="built_in">return</span> client_socket;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//信息处理函数,功能是将客户端传过来的字符串传回给客户端 </div><div class="line">void hanld_client(int listen_socket, int client_socket)    </div><div class="line">&#123;</div><div class="line">	char buf[SIZE];</div><div class="line">	<span class="keyword">while</span>(1)</div><div class="line">	&#123;</div><div class="line">		int ret = <span class="built_in">read</span>(client_socket, buf, SIZE-1);</div><div class="line">		<span class="keyword">if</span>(ret == -1)</div><div class="line">		&#123;</div><div class="line">			perror(<span class="string">"read"</span>);</div><div class="line">			<span class="built_in">break</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(ret == 0)</div><div class="line">		&#123;</div><div class="line">			<span class="built_in">break</span>;</div><div class="line">		&#125;</div><div class="line">		buf[ret] = <span class="string">'\0'</span>;</div><div class="line">		</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, buf);</div><div class="line">		write(client_socket, buf, ret);</div><div class="line">		</div><div class="line">		<span class="keyword">if</span>(strncmp(buf, <span class="string">"end"</span>, 3) == 0)</div><div class="line">		&#123;</div><div class="line">			<span class="built_in">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	close(client_socket);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">void handler(int sig)</div><div class="line">&#123;</div><div class="line">	/*</div><div class="line">	pid=-1 等待任何子进程,相当于 <span class="built_in">wait</span>()。</div><div class="line">	WNOHANG 若pid指定的子进程没有结束，则waitpid()函数返回0，不予以等待。</div><div class="line">	若结束，则返回该子进程的ID</div><div class="line">	*/</div><div class="line">	</div><div class="line">	<span class="keyword">while</span> (waitpid(-1,  NULL,   WNOHANG) &gt; 0)</div><div class="line">	&#123;</div><div class="line">		<span class="built_in">printf</span> (<span class="string">"成功处理一个子进程的退出\n"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">	int listen_socket = Creat_socket();</div><div class="line">	</div><div class="line"> 	//处理子进程，防止僵尸进程的产生</div><div class="line"> 	/*</div><div class="line"> 	在一个进程终止或者停止时，将SIGCHLD信号发送给其父进程。</div><div class="line"> 	信号的捕捉函数中通常调用<span class="built_in">wait</span>函数以取得进程ID和其终止状态</div><div class="line"> 	*/</div><div class="line">	signal(SIGCHLD,  handler);    </div><div class="line">	<span class="keyword">while</span>(1)</div><div class="line">	&#123;</div><div class="line">		//多进程服务器，可以创建子进程来处理，父进程负责监听。</div><div class="line">		int client_socket = wait_client(listen_socket);   </div><div class="line">		int pid = fork();</div><div class="line">		<span class="keyword">if</span>(pid == -1)</div><div class="line">		&#123;</div><div class="line">			perror(<span class="string">"fork"</span>);</div><div class="line">			<span class="built_in">break</span>;</div><div class="line">		&#125;</div><div class="line">		/*</div><div class="line">		将父进程的接受函数关闭，子进程的监听函数关闭 </div><div class="line">		*/</div><div class="line">		<span class="keyword">if</span>(pid &gt; 0)</div><div class="line">		&#123;</div><div class="line">			close(client_socket);</div><div class="line">			<span class="built_in">continue</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(pid == 0)</div><div class="line">		&#123;</div><div class="line">			close(listen_socket);</div><div class="line">			hanld_client(listen_socket, client_socket);</div><div class="line">			<span class="built_in">break</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	close(listen_socket);</div><div class="line">	</div><div class="line">	<span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p></p><p>(2)客户端：客户端相对于服务器来说就简单多了，客户端只需要创建和服务器相连接的套接字，然后对其初始化，然后再进行连接就可以了，连接上服务器就可以发送你想发送的数据了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;sys/types.h&gt;</span></div><div class="line"><span class="comment">#include &lt;sys/socket.h&gt;</span></div><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include &lt;unistd.h&gt;</span></div><div class="line"><span class="comment">#include &lt;string.h&gt;</span></div><div class="line"><span class="comment">#include &lt;arpa/inet.h&gt;</span></div><div class="line"></div><div class="line"><span class="comment">#define PORT 9990</span></div><div class="line"><span class="comment">#define SIZE 1024</span></div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">	int client_socket = socket(AF_INET, SOCK_STREAM, 0);</div><div class="line">	<span class="keyword">if</span>(client_socket == -1)&#123;</div><div class="line">		perror(<span class="string">"socket"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	struct sockaddr_in addr;</div><div class="line">	memset(&amp;addr, 0, sizeof(addr));</div><div class="line">	</div><div class="line">	addr.sin_family = AF_INET;</div><div class="line">	addr.sin_port = htons(PORT);</div><div class="line">	addr.sin_addr.s_addr = htonl(INADDR_ANY);</div><div class="line">	inet_aton(<span class="string">"127.0.0.1"</span>, &amp;(addr.sin_addr));</div><div class="line">	</div><div class="line">	int addrlen = sizeof(addr);</div><div class="line">	//连接服务器 </div><div class="line">	int listen_socket = connet(client_socket, (struct sockaddr *)&amp;addr, addrlen);</div><div class="line">	<span class="keyword">if</span>(listen_socket == -1)&#123;</div><div class="line">		perror(<span class="string">"connect"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Successfully connect to a server.\n"</span>);</div><div class="line">	char buf[SIZE] = &#123;0&#125;;</div><div class="line">	</div><div class="line">	<span class="keyword">while</span>(1)&#123;</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"Please input:"</span>);</div><div class="line">		scanf(<span class="string">"%s"</span>, buf);</div><div class="line">		write(client_socket, buf, strlen(buf));</div><div class="line">		</div><div class="line">		int ret = <span class="built_in">read</span>(client_socket, buf, strlen(buf));</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"buf = %s"</span>, buf);</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">		<span class="keyword">if</span>(strncmp(buf, <span class="string">"END"</span>, 3) == 0)&#123;</div><div class="line">			<span class="built_in">break</span>;</div><div class="line">		&#125; </div><div class="line">	&#125;</div><div class="line">	close(listen_socket);</div><div class="line">	</div><div class="line">	<span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>（3）时间服务器（多线程）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;sys/types.h&gt;</span></div><div class="line"><span class="comment">#include &lt;sys/socket.h&gt;</span></div><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include &lt;unistd.h&gt;</span></div><div class="line"><span class="comment">#include &lt;arpa/inet.h&gt;</span></div><div class="line"><span class="comment">#include &lt;pthread.h&gt;</span></div><div class="line"><span class="comment">#include &lt;time.h&gt;</span></div><div class="line"><span class="comment">#include &lt;string.h&gt;</span></div><div class="line"></div><div class="line"><span class="comment">#define PORT 9999</span></div><div class="line"><span class="comment">#define SIZE 1024</span></div><div class="line"></div><div class="line">int <span class="function"><span class="title">Creat_socket</span></span>()&#123;</div><div class="line">	//创建套接字和初始化以及监听函数 </div><div class="line">	int listen_socket = socket(AF_INET, SOCK_STREAM, 0);</div><div class="line">	<span class="keyword">if</span>(listen_socket == -1)&#123;</div><div class="line">		perror(<span class="string">"socket"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	struct sockaddr_in addr;</div><div class="line">	memset(&amp;addr, 0, sizeof(addr));</div><div class="line">	</div><div class="line">	addr.sin_family = AF_INET; //Internet地址族</div><div class="line">	addr.sin_port = htons(PORT); //端口号</div><div class="line">	addr.sin_addr.s_addr = htonl(INADDR_ANY); //IP地址</div><div class="line">	//连接 </div><div class="line">	/*</div><div class="line">	<span class="built_in">bind</span>()函数作用是将一本地地址与套接字捆绑 </div><div class="line">	*/</div><div class="line">	int ret = <span class="built_in">bind</span>(listen_socket, (struct sockaddr *)&amp;addr, sizeof(addr)); </div><div class="line">	<span class="keyword">if</span>(ret == -1)&#123;</div><div class="line">		perror(<span class="string">"bind"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	/*</div><div class="line">	创建一个套接口并监听申请的连接，等待连接队列的最大长度为5 </div><div class="line">	*/</div><div class="line">	ret = listen(listen_socket, 5);//监听</div><div class="line">	<span class="built_in">return</span> listen_socket;</div><div class="line">	 </div><div class="line">&#125;</div><div class="line">int wait_client(int listen_socket)&#123;</div><div class="line">	struct sockaddr_in cliaddr;</div><div class="line">	int addrlen = sizeof(cliaddr);</div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Waitting for connection...\n"</span>);</div><div class="line">	//创建一个和客户端交流的套接字 </div><div class="line">	/*</div><div class="line">	cliaddr是一个返回参数，存放客户端的协议族，网络地址和端口号 </div><div class="line">	*/</div><div class="line">	int client_socket = accept(listen_socket, (struct sockaddr *)&amp;cliaddr, &amp;addrlen);</div><div class="line">	<span class="keyword">if</span>(client_socket == -1)&#123;</div><div class="line">		perror(<span class="string">"accept"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	//inet_ntoa()将一个32位网络字节序的二进制IP地址转换成相应的点分十进制的IP地址  </div><div class="line">	<span class="built_in">printf</span>(<span class="string">"A client was successfully received:%s\n"</span>, inet_ntoa(cliaddr.sin_addr));</div><div class="line">	<span class="built_in">return</span> client_socket;</div><div class="line">&#125;</div><div class="line">//信息处理函数</div><div class="line">void *hanld_client(void *client_socket)&#123;</div><div class="line">	char buf[SIZE];</div><div class="line">	char buffer[SIZE];</div><div class="line">	<span class="keyword">while</span>(1)&#123;</div><div class="line">		int ret = <span class="built_in">read</span>((int)client_socket, buf, SIZE-1);</div><div class="line">		<span class="keyword">if</span>(ret == -1)&#123;</div><div class="line">			perror(<span class="string">"read"</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(ret == 0)&#123;</div><div class="line">			<span class="built_in">break</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(strncmp(buf, <span class="string">"time"</span>, 4) == 0)&#123;</div><div class="line">			time_t timep;</div><div class="line">			timep = time(NULL);</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"Received time command\n"</span>);</div><div class="line">			snprintf(buffer, sizeof(buffer), <span class="string">"%.24s\r\n"</span>, ctime(&amp;timep)); </div><div class="line">			send((int)client_socket, buffer, strlen(buffer), 0);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	close((int)client_socket);</div><div class="line">&#125;</div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">	int listen_socket = Creat_socket();</div><div class="line">	<span class="keyword">while</span>(1)&#123;</div><div class="line">		int client_socket = wait_client(listen_socket);</div><div class="line">		</div><div class="line">		pthread_t id;</div><div class="line">		//创建一个线程，来处理客户端 </div><div class="line">		pthread_create(&amp;id, NULL, hanld_client, (void *)client_socket);</div><div class="line">		pthread_detach(id);//把线程分离出去 </div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	close(listen_socket);</div><div class="line">	</div><div class="line">	<span class="built_in">return</span> 0; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p></p><p>时间服务器对应的客户端：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include &lt;sys/types.h&gt;</span></div><div class="line"><span class="comment">#include &lt;sys/socket.h&gt;</span></div><div class="line"><span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line"><span class="comment">#include &lt;unistd.h&gt;</span></div><div class="line"><span class="comment">#include &lt;string.h&gt;</span></div><div class="line"><span class="comment">#include &lt;arpa/inet.h&gt;</span></div><div class="line"></div><div class="line"><span class="comment">#define PORT 9999</span></div><div class="line"><span class="comment">#define SIZE 1024</span></div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line"></div><div class="line">	int client_socket = socket(AF_INET, SOCK_STREAM, 0);</div><div class="line">	<span class="keyword">if</span>(client_socket == -1)&#123;</div><div class="line">		perror(<span class="string">"socket"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	struct sockaddr_in addr;</div><div class="line">	memset(&amp;addr, 0, sizeof(addr));</div><div class="line"></div><div class="line">	addr.sin_family = AF_INET;</div><div class="line">	addr.sin_port = htons(PORT);</div><div class="line">	addr.sin_addr.s_addr = htonl(INADDR_ANY);</div><div class="line">	inet_aton(<span class="string">"127.0.0.1"</span>, &amp;(addr.sin_addr));</div><div class="line">	int addrlen = sizeof(addr);</div><div class="line"></div><div class="line">	//连接服务器 </div><div class="line">	int listen_socket = connect(client_socket, (struct sockaddr *)&amp;addr, addrlen);</div><div class="line">	<span class="keyword">if</span>(listen_socket == -1)&#123;</div><div class="line">		perror(<span class="string">"connect"</span>);</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="built_in">printf</span>(<span class="string">"Connect to server successfully\n"</span>);</div><div class="line">	char buf[SIZE] = &#123;0&#125;;</div><div class="line">	char buffer[SIZE];</div><div class="line"></div><div class="line">	<span class="keyword">while</span>(1)&#123;</div><div class="line">		<span class="built_in">printf</span>(<span class="string">"Please input:"</span>);</div><div class="line">		scanf(<span class="string">"%s"</span>, buf);</div><div class="line">		write(client_socket, buf, strlen(buf));</div><div class="line">		recv(client_socket, buffer, 1024, 0);</div><div class="line">		fputs(buffer, stdout);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	close(listen_socket);</div><div class="line">	<span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00序言"><span class="toc-text">0x00序言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-一些函数"><span class="toc-text">0x01 一些函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-一些讲解"><span class="toc-text">0x02 一些讲解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-一些例子"><span class="toc-text">0x03 一些例子</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/10/26/基于ThinkPHP5实现注册登录/" class="next">Next post 基于ThinkPHP5.0实现注册登录验证 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
