@@ -16,10 +16,10 @@
   
   
   
-    <meta name="description" content="INNER JOIN MySQL INNER JOIN子句将一个表中的行与其他表中的行进行匹配，并允许从两个表中查询包含列的行记录。在使用INNER JOIN子句之前，必须指定以下条件：  
+    <meta name="description" content="0x01 INNER JOIN MySQL INNER JOIN子句将一个表中的行与其他表中的行进行匹配，并允许从两个表中查询包含列的行记录。在使用INNER JOIN子句之前，必须指定以下条件：  
 
 首先，在FROM子句中指定主表。  
-其次，表中要连接的主表应该出现在INNER JOIN子句中。理论上说，可以连接多个其他表。 但是，为了获得更好的性能，应该限制要连接的表的数量(最好不要超过三个表...">
+其次，表中要连接的主表应该出现在INNER JOIN子句中。理论上说，可以连接多个其他表。 但是，为了获得更好的性能，应该限制要连接的表的数量(最好不要...">
   
   <title>Mysql中inner join,left jon, right join的区别 [ GWJ_AJ ]</title>
   
@@ -156,7 +156,7 @@
       
     </p>
     
-    <h3 id="INNER-JOIN"><a href="#INNER-JOIN" class="headerlink" title="INNER JOIN"></a>INNER JOIN</h3><p></p><p> MySQL INNER JOIN子句将一个表中的行与其他表中的行进行匹配，并允许从两个表中查询包含列的行记录。<br>在使用INNER JOIN子句之前，必须指定以下条件：  </p>
+    <h3 id="0x01-INNER-JOIN"><a href="#0x01-INNER-JOIN" class="headerlink" title="0x01 INNER JOIN"></a>0x01 INNER JOIN</h3><p></p><p> MySQL INNER JOIN子句将一个表中的行与其他表中的行进行匹配，并允许从两个表中查询包含列的行记录。<br>在使用INNER JOIN子句之前，必须指定以下条件：  </p>
 <ul>
 <li>首先，在FROM子句中指定主表。  </li>
 <li>其次，表中要连接的主表应该出现在INNER JOIN子句中。理论上说，可以连接多个其他表。 但是，为了获得更好的性能，应该限制要连接的表的数量(最好不要超过三个表)。  </li>
@@ -168,11 +168,11 @@
 <p></p><p>实例：<br>新建teacher,classtable两张表，如下：<br><img src="/images/teacher.png" alt=""><br><img src="/images/classtable.png" alt=""></p>
 <p></p><p>执行以下查询语句：意思就是查找teacher中的name和table中的class，其中应该满足teacher的id和classtable中的teacher_id相等<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT teacher.name, classtable.class FROM teacher INNER JOIN classtable ON classtable.teacher_id = teacher.id</div></pre></td></tr></table></figure></p>
 <p></p><p>结果如下：<br><img src="/images/innerjoin.png" alt=""></p>
-<h3 id="LEFT-JOIN"><a href="#LEFT-JOIN" class="headerlink" title="LEFT JOIN"></a>LEFT JOIN</h3><p></p><p>LEFT JOIN语法规则：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT column_list  </div><div class="line">FROM t1  </div><div class="line">LEFT JOIN t2 ON join_condition;</div></pre></td></tr></table></figure></p>
+<h3 id="0x02-LEFT-JOIN"><a href="#0x02-LEFT-JOIN" class="headerlink" title="0x02 LEFT JOIN"></a>0x02 LEFT JOIN</h3><p></p><p>LEFT JOIN语法规则：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT column_list  </div><div class="line">FROM t1  </div><div class="line">LEFT JOIN t2 ON join_condition;</div></pre></td></tr></table></figure></p>
 <p></p><p>实例：以INNER JOIN所使用的表为例，执行以下查询语句：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT teacher.name, classtable.class FROM teacher LEFT JOIN classtable ON classtable.teacher_id = teacher.id</div></pre></td></tr></table></figure></p>
 <p></p><p>结果如下：<br><img src="/images/leftjoin.png" alt=""></p>
 <p></p><p>LEFT JOIN 关键字会从左表 (teacher) 那里返回所有的行，即使在右表 (classtable) 中没有匹配的行</p>
-<h3 id="RIGHT-JOIN"><a href="#RIGHT-JOIN" class="headerlink" title="RIGHT JOIN"></a>RIGHT JOIN</h3><p></p><p>RIGHT JOIN语法规则:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT column_list  </div><div class="line">FROM t1  </div><div class="line">RIGHT JOIN t2 ON join_condition;</div></pre></td></tr></table></figure></p>
+<h3 id="0x03-RIGHT-JOIN"><a href="#0x03-RIGHT-JOIN" class="headerlink" title="0x03 RIGHT JOIN"></a>0x03 RIGHT JOIN</h3><p></p><p>RIGHT JOIN语法规则:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT column_list  </div><div class="line">FROM t1  </div><div class="line">RIGHT JOIN t2 ON join_condition;</div></pre></td></tr></table></figure></p>
 <p></p><p>实例：以INNER JOIN所使用的表为例，执行以下查询语句：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELECT teacher.name, classtable.class FROM teacher RIGHT JOIN classtable ON classtable.teacher_id = teacher.id</div></pre></td></tr></table></figure></p>
 <p></p><p>结果如下：<br><img src="/images/rightjoin.png" alt=""></p>
 <p></p><p>RIGHT JOIN 关键字会从右表 (classtable) 那里返回所有的行，即使在左表 (teacher) 中没有匹配的行。</p>
@@ -183,7 +183,7 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#INNER-JOIN"><span class="toc-text">INNER JOIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LEFT-JOIN"><span class="toc-text">LEFT JOIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RIGHT-JOIN"><span class="toc-text">RIGHT JOIN</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-INNER-JOIN"><span class="toc-text">0x01 INNER JOIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-LEFT-JOIN"><span class="toc-text">0x02 LEFT JOIN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-RIGHT-JOIN"><span class="toc-text">0x03 RIGHT JOIN</span></a></li></ol>
   </div>
 </div>
 
