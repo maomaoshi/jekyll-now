@@ -1,8 +1,6 @@
 
 
 
-  
-
 
 
 
@@ -18,9 +16,12 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="互斥所谓互斥，是指散步在不同进程之间的若干程序片断，当某个进程运行其中一个程序片段时，其它进程就不能运行它 们之中的任一程序片段，只能等到该进程运行完这个程序片段后才可以运行。
+同步所谓同步，是指散步在不同进程之间的若干程序片断，它们的运行必须严格按照规定的 某种先后次序来运行，这种先后次序依赖于要完成的特定的任务。
+总结同步是一种更为复杂的互斥，而互斥是一种特殊的同步。
+互斥是两个线程之间...">
   
-  <title>Tag: Blog [ GWJ_AJ ]</title>
+  <title>同步与互斥的区别 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,6 +40,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+  
+    <div class="item next">
+      <a href="/2018/11/07/join/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Mysql中inner join,left jon, right join的区别
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -71,7 +81,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/tags">Tags</a>
             
@@ -110,113 +120,69 @@
     <div id="content-inner">
       
       
-  <div id="tag">
-    <h1>Blog</h1>
-    
+  <article id="post">
+    <h1>同步与互斥的区别</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-11-13</span>
+      
+        <span id = "post-title-updated">Updated at 2018-11-13</span>
+      
+      
+      <span id = "post-title-categories">Category
       
       
         
+        
+        <a href="/categories/操作系统/">操作系统</a>
+      
+      </span>
       
       
-    
+      <span id = "post-title-tags">
+      Tag
       
       
         
-          
         
+        <a href="/tags/操作系统/">操作系统</a>
       
+      </span>
       
-      <div class="post-title-item">
-  
-  <a href="/2017/10/13/hexo+github搭建个人博客心得/">
-  
-    hexo+github搭建个人博客心得
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">10-13</span>
+    </p>
     
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/Blog/">Blog</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/Blog/">Blog</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-      
-    
-      
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
+    <h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><p>所谓互斥，是指散步在不同进程之间的若干程序片断，当某个进程运行其中一个程序片段时，其它进程就不能运行它 们之中的任一程序片段，只能等到该进程运行完这个程序片段后才可以运行。</p>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>所谓同步，是指散步在不同进程之间的若干程序片断，它们的运行必须严格按照规定的 某种先后次序来运行，这种先后次序依赖于要完成的特定的任务。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p></p><p>同步是一种更为复杂的互斥，而互斥是一种特殊的同步。</p>
+<p></p><p>互斥是两个线程之间不可以同时运行，他们会相互排斥，必须等待一个线程运行完毕，另一个才能运行，而同步也是不能同时运行，但他是必须要安照某种次序来运行相应的线程（也是一种互斥）！</p>
+<p></p><p>互斥：是指某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。</p>
+<p></p><p>同步：是指在互斥的基础上（大多数情况），通过其它机制实现访问者对资源的有序访问。在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。少数情况是指可以允许多个访问者同时访问资源。</p>
+<p></p><p>来源：<a href="https://zhidao.baidu.com/question/414593560.html" target="_blank" rel="external">https://zhidao.baidu.com/question/414593560.html</a></p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#互斥"><span class="toc-text">互斥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步"><span class="toc-text">同步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
   </div>
+</div>
 
   
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/11/07/join/" class="next">Next post Mysql中inner join,left jon, right join的区别 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -318,6 +284,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
