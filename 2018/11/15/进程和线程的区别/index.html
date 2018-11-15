@@ -1,14 +1,8 @@
 
 
-  
 
 
 
-
-  
-
-
-  
 
 
 <!doctype html>
@@ -22,9 +16,17 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="0x00 进程进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。
+两个角度看进程概念：  
+
+从理论角度看，进程是对正在运行的程序活动规律的抽象  
+从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序
+
+0x01 线程线程：是进程的一个属性，是被系统独立调度的基本单位  
+
+一个进程可建立...">
   
-  <title>Archives: 11/2018: 2018 [ GWJ_AJ ]</title>
+  <title>进程和线程的区别 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -43,6 +45,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+  
+    <div class="item next">
+      <a href="/2018/11/13/同步与互斥的区别/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        同步与互斥的区别
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -68,7 +79,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/archives">Archives</a>
             
@@ -114,230 +125,97 @@
     <div id="content-inner">
       
       
-  <article>
-    
-
-  <div id="recent-posts">
-    <h1>Archives
-    
-      <span class="posts-count">
-      Total
-      4
+  <article id="post">
+    <h1>进程和线程的区别</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-11-15</span>
       
-        posts
+        <span id = "post-title-updated">Updated at 2018-11-15</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/操作系统/">操作系统</a>
       
       </span>
-    
-    </h1>
-    
-    
+      
+      
+      <span id = "post-title-tags">
+      Tag
       
       
         
-      
-      
-    
-      
-      
-      
-    
-      
-      
-      
-    
-      
-      
-      
-    
-    
-    
-      
-      
         
-        <h3 class="archive-year-title">2018
-        
-          <span class="posts-count">
-          Total
-          4
-          
-            posts
-          
-          </span>
-        
-        </h3>
+        <a href="/tags/操作系统/">操作系统</a>
       
-      <div class="post-title-item">
-  
-  <a href="/2018/11/15/进程和线程的区别/">
-  
-    进程和线程的区别
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">11-15</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
+      </span>
       
-      
-      <a href="/categories/操作系统/">操作系统</a>
+    </p>
     
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/操作系统/">操作系统</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/11/13/同步与互斥的区别/">
-  
-    同步与互斥的区别
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">11-13</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/操作系统/">操作系统</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/操作系统/">操作系统</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/11/07/join/">
-  
-    Mysql中inner join,left jon, right join的区别
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">11-7</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/Mysql/">Mysql</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/Mysql/">Mysql</a>
-    
-      
-        /
-      
-      
-      <a href="/tags/join/">join</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/11/03/Linux下c语言网络编程/">
-  
-    Linux下c语言网络编程:基于tcp连接
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">11-3</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/网络编程/">网络编程</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/网络编程/">网络编程</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-    
-  </div>
-
+    <h2 id="0x00-进程"><a href="#0x00-进程" class="headerlink" title="0x00 进程"></a>0x00 进程</h2><p></p><p>进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。</p>
+<p></p><p>两个角度看进程概念：  </p>
+<ul>
+<li>从理论角度看，进程是对正在运行的程序活动规律的抽象  </li>
+<li>从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序</li>
+</ul>
+<h2 id="0x01-线程"><a href="#0x01-线程" class="headerlink" title="0x01 线程"></a>0x01 线程</h2><p></p><p>线程：是进程的一个属性，是被系统独立调度的基本单位  </p>
+<ul>
+<li>一个进程可建立多个线程，这些线程共享进程拥有的全部资源（代码段、数据段、其他操作系统资源）   </li>
+<li>多个线程之间并发执行，切换时快速简便  </li>
+<li>线程的特征：动态性、并发性、（运行）独立性、异步性</li>
+</ul>
+<h2 id="0x02-线程与进程的比较"><a href="#0x02-线程与进程的比较" class="headerlink" title="0x02 线程与进程的比较"></a>0x02 线程与进程的比较</h2><ol>
+<li><p>创建、调度和管理</p>
+<ul>
+<li>进程的创建通常调用fork，而线程的创建调用pthread_create,进程结束之后它拥有的所有线程都会被销毁，而线程结束后不会影响同个进程中其它线程的结束。</li>
+<li>线程是轻两级的进程，它的创建和销毁所需要的时间都比进程小很多</li>
+<li>同一进程的多线程调度时，不引起进程的切换</li>
+<li>不同进程间的线程切换，需要进程切换</li>
+</ul>
+</li>
+<li><p>地址空间和资源分配</p>
+<ul>
+<li>进程是资源分配和保护的一个基本单位，线程是CPU调度的基本单位</li>
+<li>同一个进程中可以包含多个线程，并且线程共享整个进程的资源（寄存器、堆栈、上下文），一个进程至少包含一个线程</li>
+</ul>
+</li>
+<li><p>通信</p>
+<ul>
+<li>线程间可以直接读写进程数据段（如全局变量）来进程通信——需要进程同步和互斥的辅助，来保证数据的一致性。</li>
+</ul>
+</li>
+<li><p>在多线程OS中，线程不是一个可执行的实体</p>
+</li>
+</ol>
 
   </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-进程"><span class="toc-text">0x00 进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-线程"><span class="toc-text">0x01 线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-线程与进程的比较"><span class="toc-text">0x02 线程与进程的比较</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/11/13/同步与互斥的区别/" class="next">Next post 同步与互斥的区别 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -439,6 +317,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
