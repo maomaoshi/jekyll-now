@@ -16,17 +16,10 @@
   
   
   
-    <meta name="description" content="0x00 进程进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。
-两个角度看进程概念：  
-
-从理论角度看，进程是对正在运行的程序活动规律的抽象  
-从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序
-
-0x01 线程线程：是进程的一个属性，是被系统独立调度的基本单位  
-
-一个进程可建立...">
+    <meta name="description" content="今天在做leetcode的第二题时，遇到了struct的构造函数，之前都没有遇到这种类型，于是查了一些资料。
+在C语言中，结构体不能包含函数。在面向对象的程序设计中，对象具有状态（属性）和行为，状态保存在成员变量中，行为通过成员方法（函数）来实现。C语言中的结构体只能描述一个对象的状态，不能描述一个对象的行为。在C++中，考虑到C语言到C++语言过渡的连续性，对结构体进行了扩展，C++的结构...">
   
-  <title>进程和线程的区别 [ GWJ_AJ ]</title>
+  <title>C++之struct的构造函数 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -45,22 +38,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/11/16/leetcode第一题/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第一题：两数之和-C++
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2018/11/13/同步与互斥的区别/">
+      <a href="/2018/11/17/leetcode第二题/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        同步与互斥的区别
+        LeetCode第二题：两数相加-C++
       </div>
     </div>
   
@@ -135,11 +119,11 @@
       
       
   <article id="post">
-    <h1>进程和线程的区别</h1>
+    <h1>C++之struct的构造函数</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-11-15</span>
+      <span id = "post-title-date">撰写于 2018-11-17</span>
       
-        <span id = "post-title-updated">修改于 2018-11-15</span>
+        <span id = "post-title-updated">修改于 2018-11-17</span>
       
       
       <span id = "post-title-categories">分类
@@ -147,7 +131,7 @@
       
         
         
-        <a href="/categories/操作系统/">操作系统</a>
+        <a href="/categories/C/">C++</a>
       
       </span>
       
@@ -158,47 +142,16 @@
       
         
         
-        <a href="/tags/操作系统/">操作系统</a>
+        <a href="/tags/C/">C++</a>
       
       </span>
       
     </p>
     
-    <h2 id="0x00-进程"><a href="#0x00-进程" class="headerlink" title="0x00 进程"></a>0x00 进程</h2><p></p><p>进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。</p>
-<p></p><p>两个角度看进程概念：  </p>
-<ul>
-<li>从理论角度看，进程是对正在运行的程序活动规律的抽象  </li>
-<li>从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序</li>
-</ul>
-<h2 id="0x01-线程"><a href="#0x01-线程" class="headerlink" title="0x01 线程"></a>0x01 线程</h2><p></p><p>线程：是进程的一个属性，是被系统独立调度的基本单位  </p>
-<ul>
-<li>一个进程可建立多个线程，这些线程共享进程拥有的全部资源（代码段、数据段、其他操作系统资源）   </li>
-<li>多个线程之间并发执行，切换时快速简便  </li>
-<li>线程的特征：动态性、并发性、（运行）独立性、异步性</li>
-</ul>
-<h2 id="0x02-线程与进程的比较"><a href="#0x02-线程与进程的比较" class="headerlink" title="0x02 线程与进程的比较"></a>0x02 线程与进程的比较</h2><ol>
-<li><p>创建、调度和管理</p>
-<ul>
-<li>进程的创建通常调用fork，而线程的创建调用pthread_create,进程结束之后它拥有的所有线程都会被销毁，而线程结束后不会影响同个进程中其它线程的结束。</li>
-<li>线程是轻两级的进程，它的创建和销毁所需要的时间都比进程小很多</li>
-<li>同一进程的多线程调度时，不引起进程的切换</li>
-<li>不同进程间的线程切换，需要进程切换</li>
-</ul>
-</li>
-<li><p>地址空间和资源分配</p>
-<ul>
-<li>进程是资源分配和保护的一个基本单位，线程是CPU调度的基本单位</li>
-<li>同一个进程中可以包含多个线程，并且线程共享整个进程的资源（寄存器、堆栈、上下文），一个进程至少包含一个线程</li>
-</ul>
-</li>
-<li><p>通信</p>
-<ul>
-<li>线程间可以直接读写进程数据段（如全局变量）来进程通信——需要进程同步和互斥的辅助，来保证数据的一致性。</li>
-</ul>
-</li>
-<li><p>在多线程OS中，线程不是一个可执行的实体</p>
-</li>
-</ol>
+    <p></p><p>今天在做leetcode的第二题时，遇到了struct的构造函数，之前都没有遇到这种类型，于是查了一些资料。</p>
+<p></p><p>在C语言中，结构体不能包含函数。在面向对象的程序设计中，对象具有状态（属性）和行为，状态保存在成员变量中，行为通过成员方法（函数）来实现。C语言中的结构体只能描述一个对象的状态，不能描述一个对象的行为。在C++中，考虑到C语言到C++语言过渡的连续性，对结构体进行了扩展，C++的结构体可以包含函数，这样，C++的结构体也具有类的功能，与class不同的是，结构体包含的函数默认为public，而不是private。</p>
+<h2 id="struct的定义与声明"><a href="#struct的定义与声明" class="headerlink" title="struct的定义与声明"></a>struct的定义与声明</h2><p></p><p>以下代码是leetcode第二题中结构体的定义：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">struct ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode *next;</div><div class="line">	//构造函数：</div><div class="line">    ListNode(int x) : val(x), next(NULL) &#123;&#125;</div><div class="line">	/*</div><div class="line">	ListNode(int x)&#123;</div><div class="line">		val = x;</div><div class="line">		next = NULL;</div><div class="line">	&#125;</div><div class="line">	*/</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p></p><p>初始化如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//调用构造函数</div><div class="line">ListNode a = ListNode(1);</div><div class="line">cout &lt;&lt; a.val;</div><div class="line">ListNode* b = new ListNode(0);</div><div class="line">cout &lt;&lt; b-&gt;val;</div><div class="line"></div><div class="line">//当类型为指针时，操作符为-&gt;</div></pre></td></tr></table></figure></p>
 
   </article>
   <div class="random-toc-area">
@@ -206,20 +159,18 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-进程"><span class="toc-text">0x00 进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-线程"><span class="toc-text">0x01 线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-线程与进程的比较"><span class="toc-text">0x02 线程与进程的比较</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#struct的定义与声明"><span class="toc-text">struct的定义与声明</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/11/16/leetcode第一题/" class="prev">&larr; 上一篇 LeetCode第一题：两数之和-C++</a>
-  
 
   
 
   
-    <a href="/2018/11/13/同步与互斥的区别/" class="next">下一篇 同步与互斥的区别 &rarr;</a>
+    <a href="/2018/11/17/leetcode第二题/" class="next">下一篇 LeetCode第二题：两数相加-C++ &rarr;</a>
   
 </nav>
 
