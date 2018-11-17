@@ -16,11 +16,11 @@
   
   
   
-    <meta name="description" content="MVC学习
-MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Controller(控制)。程序从结构上都可以分成三层。
-1）最上面的一层，是直接面向最终用户的“视图层”（View）。它是提供给用户的操作界面，是程序的外壳。2）最底下的一层，是核心的“数据层”（Model），也就是程序需要操作的数据或信息。3）中间的一层，就是“控制层”（Controller）,它负责根据用...">
+    <meta name="description" content="题目
+算法
+C++代码123456789101112131415161718192021222324252627282930313233343536/** * Definition for singly-linked list. * struct ListNode &#123; *     int val; *     ListNode *next; *     ListNode(int x...">
   
-  <title>MVC [ GWJ_AJ ]</title>
+  <title>LeetCode第二题：两数相加-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -40,21 +40,21 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2018/10/26/基于ThinkPHP5实现注册登录/">
+      <a href="/2018/11/16/leetcode第一题/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        基于ThinkPHP5.0实现注册登录验证
+        LeetCode第一题：两数之和-C++
       </div>
     </div>
   
   
     <div class="item next">
-      <a href="/2018/10/13/PHP命名空间/">
+      <a href="/2018/11/15/进程和线程的区别/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        PHP命名空间
+        进程和线程的区别
       </div>
     </div>
   
@@ -129,11 +129,11 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
       
       
   <article id="post">
-    <h1>MVC</h1>
+    <h1>LeetCode第二题：两数相加-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-10-13</span>
+      <span id = "post-title-date">Created at 2018-11-16</span>
       
-        <span id = "post-title-updated">Updated at 2018-10-22</span>
+        <span id = "post-title-updated">Updated at 2018-11-17</span>
       
       
       <span id = "post-title-categories">Category
@@ -141,7 +141,13 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
       
         
         
-        <a href="/categories/PHP/">PHP</a>
+        <a href="/categories/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/C/Leetcode/">Leetcode</a>
       
       </span>
       
@@ -152,18 +158,21 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
       
         
         
-        <a href="/tags/MVC/">MVC</a>
+        <a href="/tags/LeetCode/">LeetCode</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/C/">C++</a>
       
       </span>
       
     </p>
     
-    <h2 id="MVC学习"><a href="#MVC学习" class="headerlink" title="MVC学习"></a>MVC学习</h2><ul>
-<li>MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Controller(控制)。程序从结构上都可以分成三层。<blockquote>
-<p>1）最上面的一层，是直接面向最终用户的“视图层”（View）。它是提供给用户的操作界面，是程序的外壳。<br>2）最底下的一层，是核心的“数据层”（Model），也就是程序需要操作的数据或信息。<br>3）中间的一层，就是“控制层”（Controller）,它负责根据用户从“视图层”输入的指令，选取“数据层”中的数据，然后对其进行相应的操作，产生最终结果。</p>
-</blockquote>
-</li>
-</ul>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode2.png" alt=""></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><img src="/images/leetcode2_1.png" alt=""></p>
+<h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition <span class="keyword">for</span> singly-linked list.</div><div class="line"> * struct ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode *next;</div><div class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) &#123;</div><div class="line">        ListNode* head = new ListNode(0);</div><div class="line">        ListNode* p = l1;</div><div class="line">        ListNode* q = l2;</div><div class="line">        ListNode* curr = head;</div><div class="line">        int carry = 0;</div><div class="line">        <span class="keyword">while</span>(p != NULL ||  q != NULL)&#123;</div><div class="line">            int x, y;</div><div class="line">            x = (p != NULL) ? p-&gt;val : 0;</div><div class="line">            y = (q != NULL) ? q-&gt;val : 0;</div><div class="line">            int sum = x + y + carry;</div><div class="line">            carry = sum / 10;</div><div class="line">            ListNode* temp = new ListNode(sum % 10);</div><div class="line">            curr-&gt;next = temp;</div><div class="line">            curr = temp;</div><div class="line">            p = (p != NULL) ? p-&gt;next : NULL;</div><div class="line">            q = (q != NULL) ? q-&gt;next : NULL;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(carry &gt; 0)&#123;</div><div class="line">            ListNode* temp = new ListNode(1);</div><div class="line">            curr-&gt;next = temp;</div><div class="line">            curr = temp;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> head-&gt;next;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 
   </article>
   <div class="random-toc-area">
@@ -171,20 +180,20 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC学习"><span class="toc-text">MVC学习</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/10/26/基于ThinkPHP5实现注册登录/" class="prev">&larr; Prev post 基于ThinkPHP5.0实现注册登录验证</a>
+    <a href="/2018/11/16/leetcode第一题/" class="prev">&larr; Prev post LeetCode第一题：两数之和-C++</a>
   
 
   
 
   
-    <a href="/2018/10/13/PHP命名空间/" class="next">Next post PHP命名空间 &rarr;</a>
+    <a href="/2018/11/15/进程和线程的区别/" class="next">Next post 进程和线程的区别 &rarr;</a>
   
 </nav>
 
