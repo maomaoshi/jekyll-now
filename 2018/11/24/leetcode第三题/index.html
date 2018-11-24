@@ -126,12 +126,12 @@ i,j分别是子序列第一个元素和最后一个元素的下标
   <article id="post">
     <h1>LeetCode第三题：无重复字符的最长子串-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-11-24</span>
+      <span id = "post-title-date">Created at 2018-11-24</span>
       
-        <span id = "post-title-updated">修改于 2018-11-24</span>
+        <span id = "post-title-updated">Updated at 2018-11-24</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -148,7 +148,7 @@ i,j分别是子序列第一个元素和最后一个元素的下标
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -179,10 +179,10 @@ i,j分别是子序列第一个元素和最后一个元素的下标
 <h3 id="优化的滑动窗口-C-代码"><a href="#优化的滑动窗口-C-代码" class="headerlink" title="优化的滑动窗口-C++代码"></a>优化的滑动窗口-C++代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int lengthOfLongestSubstring(string s) &#123;</div><div class="line">        int len = s.length();</div><div class="line">        map&lt;char, int&gt; window;</div><div class="line">        int i = 0, j = 0, ans = 0;</div><div class="line">        <span class="keyword">for</span>(; j &lt; len; j++)&#123;</div><div class="line">            <span class="keyword">if</span>(window.count(s[j]) == 1)&#123;</div><div class="line">                i = i &gt; window[s[j]] ? i : window[s[j]];</div><div class="line">            &#125;</div><div class="line">            ans = ans &gt; (j - i + 1) ? ans : (j - i + 1);</div><div class="line">            window[s[j]] = j + 1;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> ans;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暴力法算法"><span class="toc-text">暴力法算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#暴力法C-代码"><span class="toc-text">暴力法C++代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#滑动窗口法"><span class="toc-text">滑动窗口法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#滑动窗口C-代码"><span class="toc-text">滑动窗口C++代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化的滑动窗口法"><span class="toc-text">优化的滑动窗口法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优化的滑动窗口-C-代码"><span class="toc-text">优化的滑动窗口-C++代码</span></a></li></ol></li></ol>
   </div>
 </div>
@@ -194,7 +194,7 @@ i,j分别是子序列第一个元素和最后一个元素的下标
   
 
   
-    <a href="/2018/11/19/C++之STL容器/" class="next">下一篇 C++之STL各容器的基本操作 &rarr;</a>
+    <a href="/2018/11/19/C++之STL容器/" class="next">Next post C++之STL各容器的基本操作 &rarr;</a>
   
 </nav>
 
