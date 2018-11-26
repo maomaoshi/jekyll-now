@@ -123,12 +123,12 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637383940
   <article id="post">
     <h1>LeetCode第五题：最长回文子串-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-11-26</span>
+      <span id = "post-title-date">撰写于 2018-11-26</span>
       
-        <span id = "post-title-updated">Updated at 2018-11-26</span>
+        <span id = "post-title-updated">修改于 2018-11-26</span>
       
       
-      <span id = "post-title-categories">Category
+      <span id = "post-title-categories">分类
       
       
         
@@ -145,7 +145,7 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637383940
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -174,15 +174,15 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637383940
 <li>判断特殊情况：如果字符串长度小于等于1，则直接返回该字符串  </li>
 <li>dp[i][j]=0，表示子串[i, j]不是回文，dp[i][j]=1,表示子串[i, j]为回文。  </li>
 <li>首先初始化一字母和二字母的回文。</li>
-<li>然后从长度为3的字符串开始寻找，如果dp[i][j]是回文，则s[i] = s[j],且dp[i+1][j-1]也是回文。<h3 id="动态规划法C-代码"><a href="#动态规划法C-代码" class="headerlink" title="动态规划法C++代码"></a>动态规划法C++代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    string longestPalindrome(string s) &#123;</div><div class="line">        int len = s.length();</div><div class="line">        <span class="keyword">if</span>(len &lt;= 1)&#123;</div><div class="line">            <span class="built_in">return</span> s;</div><div class="line">        &#125;</div><div class="line">        int start = 0, longest = 1;</div><div class="line">        bool dp[1000][1000] = &#123;<span class="literal">false</span>&#125;;</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len; i++)&#123;</div><div class="line">            dp[i][i] = <span class="literal">true</span>;</div><div class="line">            <span class="keyword">if</span>(i &lt; len-1 &amp;&amp; s[i] == s[i+1])&#123;</div><div class="line">                dp[i][i+1] = <span class="literal">true</span>;</div><div class="line">                longest = 2;</div><div class="line">                start = i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(int subLen = 3; subLen &lt;= len; subLen++)&#123;</div><div class="line">            <span class="keyword">for</span>(int i = 0; i &lt;= len-subLen; i++)&#123;</div><div class="line">                int end = subLen + i -1;</div><div class="line">                <span class="keyword">if</span>(s[i] == s[end] &amp;&amp; dp[i+1][end-1] == <span class="literal">true</span>)&#123;</div><div class="line">                    dp[i][end] = <span class="literal">true</span>;</div><div class="line">                    <span class="keyword">if</span>(subLen &gt; longest)&#123;</div><div class="line">                        start = i;</div><div class="line">                        longest = subLen;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> s.substr(start, longest);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></li>
+<li>然后从长度为3的字符串开始寻找，如果dp[i][j]是回文，则s[i] = s[j],且dp[i+1][j-1]也是回文。</li>
 </ol>
-
+<h3 id="动态规划法C-代码"><a href="#动态规划法C-代码" class="headerlink" title="动态规划法C++代码"></a>动态规划法C++代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    string longestPalindrome(string s) &#123;</div><div class="line">        int len = s.length();</div><div class="line">        <span class="keyword">if</span>(len &lt;= 1)&#123;</div><div class="line">            <span class="built_in">return</span> s;</div><div class="line">        &#125;</div><div class="line">        int start = 0, longest = 1;</div><div class="line">        bool dp[1000][1000] = &#123;<span class="literal">false</span>&#125;;</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len; i++)&#123;</div><div class="line">            dp[i][i] = <span class="literal">true</span>;</div><div class="line">            <span class="keyword">if</span>(i &lt; len-1 &amp;&amp; s[i] == s[i+1])&#123;</div><div class="line">                dp[i][i+1] = <span class="literal">true</span>;</div><div class="line">                longest = 2;</div><div class="line">                start = i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(int subLen = 3; subLen &lt;= len; subLen++)&#123;</div><div class="line">            <span class="keyword">for</span>(int i = 0; i &lt;= len-subLen; i++)&#123;</div><div class="line">                int end = subLen + i -1;</div><div class="line">                <span class="keyword">if</span>(s[i] == s[end] &amp;&amp; dp[i+1][end-1] == <span class="literal">true</span>)&#123;</div><div class="line">                    dp[i][end] = <span class="literal">true</span>;</div><div class="line">                    <span class="keyword">if</span>(subLen &gt; longest)&#123;</div><div class="line">                        start = i;</div><div class="line">                        longest = subLen;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> s.substr(start, longest);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中心扩展算法思路"><span class="toc-text">中心扩展算法思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态规划法"><span class="toc-text">动态规划法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动态规划法思路"><span class="toc-text">动态规划法思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态规划法C-代码"><span class="toc-text">动态规划法C++代码</span></a></li></ol></li></ol>
   </div>
 </div>
@@ -194,7 +194,7 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637383940
   
 
   
-    <a href="/2018/11/25/leetcode第四题/" class="next">Next post LeetCode第四题：寻找两个有序数组的中位数-C++ &rarr;</a>
+    <a href="/2018/11/25/leetcode第四题/" class="next">下一篇 LeetCode第四题：寻找两个有序数组的中位数-C++ &rarr;</a>
   
 </nav>
 
