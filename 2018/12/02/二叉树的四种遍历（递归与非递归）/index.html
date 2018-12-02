@@ -1,0 +1,356 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="二叉树的结构以及初始化123456789101112131415161718192021222324typedef struct TreeNode&#123;	char val;	TreeNode* left, *right;	TreeNode():left(NULL),right(NULL),val(0)&#123;&#125;	TreeNode(int val):left(NULL),r...">
+  
+  <title>二叉树的四种遍历（递归与非递归）-C++ [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2018/12/01/leetcode第八题/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode第八题：字符串转换整数(atoi)-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>二叉树的四种遍历（递归与非递归）-C++</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-12-02</span>
+      
+        <span id = "post-title-updated">Updated at 2018-12-02</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/数据结构/">数据结构</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/数据结构/二叉树/">二叉树</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/数据结构/二叉树/C/">C++</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/数据结构/">数据结构</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/二叉树的遍历/">二叉树的遍历</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="二叉树的结构以及初始化"><a href="#二叉树的结构以及初始化" class="headerlink" title="二叉树的结构以及初始化"></a>二叉树的结构以及初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">typedef struct TreeNode&#123;</div><div class="line">	char val;</div><div class="line">	TreeNode* left, *right;</div><div class="line">	TreeNode():left(NULL),right(NULL),val(0)&#123;&#125;</div><div class="line">	TreeNode(int val):left(NULL),right(NULL),val(val)&#123;&#125;</div><div class="line">	</div><div class="line">&#125;TreeNode;</div><div class="line">//输入先序遍历序列 比如：AB/D//CE//F/G//</div><div class="line">TreeNode* <span class="function"><span class="title">createBinTree</span></span>()&#123;</div><div class="line">	char c;</div><div class="line">	TreeNode* rt;</div><div class="line">	cin &gt;&gt; c;</div><div class="line">	<span class="keyword">if</span>(c == <span class="string">'/'</span>)&#123;</div><div class="line">		rt = NULL;</div><div class="line">	&#125; </div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		rt = new TreeNode(c);</div><div class="line">		rt-&gt;left = createBinTree();</div><div class="line">		rt-&gt;right = createBinTree();</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">return</span> rt;</div><div class="line">&#125;</div><div class="line">//创建二叉树</div><div class="line">TreeNode* root = createBinTree();</div></pre></td></tr></table></figure>
+<h2 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h2><p></p><p>访问顺序：根结点-&gt;左子树-&gt;右子树</p>
+<h3 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">void _PreOrder(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root)&#123;</div><div class="line">		cout &lt;&lt; root-&gt;val &lt;&lt;<span class="string">" "</span>;</div><div class="line">		_PreOrder(root-&gt;left);</div><div class="line">		_PreOrder(root-&gt;right); </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="非递归实现（方法一）"><a href="#非递归实现（方法一）" class="headerlink" title="非递归实现（方法一）"></a>非递归实现（方法一）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">void PreOrder_Nor1(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root == NULL)&#123;</div><div class="line">		<span class="built_in">return</span>;</div><div class="line">	&#125;</div><div class="line">	stack&lt;TreeNode*&gt; s;</div><div class="line">	s.push(root);</div><div class="line">	TreeNode* temp = NULL;</div><div class="line">	<span class="keyword">while</span>(!s.empty())&#123;</div><div class="line">		temp = s.top();</div><div class="line">		cout &lt;&lt; temp-&gt;val &lt;&lt;<span class="string">" "</span>;</div><div class="line">		s.pop();</div><div class="line">		<span class="keyword">if</span>(temp-&gt;right != NULL)&#123;</div><div class="line">			s.push(temp-&gt;right);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(temp-&gt;left != NULL)&#123;</div><div class="line">			s.push(temp-&gt;left);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="非递归实现（方法二）"><a href="#非递归实现（方法二）" class="headerlink" title="非递归实现（方法二）"></a>非递归实现（方法二）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">void PreOrder_Nor2(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root == NULL)&#123;</div><div class="line">		<span class="built_in">return</span>;</div><div class="line">	&#125;</div><div class="line">	stack&lt;TreeNode*&gt; s;</div><div class="line">	s.push(root);</div><div class="line">	TreeNode* cur = NULL;</div><div class="line">	<span class="keyword">while</span>(!s.empty())&#123;</div><div class="line">		cur = s.top();</div><div class="line">		s.pop();</div><div class="line">		<span class="keyword">while</span>(cur)&#123;</div><div class="line">			cout &lt;&lt; cur-&gt;val &lt;&lt; <span class="string">" "</span>;</div><div class="line">			<span class="keyword">if</span>(cur-&gt;right)&#123;</div><div class="line">				s.push(cur-&gt;right);</div><div class="line">			&#125;</div><div class="line">			cur = cur-&gt;left;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt;endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p></p><p>访问顺序：左子树-&gt;根结点-&gt;右子树</p>
+<h3 id="递归实现-1"><a href="#递归实现-1" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">void InOrder(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root)&#123;</div><div class="line">		InOrder(root-&gt;left);</div><div class="line">		cout &lt;&lt; root-&gt;val &lt;&lt;<span class="string">" "</span>;</div><div class="line">		InOrder(root-&gt;right);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">void InOrder(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root)&#123;</div><div class="line">		InOrder(root-&gt;left);</div><div class="line">		cout &lt;&lt; root-&gt;val &lt;&lt;<span class="string">" "</span>;</div><div class="line">		InOrder(root-&gt;right);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div><div class="line">//中序遍历 非递归</div><div class="line">void InOrder_Nor(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root == NULL)&#123;</div><div class="line">		<span class="built_in">return</span>;</div><div class="line">	&#125;</div><div class="line">	stack&lt;TreeNode*&gt; s;</div><div class="line">	TreeNode* cur = root;</div><div class="line">	TreeNode* pre = NULL;</div><div class="line">	<span class="keyword">while</span>(!s.empty() || cur)&#123;</div><div class="line">		<span class="keyword">while</span>(cur &amp;&amp; cur != pre)&#123;</div><div class="line">			s.push(cur);</div><div class="line">			cur = cur-&gt;left;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(s.empty())&#123;</div><div class="line">			<span class="built_in">return</span>;</div><div class="line">		&#125;</div><div class="line">		cur = s.top();</div><div class="line">		cout &lt;&lt; cur-&gt;val &lt;&lt;<span class="string">" "</span>;</div><div class="line">		pre = cur;</div><div class="line">		s.pop();</div><div class="line">		cur = cur-&gt;right;</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt;endl;</div><div class="line">&#125; </div><div class="line">``` </div><div class="line"></div><div class="line"><span class="comment">## 后序遍历</span></div><div class="line">&lt;P&gt;访问顺序：左子树-&gt;右子树-&gt;根结点</div><div class="line"><span class="comment">### 递归实现</span></div><div class="line">```bash</div><div class="line">void PostOrder(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root)&#123;</div><div class="line">		PostOrder(root-&gt;left);</div><div class="line">		PostOrder(root-&gt;right);</div><div class="line">		cout &lt;&lt; root-&gt;val &lt;&lt; <span class="string">" "</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="非递归实现-1"><a href="#非递归实现-1" class="headerlink" title="非递归实现"></a>非递归实现</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">void PostOrder_Nor(TreeNode* root)&#123;</div><div class="line">	<span class="keyword">if</span>(root == NULL)&#123;</div><div class="line">		<span class="built_in">return</span>;</div><div class="line">	&#125;</div><div class="line">	stack&lt;TreeNode*&gt; s;</div><div class="line">	s.push(root);</div><div class="line">	TreeNode* cur = root-&gt;left;</div><div class="line">	TreeNode* pre = NULL;</div><div class="line">	<span class="keyword">while</span>(!s.empty())&#123;</div><div class="line">		<span class="keyword">while</span>(cur &amp;&amp; cur != pre)&#123;</div><div class="line">			s.push(cur);</div><div class="line">			cur = cur-&gt;left;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(s.empty())&#123;</div><div class="line">			<span class="built_in">return</span>;</div><div class="line">		&#125;</div><div class="line">		cur = s.top();</div><div class="line">		<span class="keyword">if</span>(cur-&gt;right &amp;&amp; cur-&gt;right != pre)&#123;</div><div class="line">			cur = cur-&gt;right;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			cout &lt;&lt; cur-&gt;val &lt;&lt;<span class="string">" "</span>;</div><div class="line">			pre = cur;</div><div class="line">			s.pop();</div><div class="line">		&#125; </div><div class="line">	&#125;</div><div class="line">	cout&lt;&lt;endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">void LevelOrder(TreeNode* root)&#123;</div><div class="line">	queue&lt;TreeNode*&gt; q;</div><div class="line">	<span class="keyword">if</span>(root)&#123;</div><div class="line">		q.push(root);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">while</span>(!q.empty())&#123;</div><div class="line">		TreeNode* temp = q.front();</div><div class="line">		cout &lt;&lt; temp-&gt;val &lt;&lt; <span class="string">" "</span>;</div><div class="line">		<span class="keyword">if</span>(temp-&gt;left)&#123;</div><div class="line">			q.push(temp-&gt;left);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(temp-&gt;right)&#123;</div><div class="line">			q.push(temp-&gt;right);</div><div class="line">		&#125;</div><div class="line">		q.pop();</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的结构以及初始化"><span class="toc-text">二叉树的结构以及初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#先序遍历"><span class="toc-text">先序遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#递归实现"><span class="toc-text">递归实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非递归实现（方法一）"><span class="toc-text">非递归实现（方法一）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非递归实现（方法二）"><span class="toc-text">非递归实现（方法二）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中序遍历"><span class="toc-text">中序遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#递归实现-1"><span class="toc-text">递归实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非递归实现"><span class="toc-text">非递归实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非递归实现-1"><span class="toc-text">非递归实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#层序遍历"><span class="toc-text">层序遍历</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/12/01/leetcode第八题/" class="next">Next post LeetCode第八题：字符串转换整数(atoi)-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
