@@ -17,7 +17,7 @@
   
   
     <meta name="description" content="二分查找只适用顺序存储结构
-循环12345678910111213141516int BinarySearch(int a[], int n, int target)&#123;	int left = 0, right = n;	while(left &lt; right)&#123;		int m = (left + right) / 2;		if(a[m] == target)&#123...">
+0x00循环12345678910111213141516int BinarySearch(int a[], int n, int target)&#123;	int left = 0, right = n;	while(left &lt; right)&#123;		int m = (left + right) / 2;		if(a[m] == target)&...">
   
   <title>二分查找-C++ [ GWJ_AJ ]</title>
   
@@ -38,22 +38,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
+  
+    <div class="item next">
       <a href="/2018/12/03/排序算法/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
         排序算法-C++
-      </div>
-    </div>
-  
-  
-    <div class="item next">
-      <a href="/2018/12/02/二叉搜索树/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        二叉搜索树-C++
       </div>
     </div>
   
@@ -182,9 +173,9 @@
     </p>
     
     <p></p><p>二分查找只适用顺序存储结构</p>
-<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">int BinarySearch(int a[], int n, int target)&#123;</div><div class="line">	int left = 0, right = n;</div><div class="line">	<span class="keyword">while</span>(left &lt; right)&#123;</div><div class="line">		int m = (left + right) / 2;</div><div class="line">		<span class="keyword">if</span>(a[m] == target)&#123;</div><div class="line">			<span class="built_in">return</span> m;</div><div class="line">		&#125;		</div><div class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(a[m] &gt; target)&#123;</div><div class="line">			right = m;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			left = m + 1;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">return</span> -1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">int BinarySearch(int a[], int left, int right, int target)&#123;</div><div class="line">	<span class="keyword">if</span>(left == right)&#123;//取值范围为空</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	int m = (left + right) / 2;</div><div class="line">	<span class="keyword">if</span>(a[m] == target)&#123;</div><div class="line">		<span class="built_in">return</span> m;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span>(a[m] &gt; target)&#123;</div><div class="line">		right = m;</div><div class="line">		BinarySearch(a, left, right, target);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		left = m + 1;</div><div class="line">		BinarySearch(a, left, right, target);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="边界计算与不对称边界"><a href="#边界计算与不对称边界" class="headerlink" title="边界计算与不对称边界"></a>边界计算与不对称边界</h2><p></p><p>二分查找体现了不对称思想</p>
+<h2 id="0x00循环"><a href="#0x00循环" class="headerlink" title="0x00循环"></a>0x00循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">int BinarySearch(int a[], int n, int target)&#123;</div><div class="line">	int left = 0, right = n;</div><div class="line">	<span class="keyword">while</span>(left &lt; right)&#123;</div><div class="line">		int m = (left + right) / 2;</div><div class="line">		<span class="keyword">if</span>(a[m] == target)&#123;</div><div class="line">			<span class="built_in">return</span> m;</div><div class="line">		&#125;		</div><div class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(a[m] &gt; target)&#123;</div><div class="line">			right = m;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			left = m + 1;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">return</span> -1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="0x01递归"><a href="#0x01递归" class="headerlink" title="0x01递归"></a>0x01递归</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">int BinarySearch(int a[], int left, int right, int target)&#123;</div><div class="line">	<span class="keyword">if</span>(left == right)&#123;//取值范围为空</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	int m = (left + right) / 2;</div><div class="line">	<span class="keyword">if</span>(a[m] == target)&#123;</div><div class="line">		<span class="built_in">return</span> m;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span>(a[m] &gt; target)&#123;</div><div class="line">		right = m;</div><div class="line">		BinarySearch(a, left, right, target);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		left = m + 1;</div><div class="line">		BinarySearch(a, left, right, target);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="0x02边界计算与不对称边界"><a href="#0x02边界计算与不对称边界" class="headerlink" title="0x02边界计算与不对称边界"></a>0x02边界计算与不对称边界</h2><p></p><p>二分查找体现了不对称思想</p>
 <ul>
 <li>不对称边界：在C语言中，数组的下标体现了不对称边界。例如，对于一个有10个元素的数组int a[10];其下标为0&lt;=i&lt;10,这里0是下界（入界点），即包括在取值范围之中；而10是上界（出界点），即不包括在取值范围之中。不对称边界给程序设计带来了很多便利：<ul>
 <li>取值范围的大小就是上界与下界之差。</li>
@@ -202,20 +193,18 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#循环"><span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#递归"><span class="toc-text">递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#边界计算与不对称边界"><span class="toc-text">边界计算与不对称边界</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00循环"><span class="toc-text">0x00循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01递归"><span class="toc-text">0x01递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02边界计算与不对称边界"><span class="toc-text">0x02边界计算与不对称边界</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/12/03/排序算法/" class="prev">&larr; 上一篇 排序算法-C++</a>
-  
 
   
 
   
-    <a href="/2018/12/02/二叉搜索树/" class="next">下一篇 二叉搜索树-C++ &rarr;</a>
+    <a href="/2018/12/03/排序算法/" class="next">下一篇 排序算法-C++ &rarr;</a>
   
 </nav>
 
