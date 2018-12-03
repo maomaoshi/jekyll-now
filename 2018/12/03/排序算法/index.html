@@ -125,12 +125,12 @@
   <article id="post">
     <h1>排序算法-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-12-03</span>
+      <span id = "post-title-date">Created at 2018-12-03</span>
       
-        <span id = "post-title-updated">修改于 2018-12-03</span>
+        <span id = "post-title-updated">Updated at 2018-12-03</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -147,7 +147,7 @@
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -169,9 +169,9 @@
 <li>比较相邻的元素。如果第一个比第二个大，就交换他们两个。  </li>
 <li>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。  </li>
 <li>针对所有的元素重复以上的步骤，除了最后一个。  </li>
-<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。<br><strong>注：每比较完一轮，每轮最后一个数就是最大的，所以j&lt;len-j-i,剩下的数就不用比较了。</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">void BubbleSort(vector&lt;<span class="keyword">in</span>&gt;&amp; v)&#123;</div><div class="line">	int len = v.size();</div><div class="line">	<span class="keyword">for</span>(int i = 0; i &lt; len - 1; i++)&#123;</div><div class="line">		<span class="keyword">for</span>(int j = 0; j &lt; len - 1 - i; j++)&#123;</div><div class="line">			<span class="keyword">if</span>(v[j] &gt; v[j+1])&#123;</div><div class="line">				swap(s[j], s[j+1]);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
+<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。<br><strong>注：每比较完一轮，每轮最后一个数就是最大的，所以j&lt;len-j-i,剩下的数就不用比较了。</strong></li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">void BubbleSort(vector&lt;<span class="keyword">in</span>&gt;&amp; v)&#123;</div><div class="line">	int len = v.size();</div><div class="line">	<span class="keyword">for</span>(int i = 0; i &lt; len - 1; i++)&#123;</div><div class="line">		<span class="keyword">for</span>(int j = 0; j &lt; len - 1 - i; j++)&#123;</div><div class="line">			<span class="keyword">if</span>(v[j] &gt; v[j+1])&#123;</div><div class="line">				swap(s[j], s[j+1]);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="0x01选择排序"><a href="#0x01选择排序" class="headerlink" title="0x01选择排序"></a>0x01选择排序</h2><p></p><p>时间复杂度O(n^2),稳定性：稳定<br>思路：  </p>
 <ol>
 <li>在未排序序列中找到最小（大）元素，存放到排序序列的起始位置  </li>
@@ -190,10 +190,10 @@
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00冒泡排序"><span class="toc-text">0x00冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01选择排序"><span class="toc-text">0x01选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02快速排序"><span class="toc-text">0x02快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03堆排序"><span class="toc-text">0x03堆排序</span></a></li></ol>
   </div>
 </div>
@@ -205,7 +205,7 @@
   
 
   
-    <a href="/2018/12/02/二叉搜索树/" class="next">下一篇 二叉搜索树-C++ &rarr;</a>
+    <a href="/2018/12/02/二叉搜索树/" class="next">Next post 二叉搜索树-C++ &rarr;</a>
   
 </nav>
 
