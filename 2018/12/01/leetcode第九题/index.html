@@ -17,9 +17,9 @@
   
   
     <meta name="description" content="题目
-思路flag记录x是负数还是整数，相应flag为-1或1。temp是x的绝对值。用除10取余法将temp每一位的值放到数组a[]中。每位乘以相对应的权值a[j]pow(10, i-j-1),结果和sum相加。如果溢出，则sum变成负数，返回0。最后sumflag就是最终结果。12345678910111213141516171819202122232425class Solution ...">
+思路一：反转所有数字123456789101112131415161718class Solution &#123;public:    bool isPalindrome(int x) &#123;        if(x &lt; 0)&#123;            return false;        &#125;        int temp = x;        ...">
   
-  <title>LeetCode第七题：整数反转-C++ [ GWJ_AJ ]</title>
+  <title>LeetCode第九题：回文数-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,21 +39,21 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2018/12/01/leetcode第九题/">
+      <a href="/2018/12/01/leetcode第八题/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第九题：回文数-C++
+        LeetCode第八题：字符串转换整数(atoi)-C++
       </div>
     </div>
   
   
     <div class="item next">
-      <a href="/2018/11/29/leetcode第六题/">
+      <a href="/2018/11/30/leetcode第七题/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第六题：Z字形变换-C++
+        LeetCode第七题：整数反转-C++
       </div>
     </div>
   
@@ -128,11 +128,11 @@
       
       
   <article id="post">
-    <h1>LeetCode第七题：整数反转-C++</h1>
+    <h1>LeetCode第九题：回文数-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-11-30</span>
+      <span id = "post-title-date">撰写于 2018-12-01</span>
       
-        <span id = "post-title-updated">修改于 2018-11-30</span>
+        <span id = "post-title-updated">修改于 2018-12-03</span>
       
       
       <span id = "post-title-categories">分类
@@ -169,30 +169,30 @@
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode7.png" alt=""></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p></p><p>flag记录x是负数还是整数，相应flag为-1或1。temp是x的绝对值。用除10取余法将temp每一位的值放到数组a[]中。每位乘以相对应的权值a[j]<em>pow(10, i-j-1),结果和sum相加。如果溢出，则sum变成负数，返回0。最后sum</em>flag就是最终结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int reverse(int x) &#123;</div><div class="line">        int sum = 0, i = 0;</div><div class="line">        int a[32];</div><div class="line">        int flag = 1;</div><div class="line">        <span class="keyword">if</span>(x &lt; 0)&#123;</div><div class="line">            flag = -1;</div><div class="line">        &#125;</div><div class="line">        int temp = abs(x);</div><div class="line">        <span class="keyword">while</span>(temp &gt; 0)&#123;</div><div class="line">            a[i] = temp % 10;</div><div class="line">            i++;</div><div class="line">            temp /= 10;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(int j = 0; j &lt; i; j++)&#123;</div><div class="line">            sum += a[j] * pow(10, i-j-1);</div><div class="line">            <span class="keyword">if</span>(sum &lt; 0)&#123;</div><div class="line">                <span class="built_in">return</span> 0;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        sum *= flag;</div><div class="line">        <span class="built_in">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<h2 id="官方题解"><a href="#官方题解" class="headerlink" title="官方题解"></a>官方题解</h2><p><img src="/images/leetcode7_1.png" alt=""><br>INT_MAX = 2147483647;<br>INT_MIN = -2147483648;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int reverse(int x) &#123;</div><div class="line">        int rev = 0;</div><div class="line">        <span class="keyword">while</span>(x != 0)&#123;</div><div class="line">            int pop = x % 10;</div><div class="line">            x /= 10;</div><div class="line">            <span class="keyword">if</span>(rev &gt; INT_MAX/10 || (rev == INT_MAX &amp;&amp; pop &gt; 7))&#123;</div><div class="line">                <span class="built_in">return</span> 0;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(rev &lt; INT_MIN/10 || (rev == INT_MIN &amp;&amp; pop &lt; -8))&#123;</div><div class="line">                <span class="built_in">return</span> 0;</div><div class="line">            &#125;</div><div class="line">            rev = rev * 10 + pop;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> rev;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode9.jpg" alt=""></p>
+<h2 id="思路一：反转所有数字"><a href="#思路一：反转所有数字" class="headerlink" title="思路一：反转所有数字"></a>思路一：反转所有数字</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    bool isPalindrome(int x) &#123;</div><div class="line">        <span class="keyword">if</span>(x &lt; 0)&#123;</div><div class="line">            <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        int temp = x;</div><div class="line">        int sum = 0;</div><div class="line">        <span class="keyword">while</span>(temp &gt; 0)&#123;</div><div class="line">            sum = (sum * 10) + (temp % 10);</div><div class="line">            temp /= 10;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(sum == x)&#123;</div><div class="line">            <span class="built_in">return</span> <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="官方题解：反转一半数字"><a href="#官方题解：反转一半数字" class="headerlink" title="官方题解：反转一半数字"></a>官方题解：反转一半数字</h2><p><img src="/images/leetcode9_1.jpg" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public class Solution &#123;</div><div class="line">    public bool IsPalindrome(int x) &#123;</div><div class="line">        // 特殊情况：</div><div class="line">        // 如上所述，当 x &lt; 0 时，x 不是回文数。</div><div class="line">        // 同样地，如果数字的最后一位是 0，为了使该数字为回文，</div><div class="line">        // 则其第一位数字也应该是 0</div><div class="line">        // 只有 0 满足这一属性</div><div class="line">        <span class="keyword">if</span>(x &lt; 0 || (x % 10 == 0 &amp;&amp; x != 0)) &#123;</div><div class="line">            <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        int revertedNumber = 0;</div><div class="line">        <span class="keyword">while</span>(x &gt; revertedNumber) &#123;</div><div class="line">            revertedNumber = revertedNumber * 10 + x % 10;</div><div class="line">            x /= 10;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 当数字长度为奇数时，我们可以通过 revertedNumber/10 去除处于中位的数字。</div><div class="line">        // 例如，当输入为 12321 时，在 <span class="keyword">while</span> 循环的末尾我们可以得到 x = 12，revertedNumber = 123，</div><div class="line">        // 由于处于中位的数字不影响回文（它总是与自己相等），所以我们可以简单地将其去除。</div><div class="line">        <span class="built_in">return</span> x == revertedNumber || x == revertedNumber/10;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#官方题解"><span class="toc-text">官方题解</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路一：反转所有数字"><span class="toc-text">思路一：反转所有数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#官方题解：反转一半数字"><span class="toc-text">官方题解：反转一半数字</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/12/01/leetcode第九题/" class="prev">&larr; 上一篇 LeetCode第九题：回文数-C++</a>
+    <a href="/2018/12/01/leetcode第八题/" class="prev">&larr; 上一篇 LeetCode第八题：字符串转换整数(atoi)-C++</a>
   
 
   
 
   
-    <a href="/2018/11/29/leetcode第六题/" class="next">下一篇 LeetCode第六题：Z字形变换-C++ &rarr;</a>
+    <a href="/2018/11/30/leetcode第七题/" class="next">下一篇 LeetCode第七题：整数反转-C++ &rarr;</a>
   
 </nav>
 
