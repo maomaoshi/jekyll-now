@@ -40,21 +40,21 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2018/10/13/PHP命名空间/">
+      <a href="/2018/10/26/基于ThinkPHP5实现注册登录/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        PHP命名空间
+        基于ThinkPHP5.0实现注册登录验证
       </div>
     </div>
   
   
     <div class="item next">
-      <a href="/2018/02/27/sqli-labs学习笔记/">
+      <a href="/2018/10/13/PHP命名空间/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        sqli-labs学习笔记
+        PHP命名空间
       </div>
     </div>
   
@@ -133,7 +133,7 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-10-13</span>
       
-        <span id = "post-title-updated">Updated at 2018-10-22</span>
+        <span id = "post-title-updated">Updated at 2018-12-04</span>
       
       
       <span id = "post-title-categories">Category
@@ -164,6 +164,26 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
 </blockquote>
 </li>
 </ul>
+<h2 id="MVC是什么？"><a href="#MVC是什么？" class="headerlink" title="MVC是什么？"></a>MVC是什么？</h2><p></p><p>MVC是一种设计创建Web应用程序的模式。它将程序从结构上分为三层:  </p>
+<ul>
+<li>Model:模型层，用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据。  </li>
+<li>View:视图层，将应用的数据以特定的方式展现在界面上。  </li>
+<li>Controller:控制器，通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。</li>
+</ul>
+<h2 id="三层之间的关系"><a href="#三层之间的关系" class="headerlink" title="三层之间的关系"></a>三层之间的关系</h2><p><a href="/images/mvc.png"></a></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>1.控制器调用视图层，向用户展示出视图 （表单）</p>
+<p>2.用户填写表单提交数据到控制器</p>
+<p>3.控制器根据用户的请求，将请求数据提交到模型层进行处理</p>
+<p>4.模型需要和数据库建立连接</p>
+<p>5.并将用户提交的数据和数据库的数据进行相关的操作（增删改查）</p>
+<p>6.数据库将增删改查的操作结果返回给模型层</p>
+<p>7.模型层将结果进行相关处理后返回给控制器</p>
+<p>8.控制器将数据分配到视图层中</p>
+<h2 id="MVC的优点"><a href="#MVC的优点" class="headerlink" title="MVC的优点"></a>MVC的优点</h2><ul>
+<li>MVC 分层有助于管理复杂的应用程序，因为您可以在一个时间内专门关注一个方面  </li>
+<li>MVC 分层同时也简化了分组开发。不同的开发人员可同时开发视图、控制器逻辑和业务逻辑。</li>
+</ul>
+<h2 id="怎么区分模型层和控制器"><a href="#怎么区分模型层和控制器" class="headerlink" title="怎么区分模型层和控制器"></a>怎么区分模型层和控制器</h2><p></p><p>基本原则：业务逻辑代码应该写在 M 里面，而应用程序逻辑应该写在 C 里面。V 只是单纯的展示数据。业务逻辑都在模型中实现，控制器（也就是封装应用程序逻辑的层）仅仅完成处理输入数据、调用业务方法、反馈结果等任务。</p>
 
   </article>
   <div class="random-toc-area">
@@ -171,20 +191,20 @@ MVC是三个单词的首字母缩写，Model（模型）、View(视图)和Contro
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC学习"><span class="toc-text">MVC学习</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC学习"><span class="toc-text">MVC学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC是什么？"><span class="toc-text">MVC是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三层之间的关系"><span class="toc-text">三层之间的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MVC的优点"><span class="toc-text">MVC的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么区分模型层和控制器"><span class="toc-text">怎么区分模型层和控制器</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/10/13/PHP命名空间/" class="prev">&larr; Prev post PHP命名空间</a>
+    <a href="/2018/10/26/基于ThinkPHP5实现注册登录/" class="prev">&larr; Prev post 基于ThinkPHP5.0实现注册登录验证</a>
   
 
   
 
   
-    <a href="/2018/02/27/sqli-labs学习笔记/" class="next">Next post sqli-labs学习笔记 &rarr;</a>
+    <a href="/2018/10/13/PHP命名空间/" class="next">Next post PHP命名空间 &rarr;</a>
   
 </nav>
 
