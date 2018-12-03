@@ -1,0 +1,362 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="0x00冒泡排序冒泡排序的时间复杂度O(n^2),稳定性：稳定思路：  
+
+比较相邻的元素。如果第一个比第二个大，就交换他们两个。  
+对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。  
+针对所有的元素重复以上的步骤，除了最后一个。  
+持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。注：每比较完一轮，每轮最后一个数就是...">
+  
+  <title>排序算法-C++ [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2018/12/02/二叉搜索树/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        二叉搜索树-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>排序算法-C++</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2018-12-03</span>
+      
+        <span id = "post-title-updated">修改于 2018-12-03</span>
+      
+      
+      <span id = "post-title-categories">分类
+      
+      
+        
+        
+        <a href="/categories/算法/">算法</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/算法/C/">C++</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      标签
+      
+      
+        
+        
+        <a href="/tags/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/算法/">算法</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="0x00冒泡排序"><a href="#0x00冒泡排序" class="headerlink" title="0x00冒泡排序"></a>0x00冒泡排序</h2><p></p><p>冒泡排序的时间复杂度O(n^2),稳定性：稳定<br>思路：  </p>
+<ol>
+<li>比较相邻的元素。如果第一个比第二个大，就交换他们两个。  </li>
+<li>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。  </li>
+<li>针对所有的元素重复以上的步骤，除了最后一个。  </li>
+<li>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。<br><strong>注：每比较完一轮，每轮最后一个数就是最大的，所以j&lt;len-j-i,剩下的数就不用比较了。</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">void BubbleSort(vector&lt;<span class="keyword">in</span>&gt;&amp; v)&#123;</div><div class="line">	int len = v.size();</div><div class="line">	<span class="keyword">for</span>(int i = 0; i &lt; len - 1; i++)&#123;</div><div class="line">		<span class="keyword">for</span>(int j = 0; j &lt; len - 1 - i; j++)&#123;</div><div class="line">			<span class="keyword">if</span>(v[j] &gt; v[j+1])&#123;</div><div class="line">				swap(s[j], s[j+1]);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="0x01选择排序"><a href="#0x01选择排序" class="headerlink" title="0x01选择排序"></a>0x01选择排序</h2><p></p><p>时间复杂度O(n^2),稳定性：稳定<br>思路：  </p>
+<ol>
+<li>在未排序序列中找到最小（大）元素，存放到排序序列的起始位置  </li>
+<li>从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾  </li>
+<li>以此类推，直到所有元素均排序完毕</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">void SelectSort(vector&lt;int&gt;&amp; v)&#123;</div><div class="line">	int min, len = v.size();</div><div class="line">	<span class="keyword">for</span>(int i = 0; i &lt; len - 1; i++)&#123;</div><div class="line">		min = i;</div><div class="line">		<span class="keyword">for</span>(int j = i+1; j &lt; len; j++)&#123;</div><div class="line">			<span class="keyword">if</span>(v[j] &lt; v[min])&#123; //标记最小的</div><div class="line">				min = j;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span>(i != min)&#123;//交换到前面</div><div class="line">			swap(v[i], v[min]);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="0x02快速排序"><a href="#0x02快速排序" class="headerlink" title="0x02快速排序"></a>0x02快速排序</h2><p></p><p>时间复杂度：O(nlog2n),稳定性：不稳定，多个相同的值的相对位置也许会在算法结束时产生变动。<br>思路：  </p>
+<ol>
+<li>选取第一个数为基准  </li>
+<li>将比基准小的数交换到前面，比基准大的数交换到后面  </li>
+<li>对左右区间重复第二步，直到各区间只有一个数  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">void QuickSort(int a[], int low, int high)&#123;</div><div class="line">	<span class="keyword">if</span>(low &gt;= high)&#123;</div><div class="line">		<span class="built_in">return</span>;</div><div class="line">	&#125;</div><div class="line">	int first = low;</div><div class="line">	int last = high;</div><div class="line">	int key = a[first];/*用字表的第一个记录作为枢轴*/</div><div class="line">	</div><div class="line">	<span class="keyword">while</span>(first &lt; last)&#123;</div><div class="line">		<span class="keyword">while</span>(first &lt; last &amp;&amp; a[last] &gt;= key)&#123;</div><div class="line">			last--;</div><div class="line">		&#125;</div><div class="line">		a[first] = a[last];/*将比第一个小的移到低端*/</div><div class="line">		</div><div class="line">		<span class="keyword">while</span>(first &lt;last &amp;&amp; a[first] &lt;= key)&#123;</div><div class="line">			first++;</div><div class="line">		&#125;</div><div class="line">		a[last] = a[first];/*将比第一个大的移到高端*/</div><div class="line">	&#125;</div><div class="line">	a[first] = key;// 基准置位</div><div class="line">	// 前半递归</div><div class="line">	QuickSort(a, low, first-1);</div><div class="line">	// 后半递归</div><div class="line">	QuickSort(a, first+1, high);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="0x03堆排序"><a href="#0x03堆排序" class="headerlink" title="0x03堆排序"></a>0x03堆排序</h2><p><a href="https://www.cnblogs.com/chengxiao/p/6129630.html" target="_blank" rel="external">堆排序</a></p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00冒泡排序"><span class="toc-text">0x00冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01选择排序"><span class="toc-text">0x01选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02快速排序"><span class="toc-text">0x02快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03堆排序"><span class="toc-text">0x03堆排序</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/12/02/二叉搜索树/" class="next">下一篇 二叉搜索树-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
