@@ -16,17 +16,10 @@
   
   
   
-    <meta name="description" content="0x00 进程进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。
-两个角度看进程概念：  
-
-从理论角度看，进程是对正在运行的程序活动规律的抽象  
-从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序
-
-0x01 线程线程：是进程的一个属性，是被系统独立调度的基本单位  
-
-一个进程可建立...">
+    <meta name="description" content="二分查找只适用顺序存储结构
+循环12345678910111213141516int BinarySearch(int a[], int n, int target)&#123;	int left = 0, right = n;	while(left &lt; right)&#123;		int m = (left + right) / 2;		if(a[m] == target)&#123...">
   
-  <title>进程和线程的区别 [ GWJ_AJ ]</title>
+  <title>二分查找-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -46,21 +39,21 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2018/11/16/leetcode第一题/">
+      <a href="/2018/12/03/排序算法/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第一题：两数之和-C++
+        排序算法-C++
       </div>
     </div>
   
   
     <div class="item next">
-      <a href="/2018/11/13/同步与互斥的区别/">
+      <a href="/2018/12/02/二叉搜索树/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        同步与互斥的区别
+        二叉搜索树-C++
       </div>
     </div>
   
@@ -135,11 +128,11 @@
       
       
   <article id="post">
-    <h1>进程和线程的区别</h1>
+    <h1>二分查找-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-11-15</span>
+      <span id = "post-title-date">撰写于 2018-12-03</span>
       
-        <span id = "post-title-updated">修改于 2018-11-15</span>
+        <span id = "post-title-updated">修改于 2018-12-03</span>
       
       
       <span id = "post-title-categories">分类
@@ -147,7 +140,19 @@
       
         
         
-        <a href="/categories/操作系统/">操作系统</a>
+        <a href="/categories/算法/">算法</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/算法/二分查找/">二分查找</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/算法/二分查找/C/">C++</a>
       
       </span>
       
@@ -158,47 +163,38 @@
       
         
         
-        <a href="/tags/操作系统/">操作系统</a>
+        <a href="/tags/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/算法/">算法</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/二分查找/">二分查找</a>
       
       </span>
       
     </p>
     
-    <h2 id="0x00-进程"><a href="#0x00-进程" class="headerlink" title="0x00 进程"></a>0x00 进程</h2><p></p><p>进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。</p>
-<p></p><p>两个角度看进程概念：  </p>
+    <p></p><p>二分查找只适用顺序存储结构</p>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">int BinarySearch(int a[], int n, int target)&#123;</div><div class="line">	int left = 0, right = n;</div><div class="line">	<span class="keyword">while</span>(left &lt; right)&#123;</div><div class="line">		int m = (left + right) / 2;</div><div class="line">		<span class="keyword">if</span>(a[m] == target)&#123;</div><div class="line">			<span class="built_in">return</span> m;</div><div class="line">		&#125;		</div><div class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(a[m] &gt; target)&#123;</div><div class="line">			right = m;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			left = m + 1;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">return</span> -1;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">int BinarySearch(int a[], int left, int right, int target)&#123;</div><div class="line">	<span class="keyword">if</span>(left == right)&#123;//取值范围为空</div><div class="line">		<span class="built_in">return</span> -1;</div><div class="line">	&#125;</div><div class="line">	int m = (left + right) / 2;</div><div class="line">	<span class="keyword">if</span>(a[m] == target)&#123;</div><div class="line">		<span class="built_in">return</span> m;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span>(a[m] &gt; target)&#123;</div><div class="line">		right = m;</div><div class="line">		BinarySearch(a, left, right, target);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		left = m + 1;</div><div class="line">		BinarySearch(a, left, right, target);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="边界计算与不对称边界"><a href="#边界计算与不对称边界" class="headerlink" title="边界计算与不对称边界"></a>边界计算与不对称边界</h2><p></p><p>二分查找体现了不对称思想</p>
 <ul>
-<li>从理论角度看，进程是对正在运行的程序活动规律的抽象  </li>
-<li>从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序</li>
-</ul>
-<h2 id="0x01-线程"><a href="#0x01-线程" class="headerlink" title="0x01 线程"></a>0x01 线程</h2><p></p><p>线程：是进程的一个属性，是被系统独立调度的基本单位  </p>
-<ul>
-<li>一个进程可建立多个线程，这些线程共享进程拥有的全部资源（代码段、数据段、其他操作系统资源）   </li>
-<li>多个线程之间并发执行，切换时快速简便  </li>
-<li>线程的特征：动态性、并发性、（运行）独立性、异步性</li>
-</ul>
-<h2 id="0x02-线程与进程的比较"><a href="#0x02-线程与进程的比较" class="headerlink" title="0x02 线程与进程的比较"></a>0x02 线程与进程的比较</h2><ol>
-<li><p>创建、调度和管理</p>
-<ul>
-<li>进程的创建通常调用fork，而线程的创建调用pthread_create,进程结束之后它拥有的所有线程都会被销毁，而线程结束后不会影响同个进程中其它线程的结束。</li>
-<li>线程是轻两级的进程，它的创建和销毁所需要的时间都比进程小很多</li>
-<li>同一进程的多线程调度时，不引起进程的切换</li>
-<li>不同进程间的线程切换，需要进程切换</li>
+<li>不对称边界：在C语言中，数组的下标体现了不对称边界。例如，对于一个有10个元素的数组int a[10];其下标为0&lt;=i&lt;10,这里0是下界（入界点），即包括在取值范围之中；而10是上界（出界点），即不包括在取值范围之中。不对称边界给程序设计带来了很多便利：<ul>
+<li>取值范围的大小就是上界与下界之差。</li>
+<li>如果取值范围为空，那么上界等于下界。</li>
+<li>即使取值范围为空，上界也永远不可能小于下界。</li>
 </ul>
 </li>
-<li><p>地址空间和资源分配</p>
-<ul>
-<li>进程是资源分配和保护的一个基本单位，线程是CPU调度的基本单位</li>
-<li>同一个进程中可以包含多个线程，并且线程共享整个进程的资源（寄存器、堆栈、上下文），一个进程至少包含一个线程</li>
+<li>另一种考虑不对称边界的方式是，把上界视作某序列中第一个被占用的元素，而把下界视作序列中第一个被释放的元素。</li>
+<li>数组中实际不存在的“溢界”元素的地址位于数组所占内存之后，这个地址可以用于赋值和比较，但是不能引用该元素。</li>
 </ul>
-</li>
-<li><p>通信</p>
-<ul>
-<li>线程间可以直接读写进程数据段（如全局变量）来进程通信——需要进程同步和互斥的辅助，来保证数据的一致性。</li>
-</ul>
-</li>
-<li><p>在多线程OS中，线程不是一个可执行的实体</p>
-</li>
-</ol>
 
   </article>
   <div class="random-toc-area">
@@ -206,20 +202,20 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-进程"><span class="toc-text">0x00 进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-线程"><span class="toc-text">0x01 线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-线程与进程的比较"><span class="toc-text">0x02 线程与进程的比较</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#循环"><span class="toc-text">循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#递归"><span class="toc-text">递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#边界计算与不对称边界"><span class="toc-text">边界计算与不对称边界</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/11/16/leetcode第一题/" class="prev">&larr; 上一篇 LeetCode第一题：两数之和-C++</a>
+    <a href="/2018/12/03/排序算法/" class="prev">&larr; 上一篇 排序算法-C++</a>
   
 
   
 
   
-    <a href="/2018/11/13/同步与互斥的区别/" class="next">下一篇 同步与互斥的区别 &rarr;</a>
+    <a href="/2018/12/02/二叉搜索树/" class="next">下一篇 二叉搜索树-C++ &rarr;</a>
   
 </nav>
 
