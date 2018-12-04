@@ -16,17 +16,10 @@
   
   
   
-    <meta name="description" content="0x00 进程进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。
-两个角度看进程概念：  
-
-从理论角度看，进程是对正在运行的程序活动规律的抽象  
-从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序
-
-0x01 线程线程：是进程的一个属性，是被系统独立调度的基本单位  
-
-一个进程可建立...">
+    <meta name="description" content="题目
+暴力法123456789101112131415161718class Solution &#123;public:    int maxArea(vector&lt;int&gt;&amp; height) &#123;        int max = 0;        int h, l;        int len = height.size();        for(in...">
   
-  <title>进程和线程的区别 [ GWJ_AJ ]</title>
+  <title>LeetCode第十一题：盛最多水的容器-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -46,21 +39,21 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2018/11/16/leetcode第一题/">
+      <a href="/2018/12/04/PHP反射/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第一题：两数之和-C++
+        PHP反射机制
       </div>
     </div>
   
   
     <div class="item next">
-      <a href="/2018/11/13/同步与互斥的区别/">
+      <a href="/2018/12/04/依赖注入/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        同步与互斥的区别
+        依赖注入容器
       </div>
     </div>
   
@@ -135,11 +128,11 @@
       
       
   <article id="post">
-    <h1>进程和线程的区别</h1>
+    <h1>LeetCode第十一题：盛最多水的容器-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-11-15</span>
+      <span id = "post-title-date">撰写于 2018-12-04</span>
       
-        <span id = "post-title-updated">修改于 2018-11-15</span>
+        <span id = "post-title-updated">修改于 2018-12-04</span>
       
       
       <span id = "post-title-categories">分类
@@ -147,7 +140,13 @@
       
         
         
-        <a href="/categories/操作系统/">操作系统</a>
+        <a href="/categories/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/C/Leetcode/">Leetcode</a>
       
       </span>
       
@@ -158,68 +157,42 @@
       
         
         
-        <a href="/tags/操作系统/">操作系统</a>
+        <a href="/tags/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/LeetCode/">LeetCode</a>
       
       </span>
       
     </p>
     
-    <h2 id="0x00-进程"><a href="#0x00-进程" class="headerlink" title="0x00 进程"></a>0x00 进程</h2><p></p><p>进程：是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。</p>
-<p></p><p>两个角度看进程概念：  </p>
-<ul>
-<li>从理论角度看，进程是对正在运行的程序活动规律的抽象  </li>
-<li>从实现角度看，进程是一种数据结构，目的在于有效管理和调度进入计算机系统主存储器运行的程序</li>
-</ul>
-<h2 id="0x01-线程"><a href="#0x01-线程" class="headerlink" title="0x01 线程"></a>0x01 线程</h2><p></p><p>线程：是进程的一个属性，是被系统独立调度的基本单位  </p>
-<ul>
-<li>一个进程可建立多个线程，这些线程共享进程拥有的全部资源（代码段、数据段、其他操作系统资源）   </li>
-<li>多个线程之间并发执行，切换时快速简便  </li>
-<li>线程的特征：动态性、并发性、（运行）独立性、异步性</li>
-</ul>
-<h2 id="0x02-线程与进程的比较"><a href="#0x02-线程与进程的比较" class="headerlink" title="0x02 线程与进程的比较"></a>0x02 线程与进程的比较</h2><ol>
-<li><p>创建、调度和管理</p>
-<ul>
-<li>进程的创建通常调用fork，而线程的创建调用pthread_create,进程结束之后它拥有的所有线程都会被销毁，而线程结束后不会影响同个进程中其它线程的结束。</li>
-<li>线程是轻两级的进程，它的创建和销毁所需要的时间都比进程小很多</li>
-<li>同一进程的多线程调度时，不引起进程的切换</li>
-<li>不同进程间的线程切换，需要进程切换</li>
-</ul>
-</li>
-<li><p>地址空间和资源分配</p>
-<ul>
-<li>进程是资源分配和保护的一个基本单位，线程是CPU调度的基本单位</li>
-<li>同一个进程中可以包含多个线程，并且线程共享整个进程的资源（寄存器、堆栈、上下文），一个进程至少包含一个线程</li>
-</ul>
-</li>
-<li><p>通信</p>
-<ul>
-<li>线程间可以直接读写进程数据段（如全局变量）来进程通信——需要进程同步和互斥的辅助，来保证数据的一致性。</li>
-</ul>
-</li>
-<li><p>在多线程OS中，线程不是一个可执行的实体</p>
-</li>
-</ol>
-
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="/images/leetcode11.png"></a></p>
+<h2 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxArea(vector&lt;int&gt;&amp; height) &#123;</div><div class="line">        int max = 0;</div><div class="line">        int h, l;</div><div class="line">        int len = height.size();</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len-1; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = i + 1; j &lt; len; j++)&#123;</div><div class="line">                l = j - i;</div><div class="line">                h = (height[i] &gt; height[j]) ? height[j] : height[i];</div><div class="line">                int temp = l * h;</div><div class="line">                max = (temp &gt; max) ? temp : max;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><p></p><p>思路：我们在由线段长度构成的数组中使用两个指针，一个放在开始，一个置于末尾。 此外，我们会使用变量 max 来持续存储到目前为止所获得的最大面积。 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 max，并将指向较短线段的指针向较长线段那端移动一步。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxArea(vector&lt;int&gt;&amp; height) &#123;</div><div class="line">        int max = 0;</div><div class="line">        int l = 0, r = height.size() - 1;</div><div class="line">        <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">            int temp = (height[l] &lt; height[r]) ? height[l] : height[r];</div><div class="line">            max = (temp * (r - l) &gt; max) ? temp * (r - l) : max;</div><div class="line">            <span class="keyword">if</span>(height[l] &lt; height[r])&#123;</div><div class="line">                l++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                r--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-进程"><span class="toc-text">0x00 进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-线程"><span class="toc-text">0x01 线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-线程与进程的比较"><span class="toc-text">0x02 线程与进程的比较</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暴力法"><span class="toc-text">暴力法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#双指针法"><span class="toc-text">双指针法</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/11/16/leetcode第一题/" class="prev">&larr; 上一篇 LeetCode第一题：两数之和-C++</a>
+    <a href="/2018/12/04/PHP反射/" class="prev">&larr; 上一篇 PHP反射机制</a>
   
 
   
 
   
-    <a href="/2018/11/13/同步与互斥的区别/" class="next">下一篇 同步与互斥的区别 &rarr;</a>
+    <a href="/2018/12/04/依赖注入/" class="next">下一篇 依赖注入容器 &rarr;</a>
   
 </nav>
 
