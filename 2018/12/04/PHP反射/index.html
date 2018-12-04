@@ -1,8 +1,6 @@
 
 
 
-  
-
 
 
 
@@ -18,9 +16,11 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="参考：https://blog.csdn.net/qq_20678155/article/details/70158374
+PHP提供了一个丰富的反射API，使我们可以更容易到达OOP结构的任何区域。
+说白了就是在PHP运行时，可以通过反射深入到类的内部，做我们想做的事情。">
   
-  <title>Tag: ThinkPHP5.0 [ GWJ_AJ ]</title>
+  <title>PHP反射机制 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,6 +39,24 @@
 <body>
 <div class="side-navigate hide-area">
   
+    <div class="item prev">
+      <a href="/2018/12/04/依赖注入/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        依赖注入容器
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2018/12/03/排序算法/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        排序算法-C++
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -71,7 +89,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/tags">Tags</a>
             
@@ -110,257 +128,79 @@
     <div id="content-inner">
       
       
-  <div id="tag">
-    <h1>ThinkPHP5.0</h1>
+  <article id="post">
+    <h1>PHP反射机制</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-12-04</span>
+      
+        <span id = "post-title-updated">Updated at 2018-12-04</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/PHP/">PHP</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/PHP/反射/">反射</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/PHP/">PHP</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/反射/">反射</a>
+      
+      </span>
+      
+    </p>
     
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-          
-        
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/10/26/基于ThinkPHP5实现注册登录/">
-  
-    基于ThinkPHP5.0实现注册登录验证
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">10-26</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/ThinkPHP5-0/">ThinkPHP5.0</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/ThinkPHP5-0/">ThinkPHP5.0</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-      
-    
-      
-      
-        
-      
-      
+    <p>参考：<a href="https://blog.csdn.net/qq_20678155/article/details/70158374" target="_blank" rel="external">https://blog.csdn.net/qq_20678155/article/details/70158374</a></p>
+<p></p><p>PHP提供了一个丰富的反射API，使我们可以更容易到达OOP结构的任何区域。</p>
+<p>说白了就是在PHP运行时，可以通过反射深入到类的内部，做我们想做的事情。    </p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
     
   </div>
+</div>
 
   
+<nav id="pagination">
+  
+    <a href="/2018/12/04/依赖注入/" class="prev">&larr; Prev post 依赖注入容器</a>
+  
+
+  
+
+  
+    <a href="/2018/12/03/排序算法/" class="next">Next post 排序算法-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -462,6 +302,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
