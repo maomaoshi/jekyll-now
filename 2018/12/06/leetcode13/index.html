@@ -17,9 +17,14 @@
   
   
     <meta name="description" content="题目
-思路flag记录x是负数还是整数，相应flag为-1或1。temp是x的绝对值。用除10取余法将temp每一位的值放到数组a[]中。每位乘以相对应的权值a[j]pow(10, i-j-1),结果和sum相加。如果溢出，则sum变成负数，返回0。最后sumflag就是最终结果。12345678910111213141516171819202122232425class Solution ...">
+思路
+使用map建立罗马数字和整数之间映射关系
+由字符串从左到右，如果当前字符代表的值大于下一个字符则减去该值。否则就加上该值。  
+以此类推最终得到的结果就是答案。
+
+C++代码12345678910111213141516171819202122232425class Solution &#123;public:    int romanToInt(string s) &#123;...">
   
-  <title>LeetCode第七题：整数反转-C++ [ GWJ_AJ ]</title>
+  <title>LeetCode第13题：罗马数字转整数-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,22 +43,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/12/01/leetcode第八题/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第八题：字符串转换整数(atoi)-C++
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2018/11/29/leetcode第六题/">
+      <a href="/2018/12/05/cookie，session机制/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第六题：Z字形变换-C++
+        cookie/session机制
       </div>
     </div>
   
@@ -128,11 +124,11 @@
       
       
   <article id="post">
-    <h1>LeetCode第七题：整数反转-C++</h1>
+    <h1>LeetCode第13题：罗马数字转整数-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-11-30</span>
+      <span id = "post-title-date">Created at 2018-12-06</span>
       
-        <span id = "post-title-updated">Updated at 2018-11-30</span>
+        <span id = "post-title-updated">Updated at 2018-12-06</span>
       
       
       <span id = "post-title-categories">Category
@@ -169,30 +165,32 @@
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode7.png" alt=""></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p></p><p>flag记录x是负数还是整数，相应flag为-1或1。temp是x的绝对值。用除10取余法将temp每一位的值放到数组a[]中。每位乘以相对应的权值a[j]<em>pow(10, i-j-1),结果和sum相加。如果溢出，则sum变成负数，返回0。最后sum</em>flag就是最终结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int reverse(int x) &#123;</div><div class="line">        int sum = 0, i = 0;</div><div class="line">        int a[32];</div><div class="line">        int flag = 1;</div><div class="line">        <span class="keyword">if</span>(x &lt; 0)&#123;</div><div class="line">            flag = -1;</div><div class="line">        &#125;</div><div class="line">        int temp = abs(x);</div><div class="line">        <span class="keyword">while</span>(temp &gt; 0)&#123;</div><div class="line">            a[i] = temp % 10;</div><div class="line">            i++;</div><div class="line">            temp /= 10;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(int j = 0; j &lt; i; j++)&#123;</div><div class="line">            sum += a[j] * pow(10, i-j-1);</div><div class="line">            <span class="keyword">if</span>(sum &lt; 0)&#123;</div><div class="line">                <span class="built_in">return</span> 0;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        sum *= flag;</div><div class="line">        <span class="built_in">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<h2 id="官方题解"><a href="#官方题解" class="headerlink" title="官方题解"></a>官方题解</h2><p><img src="/images/leetcode7_1.png" alt=""><br>INT_MAX = 2147483647;<br>INT_MIN = -2147483648;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int reverse(int x) &#123;</div><div class="line">        int rev = 0;</div><div class="line">        <span class="keyword">while</span>(x != 0)&#123;</div><div class="line">            int pop = x % 10;</div><div class="line">            x /= 10;</div><div class="line">            <span class="keyword">if</span>(rev &gt; INT_MAX/10 || (rev == INT_MAX &amp;&amp; pop &gt; 7))&#123;</div><div class="line">                <span class="built_in">return</span> 0;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(rev &lt; INT_MIN/10 || (rev == INT_MIN &amp;&amp; pop &lt; -8))&#123;</div><div class="line">                <span class="built_in">return</span> 0;</div><div class="line">            &#125;</div><div class="line">            rev = rev * 10 + pop;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> rev;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="/images/leetcode13.png"></a><br><a href="/images/leetcode13_1.png"></a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>使用map建立罗马数字和整数之间映射关系</li>
+<li>由字符串从左到右，如果当前字符代表的值大于下一个字符则减去该值。否则就加上该值。  </li>
+<li>以此类推最终得到的结果就是答案。</li>
+</ol>
+<h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int romanToInt(string s) &#123;</div><div class="line">        int sum = 0;</div><div class="line">        map&lt;char, int&gt; m;</div><div class="line">        m[<span class="string">'I'</span>] = 1;</div><div class="line">        m[<span class="string">'V'</span>] = 5;</div><div class="line">        m[<span class="string">'X'</span>] = 10;</div><div class="line">        m[<span class="string">'L'</span>] = 50;</div><div class="line">        m[<span class="string">'C'</span>] = 100;</div><div class="line">        m[<span class="string">'D'</span>] = 500;</div><div class="line">        m[<span class="string">'M'</span>] = 1000;</div><div class="line">        </div><div class="line">        int len = s.length();</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(m[s[i]] &lt; m[s[i+1]] &amp;&amp; i &lt; len-1)&#123;</div><div class="line">                sum -= m[s[i]];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                sum += m[s[i]];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#官方题解"><span class="toc-text">官方题解</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/12/01/leetcode第八题/" class="prev">&larr; Prev post LeetCode第八题：字符串转换整数(atoi)-C++</a>
-  
 
   
 
   
-    <a href="/2018/11/29/leetcode第六题/" class="next">Next post LeetCode第六题：Z字形变换-C++ &rarr;</a>
+    <a href="/2018/12/05/cookie，session机制/" class="next">Next post cookie/session机制 &rarr;</a>
   
 </nav>
 
