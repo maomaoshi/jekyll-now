@@ -16,18 +16,13 @@
   
   
   
-    <meta name="description" content="前言
-10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。
+    <meta name="description" content="TCP的三次握手假设A为客户端，B为服务器端  
 
-安装hexo
-在安装hexo之前，必须安装：
-  1.Node.js
-  2.Git
-  如果两个都安装好后就可以直接安装hexo
-
-在要安装hexo的路径下打开Git Bash输入 $ npm install -g hexo...">
+首先B处于LISTEN（监听）状态，等待客户的连接请求  
+A向B发送连接请求报文，SYN=1,ACK=0,选择一个初始的序列号seq=x，进入SYN-SENT状态  
+B收到连接请求报文，如果同意建立连接，则向A发送连接确认报文，SYN=1,ACK=1,确认号ack=x+1，同时也选择一个初始的序号seq=y，进入SYN-RCVD状态  ...">
   
-  <title>hexo+github搭建个人博客心得 [ GWJ_AJ ]</title>
+  <title>TCP三次握手，四次挥手 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -46,22 +41,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/02/27/sqli-labs学习笔记/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        sqli-labs学习笔记
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2017/10/02/hello-world/">
+      <a href="/2018/12/06/leetcode第13题/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        Hello World
+        LeetCode第13题-C++
       </div>
     </div>
   
@@ -136,11 +122,11 @@
       
       
   <article id="post">
-    <h1>hexo+github搭建个人博客心得</h1>
+    <h1>TCP三次握手，四次挥手</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2017-10-13</span>
+      <span id = "post-title-date">Created at 2018-12-06</span>
       
-        <span id = "post-title-updated">Updated at 2017-10-14</span>
+        <span id = "post-title-updated">Updated at 2018-12-07</span>
       
       
       <span id = "post-title-categories">Category
@@ -148,7 +134,7 @@
       
         
         
-        <a href="/categories/Blog/">Blog</a>
+        <a href="/categories/计算机网络/">计算机网络</a>
       
       </span>
       
@@ -159,63 +145,35 @@
       
         
         
-        <a href="/tags/Blog/">Blog</a>
+        <a href="/tags/计算机网络/">计算机网络</a>
       
       </span>
       
     </p>
     
-    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>10.2赶在去重庆之前,花了一天的时间把博客给搭好了。搭建的过程中也遇到了很多问题，写这篇博客就是想把搭建过程和遇到的问题和解决方法写下来，作为备忘和巩固吧。</p>
-</blockquote>
-<h1 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h1><ul>
-<li><p>在安装hexo之前，必须安装：</p>
-<p>  1.<a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></p>
-<p>  2.<a href="https://git-scm.com/" target="_blank" rel="external">Git</a></p>
-<p>  如果两个都安装好后就可以直接安装hexo</p>
-</li>
-<li><p>在要安装hexo的路径下打开Git Bash输入<br> <code>$ npm install -g hexo-cli</code></p>
-</li>
-<li><p>然后在要搭建博客的路径下，单击右键，打开Git Bash</p>
-<p>   <code>$ hexo init</code></p>
-<p>   <code>$ npm install</code></p>
-</li>
-</ul>
+    <h2 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h2><p><img src="/images/tcp.png" alt=""><br>假设A为客户端，B为服务器端  </p>
 <ul>
-<li><p>新建完成后，当前文件夹的目录如下：</p>
-<p> <img src="/images/blog_catalog.png" alt=""></p>
-</li>
+<li>首先B处于LISTEN（监听）状态，等待客户的连接请求  </li>
+<li>A向B发送连接请求报文，SYN=1,ACK=0,选择一个初始的序列号seq=x，进入SYN-SENT状态  </li>
+<li>B收到连接请求报文，如果同意建立连接，则向A发送连接确认报文，SYN=1,ACK=1,确认号ack=x+1，同时也选择一个初始的序号seq=y，进入SYN-RCVD状态  </li>
+<li>A收到B的连接确认报文后，还要向B发出确认，确认号ack=y+1，序号为seq=x+1。服务器收到确认报文后，双方都进入ESTABLISHED状态  </li>
 </ul>
-<h1 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h1><h4 id="注册github账号"><a href="#注册github账号" class="headerlink" title="注册github账号"></a>注册github账号</h4><p>   <a href="https://github.com" target="_blank" rel="external">github官网</a></p>
-<h4 id="创建新仓库"><a href="#创建新仓库" class="headerlink" title="创建新仓库"></a>创建新仓库</h4><ul>
-<li>创建一个新的仓库，仓库名为 用户名.github.io<br>比如：maomaoshi.github.io<br>maomaoshi就是我github的用户名</li>
-</ul>
-<h4 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h4><ul>
-<li><p>输入<code>ssh-keygen -t rsa -C &quot;注册的github邮箱&quot;</code></p>
-</li>
-<li><p>然后一路回车，之后会在本地~/.ssh生成id_rsa(密钥)和    id_rsa.pub（公钥）</p>
-</li>
-<li><p>查看公钥里面的内容： <code>cat ~/.ssh/id_rsa.pub</code></p>
-<p> <img src="/images/id_rsa.jpg" alt=""></p>
-</li>
-<li><p>将公钥的里的内容复制下来添加到github的SSH Key</p>
-<p> <img src="/images/sshkey1.jpg" alt=""></p>
-<p> <img src="/images/sshkey2.jpg" alt=""></p>
-</li>
-<li><p>最后可以输入<code>ssh -T git@github</code>检测是否配置成功</p>
-</li>
-</ul>
-<h4 id="修改config文件"><a href="#修改config文件" class="headerlink" title="修改config文件"></a>修改config文件</h4><ul>
-<li><p>在目录下打开_config.yml修改config文件</p>
-<p><img src="/images/config.png" alt=""></p>
-</li>
-<li><p>参照上面的图，把用户名改成你的用户名</p>
-</li>
-</ul>
-<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>   <code>$ npm install hexo-deployer-git --save</code></p>
-<p>   <code>$ hexo d -g</code></p>
+<h3 id="三次握手的原因"><a href="#三次握手的原因" class="headerlink" title="三次握手的原因"></a>三次握手的原因</h3><p></p><p>第三次握手是为了防止失效的连接请求到达服务器，让服务器错误打开连接。</p>
+<p></p><p>客户端发送的连接请求如果在网络中滞留，那么就会隔很长一段时间才能收到服务器端发回的连接确认。客户端等待一个超时重传时间之后，救护重新请求连接。但是这个滞留的连接请求最后还是会到达服务器，如果不进行三次握手，那么服务器就会打开连接。如果有第三次握手，客户端会忽略服务器之后发送的对滞留连接请求的连接确认，不进行第三次握手，因此就不会再次打开连接。</p>
+<h2 id="TCP的四次挥手"><a href="#TCP的四次挥手" class="headerlink" title="TCP的四次挥手"></a>TCP的四次挥手</h2><p><img src="/images/tcp_1.png" alt="">  </p>
 <ul>
-<li>这样就部署完成了，然后可以通过<code>http://你的用户名.github.io</code>访问自己博客</li>
+<li>客户端A发送连接释放报文，FIN=1  </li>
+<li>B收到FIN后，发回一个ACK，确认序号为收到的序号加1.此时TCP属于半关闭状态，B能向A发送数据但是A不能想B发送数据。  </li>
+<li>当B不再需要连接时，发送连接释放报文，FIN=1  </li>
+<li>A发回ACK报文确认，并将确认序号设置为收到序号加1，进入TIME-WAIT状态，等待2MSL(最大报文存活时间)后释放连接  </li>
+<li>B收到A的确认后释放连接</li>
+</ul>
+<h3 id="四次挥手的原因"><a href="#四次挥手的原因" class="headerlink" title="四次挥手的原因"></a>四次挥手的原因</h3><p></p><p>客户端发送了FIN连接释放报文之后，服务器收到了这个报文，就进入了CLOSE-WAIT状态。这个状态是为了让服务器端发送还未传送完毕的数据，传送完毕之后，服务器会发送FIN连接释放报文。</p>
+<p></p><p><strong>TIME_WAIT</strong></p>
+<p></p><p>客户端收到服务器端的FIN报文后进入此状态，此时并不是直接进入CLOSED状态，还需要等待一个时间计时器设置的时间2MSL。这么做有两个理由：  </p>
+<ul>
+<li>确保最后一个确认报文能够到达。如果B没收到A发送来的确认报文，那么就会重新发送连接释放请求博文，A等待一段时间就是为了处理这种情况的发生。  </li>
+<li>等待一段时间是为了让本连接连续时间内所产生的所有报文都从网络中消失，使得下一个新的连接不会出现旧的连接请求报文。</li>
 </ul>
 
   </article>
@@ -224,20 +182,18 @@
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装hexo"><span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#部署到github"><span class="toc-text">部署到github</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#注册github账号"><span class="toc-text">注册github账号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建新仓库"><span class="toc-text">创建新仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置SSH"><span class="toc-text">配置SSH</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改config文件"><span class="toc-text">修改config文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP的三次握手"><span class="toc-text">TCP的三次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三次握手的原因"><span class="toc-text">三次握手的原因</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP的四次挥手"><span class="toc-text">TCP的四次挥手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#四次挥手的原因"><span class="toc-text">四次挥手的原因</span></a></li></ol></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/02/27/sqli-labs学习笔记/" class="prev">&larr; Prev post sqli-labs学习笔记</a>
-  
 
   
 
   
-    <a href="/2017/10/02/hello-world/" class="next">Next post Hello World &rarr;</a>
+    <a href="/2018/12/06/leetcode第13题/" class="next">Next post LeetCode第13题-C++ &rarr;</a>
   
 </nav>
 

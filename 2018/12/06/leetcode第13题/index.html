@@ -1,8 +1,6 @@
 
 
 
-  
-
 
 
 
@@ -18,9 +16,15 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="题目
+思路
+使用map建立罗马数字和整数之间映射关系
+由字符串从左到右，如果当前字符代表的值大于下一个字符则减去该值。否则就加上该值。
+以此类推最终得到的结果就是答案。
+
+C++代码12345678910111213141516171819202122232425class Solution &#123;public:    int romanToInt(string s) &#123;  ...">
   
-  <title>Tag: sort() [ GWJ_AJ ]</title>
+  <title>LeetCode第13题-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,6 +43,24 @@
 <body>
 <div class="side-navigate hide-area">
   
+    <div class="item prev">
+      <a href="/2018/12/06/tcp三次握手四次挥手/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        TCP三次握手，四次挥手
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2018/12/05/leetcode第12题/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode第12题：整数转罗马数字-C++
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -71,7 +93,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/tags">Tags</a>
             
@@ -110,297 +132,82 @@
     <div id="content-inner">
       
       
-  <div id="tag">
-    <h1>sort()</h1>
+  <article id="post">
+    <h1>LeetCode第13题-C++</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-12-06</span>
+      
+        <span id = "post-title-updated">Updated at 2018-12-06</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/C/Leetcode/">Leetcode</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/LeetCode/">LeetCode</a>
+      
+      </span>
+      
+    </p>
     
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-          
-        
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/02/27/C++sort()用法/">
-  
-    C++ sort()用法
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">2-27</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/C/">C++</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/sort/">sort()</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode13.png" alt=""></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>使用map建立罗马数字和整数之间映射关系</li>
+<li>由字符串从左到右，如果当前字符代表的值大于下一个字符则减去该值。否则就加上该值。</li>
+<li>以此类推最终得到的结果就是答案。</li>
+</ol>
+<h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int romanToInt(string s) &#123;</div><div class="line">        int sum = 0;</div><div class="line">        map&lt;char, int&gt; m;</div><div class="line">        m[<span class="string">'I'</span>] = 1;</div><div class="line">        m[<span class="string">'V'</span>] = 5;</div><div class="line">        m[<span class="string">'X'</span>] = 10;</div><div class="line">        m[<span class="string">'L'</span>] = 50;</div><div class="line">        m[<span class="string">'C'</span>] = 100;</div><div class="line">        m[<span class="string">'D'</span>] = 500;</div><div class="line">        m[<span class="string">'M'</span>] = 1000;</div><div class="line">        </div><div class="line">        int len = s.length();</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(m[s[i]] &lt; m[s[i+1]] &amp;&amp; i &lt; len-1)&#123;</div><div class="line">                sum -= m[s[i]];</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                sum += m[s[i]];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> sum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol>
   </div>
+</div>
 
   
+<nav id="pagination">
+  
+    <a href="/2018/12/06/tcp三次握手四次挥手/" class="prev">&larr; Prev post TCP三次握手，四次挥手</a>
+  
+
+  
+
+  
+    <a href="/2018/12/05/leetcode第12题/" class="next">Next post LeetCode第12题：整数转罗马数字-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -502,6 +309,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
