@@ -175,10 +175,12 @@
 <p>定义：<br>map<type1, type2=""> mapTemp;  </type1,></p>
 <p>基本操作：<br>mapTemp.count() //返回被查找元素的个数，如果有返回1，否则0<br>mapTemp[n] //访问key为n对应的value<br>mapTemp[m] = val  //赋值</p>
 <p></p><p>map的遍历：</p>
-<pre><code class="bash">map&lt; string, int &gt;::iterator iter;
+<pre><code class="bash">
+map&lt;string, int&gt;::iterator iter;//定义一个迭代指针
+cout &lt;&lt; <span class="string">"文件目录："</span> &lt;&lt;endl; 
 <span class="keyword">for</span>(iter = catalog.begin(); iter != catalog.end(); iter++){
-        cout &lt;&lt; iter-&gt;first &lt;&lt; <span class="string">"-&gt;"</span> &lt;&lt; iter-&gt;second &lt;&lt; endl;
-    }
+    cout &lt;&lt; iter-&gt;first &lt;&lt; <span class="string">"-&gt;"</span> &lt;&lt; iter-&gt;second &lt;&lt; endl;
+}
 </code></pre>
 <h2 id="0x02-stack"><a href="#0x02-stack" class="headerlink" title="0x02 stack"></a>0x02 stack</h2><p>头文件：#include &lt; stack &gt;  </p>
 <p>定义：<br>stack&lt; type &gt; s;  </p>
