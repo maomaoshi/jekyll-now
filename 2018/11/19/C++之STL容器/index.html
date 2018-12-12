@@ -133,7 +133,7 @@
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-11-19</span>
       
-        <span id = "post-title-updated">Updated at 2018-11-24</span>
+        <span id = "post-title-updated">Updated at 2018-12-12</span>
       
       
       <span id = "post-title-categories">Category
@@ -173,7 +173,13 @@
 <h2 id="0x01-map"><a href="#0x01-map" class="headerlink" title="0x01 map"></a>0x01 map</h2><p></p><p>map的功能：自动建立key-value的对应。key和value可以是你任意需要的类型</p>
 <p>头文件： #include&lt; map &gt;  </p>
 <p>定义：<br>map<type1, type2=""> mapTemp;  </type1,></p>
-<p>基本操作：<br>mapTemp.count() //返回被查找元素的个数，如果有返回1，否则0<br>mapTemp[n] //访问key为n对应的value<br>mapTemp[m] = val  //赋值  </p>
+<p>基本操作：<br>mapTemp.count() //返回被查找元素的个数，如果有返回1，否则0<br>mapTemp[n] //访问key为n对应的value<br>mapTemp[m] = val  //赋值</p>
+<p></p><p>map的遍历：</p>
+<pre><code class="bash">map&lt; string, int &gt;::iterator iter;
+<span class="keyword">for</span>(iter = catalog.begin(); iter != catalog.end(); iter++){
+        cout &lt;&lt; iter-&gt;first &lt;&lt; <span class="string">"-&gt;"</span> &lt;&lt; iter-&gt;second &lt;&lt; endl;
+    }
+</code></pre>
 <h2 id="0x02-stack"><a href="#0x02-stack" class="headerlink" title="0x02 stack"></a>0x02 stack</h2><p>头文件：#include &lt; stack &gt;  </p>
 <p>定义：<br>stack&lt; type &gt; s;  </p>
 <p>基本操作：<br>s.push(i)  //将元素压入栈<br>s.top()  //返回栈顶元素<br>s.pop() //将栈顶元素弹出栈，并不返回该值<br>s.empty() //返回该栈是否为空<br>s.size() //返回栈中元素的个数</p>
