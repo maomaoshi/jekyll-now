@@ -17,9 +17,11 @@
   
   
     <meta name="description" content="题目
-暴力法123456789101112131415161718class Solution &#123;public:    int maxArea(vector&lt;int&gt;&amp; height) &#123;        int max = 0;        int h, l;        int len = height.size();        for(in...">
+思路
+先将数组nums进行排序，然后从左往右依次枚举，在枚举的过程中左右夹逼。
+枚举位置为i,、左、右位置分别用l、r表示，target = -nums[i],当nums[l]+nums[r]==target，则算找到一个，要存起来，再将左（右）边界往右夹逼同时要跳过左（右）边界相同的值，否则会出现重复的三个数；当nums[l]+nums[r]&lt;target,左边界往右夹逼；否则...">
   
-  <title>LeetCode第十一题：盛最多水的容器-C++ [ GWJ_AJ ]</title>
+  <title>LeetCode第15题三数之和-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,22 +40,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/12/04/依赖注入/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        依赖注入容器
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2018/12/03/二分查找/">
+      <a href="/2018/12/14/http协议/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        二分查找-C++
+        HTTP协议
       </div>
     </div>
   
@@ -128,11 +121,11 @@
       
       
   <article id="post">
-    <h1>LeetCode第十一题：盛最多水的容器-C++</h1>
+    <h1>LeetCode第15题三数之和-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-12-04</span>
+      <span id = "post-title-date">Created at 2018-12-16</span>
       
-        <span id = "post-title-updated">Updated at 2018-12-06</span>
+        <span id = "post-title-updated">Updated at 2018-12-16</span>
       
       
       <span id = "post-title-categories">Category
@@ -169,30 +162,31 @@
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode11.png" alt=""></p>
-<h2 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxArea(vector&lt;int&gt;&amp; height) &#123;</div><div class="line">        int max = 0;</div><div class="line">        int h, l;</div><div class="line">        int len = height.size();</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len-1; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = i + 1; j &lt; len; j++)&#123;</div><div class="line">                l = j - i;</div><div class="line">                h = (height[i] &gt; height[j]) ? height[j] : height[i];</div><div class="line">                int temp = l * h;</div><div class="line">                max = (temp &gt; max) ? temp : max;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><p></p><p>思路：我们在由线段长度构成的数组中使用两个指针，一个放在开始，一个置于末尾。 此外，我们会使用变量 max 来持续存储到目前为止所获得的最大面积。 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 max，并将指向较短线段的指针向较长线段那端移动一步。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxArea(vector&lt;int&gt;&amp; height) &#123;</div><div class="line">        int max = 0;</div><div class="line">        int l = 0, r = height.size() - 1;</div><div class="line">        <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">            int temp = (height[l] &lt; height[r]) ? height[l] : height[r];</div><div class="line">            max = (temp * (r - l) &gt; max) ? temp * (r - l) : max;</div><div class="line">            <span class="keyword">if</span>(height[l] &lt; height[r])&#123;</div><div class="line">                l++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                r--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode15.png" alt=""></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>先将数组nums进行排序，然后从左往右依次枚举，在枚举的过程中左右夹逼。</li>
+<li>枚举位置为i,、左、右位置分别用l、r表示，target = -nums[i],当nums[l]+nums[r]==target，则算找到一个，要存起来，再将左（右）边界往右夹逼同时要跳过左（右）边界相同的值，否则会出现重复的三个数；当nums[l]+nums[r]&lt;target,左边界往右夹逼；否则，右边界往左夹逼。</li>
+<li>在步骤2的整个过程中，始终要保证l&lt;r。</li>
+</ol>
+<h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">        vector&lt;vector&lt;int&gt;&gt; res;</div><div class="line">        sort(nums.begin(), nums.end());//从小到大排序</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; nums.size(); i++)&#123;</div><div class="line">            <span class="keyword">if</span>(i == 0 || nums[i] != nums[i-1])&#123;//剪枝</div><div class="line">                int l = i + 1;</div><div class="line">                int r = nums.size() - 1;//记录左右两数的下标</div><div class="line">                <span class="keyword">while</span>(l &lt; nums.size() - 1 &amp;&amp; r &gt; 1 &amp;&amp; l &lt; r)&#123;</div><div class="line">                    int target = nums[i] * (-1);//目标求和值</div><div class="line">                    <span class="keyword">if</span>(nums[l] + nums[r] == target)&#123; //和为零，则记录数据，并将边界值向中间逼近</div><div class="line">                        vector&lt;int&gt; temp(3,0);</div><div class="line">                        temp[0] = nums[i];</div><div class="line">                        temp[1] = nums[l];</div><div class="line">                        temp[2] = nums[r];</div><div class="line">                        res.push_back(temp);</div><div class="line">                        <span class="keyword">while</span>(nums[l] == temp[1] &amp;&amp; l &lt; r) l++;//避免计算重复元素</div><div class="line">                        <span class="keyword">while</span>(nums[r] == temp[2] &amp;&amp; l &lt; r) r--;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(nums[l] + nums[r] &lt; target) l++;</div><div class="line">                    <span class="keyword">else</span> r--;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暴力法"><span class="toc-text">暴力法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#双指针法"><span class="toc-text">双指针法</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/12/04/依赖注入/" class="prev">&larr; Prev post 依赖注入容器</a>
-  
 
   
 
   
-    <a href="/2018/12/03/二分查找/" class="next">Next post 二分查找-C++ &rarr;</a>
+    <a href="/2018/12/14/http协议/" class="next">Next post HTTP协议 &rarr;</a>
   
 </nav>
 
