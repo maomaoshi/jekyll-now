@@ -1,0 +1,373 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="TCP可靠数据传输TCP的可靠数据传输服务确保一个进程从其他接收缓存中读出非损坏、无间隔的、非冗余和按序的数据流，即该字节流与连接的另一方端系统发送出的字节流完全一样。TCP协议遵循单一定时器的原则。
+TCP是使用超时重传和冗余确认技术来恢复报文段的丢失。
+TCP发送方有3个与发送和重传有关的主要事件
+从上层应用程序接受数据TCP从应用程序接收数据，将数据封装在一个报文段中，并交给IP。（每...">
+  
+  <title>TCP的可靠数据传输、流量控制和拥塞控制 [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2018/12/17/leetcode第16题/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode第16题最接近的三数之和-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>TCP的可靠数据传输、流量控制和拥塞控制</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-12-18</span>
+      
+        <span id = "post-title-updated">Updated at 2018-12-18</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/计算机网络/">计算机网络</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/计算机网络/">计算机网络</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="TCP可靠数据传输"><a href="#TCP可靠数据传输" class="headerlink" title="TCP可靠数据传输"></a>TCP可靠数据传输</h2><p></p><p>TCP的可靠数据传输服务确保一个进程从其他接收缓存中读出非损坏、无间隔的、非冗余和按序的数据流，即该字节流与连接的另一方端系统发送出的字节流完全一样。TCP协议遵循单一定时器的原则。</p>
+<p></p><p>TCP是使用<strong>超时重传</strong>和<strong>冗余确认技术</strong>来恢复报文段的丢失。</p>
+<h3 id="TCP发送方有3个与发送和重传有关的主要事件"><a href="#TCP发送方有3个与发送和重传有关的主要事件" class="headerlink" title="TCP发送方有3个与发送和重传有关的主要事件"></a>TCP发送方有3个与发送和重传有关的主要事件</h3><ol>
+<li><p>从上层应用程序接受数据<br>TCP从应用程序接收数据，将数据封装在一个报文段中，并交给IP。（每一个报文段的序号就是该报文段第一个数据字节的字节流编号）。TCP启动定时器关联最早的未被确认的报文段。</p>
+</li>
+<li><p>定时器超时<br>TCP通过重传引起超时的报文段来相应超时事件。然后TCP重传定时器。</p>
+</li>
+<li><p>收到接收端的确认报文段（ACK)<br>当该事件发生时，TCP将ACK的值y与变量SendBase（最早未被确认的字节的序号）进行比较。TCP采用累积确认，所以<strong>收到y表示字节编号在y之前的所有字节都已经收到了</strong>。如果y&gt;SendBase，则该ACK是在确认一个或多个先前未被确认的报文段。因此发送方更新SendBase变量；另外，如果当前有未被确认的报文段，TCP还要重新启动定时器。  </p>
+</li>
+</ol>
+<h3 id="TCP协议在工作过程中几种简单情况"><a href="#TCP协议在工作过程中几种简单情况" class="headerlink" title="TCP协议在工作过程中几种简单情况"></a>TCP协议在工作过程中几种简单情况</h3><ol>
+<li><p>由于确认报文段丢失而重传<br><img src="/images/TCP可靠传输1.png" alt=""><br>B发送给A的ACK丢失，引发超时事件，导致A重传。B在接收到重传的报文段后，根据序号发现该报文段包含了已经收到的数据，则丢弃该重传的报文段，再向B发送一个ACK。  </p>
+</li>
+<li><p>连续发送的报文段的ACK延迟<br><img src="/images/TCP可靠传输2.png" alt=""><br>A连续向B发送了两个报文段，但在超时之前两个报文段的确认报文都没有到达A。引发超时事件，A重传序号为92第一个报文段，并重启计时器。只要第二个报文段的ACK在新的超时事件以前到达，则第二个报文段不会被重传。  </p>
+</li>
+<li><p>累积确认避免了第一个报文段的重传。<br><img src="/images/TCP可靠传输3.png" alt=""><br>A向B连续发送了两个报文段。第一个报文段的确认报文在网络中丢失，但是第二个报文段的确认报文在超时之前到达A。因为TCP采用了累积确认，第二个报文段ACK到达，则说明第一个报文段也被正确接收了，所以第一个报文段不会被重传。</p>
+</li>
+</ol>
+<h3 id="超时间隔加倍"><a href="#超时间隔加倍" class="headerlink" title="超时间隔加倍"></a>超时间隔加倍</h3><p></p><p>当超时事件发生时，TCP重传具有最小序号的还未被确认的报文段，且会将下一次的超时间隔设为先前值的两倍。</p>
+<h3 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h3><p></p><p><strong>超时触发重传的缺点是超时周期可能相对较长。</strong>当一个报文段丢失时，这种长超时周期迫使发送方等待很长事件才能重传丢失的分组，增加端到端时延。但是，<strong>发送方可在超时事件发生之前通过冗余ACK来检测丢包情况</strong>。</p>
+<p></p><p>发送方经常连续发送大量的报文段，发送过程中，有可能会有报文段丢失。当TCP接收方收到一个比所期望序号大的报文段时，则检测到数据流中的一个间隔，即有报文段丢失，这时接收方就会发送冗余ACK（对按序接收到的最后一个字节数据进行重复确认）。发送方一旦接收到3个冗余ACK，TCP就执行<strong>快速重传</strong>。<br><img src="/images/TCP可靠传输4.png" alt=""> </p>
+<h3 id="是回退N步还是选择重传"><a href="#是回退N步还是选择重传" class="headerlink" title="是回退N步还是选择重传"></a>是回退N步还是选择重传</h3><p></p><p>根据前面对TCP描述，可以得知TCP确认是采用累积确认方式，并且对失序报文是不会被接收方逐个确认的。这让TCP看起来像是一个GBN协议，但是与GBN不同的是，TCP会缓存失序的分组。所以，TCP提出的一种修改意见是<strong>选择确认</strong>（slective acknowledgment）[RFC 2018]，它允许TCP接收方有选择地确认失序报文段，而不是累积确认最后一个正确接收的有序报文段。当将该机制和选择重传机制结合起来使用时（即跳过重传那些已被接收方选择确认过的报文段（比如上文第三个简单情况）），TCP就像我们通常的SR协议。因此，TCP的差错恢复机制为GBN协议和SR协议的混合体。</p>
+<h2 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h2><p></p><p>TCP为应用程序提供了<strong>流量控制服务</strong>以消除发送方使接收方缓存溢出的可能性。因此，流量控制是一个速度匹配服务，即发送方的发送速率与接收方应用程序的读速率相匹配。</p>
+<h3 id="TCP如何提供流量控制服务"><a href="#TCP如何提供流量控制服务" class="headerlink" title="TCP如何提供流量控制服务"></a>TCP如何提供流量控制服务</h3><ol>
+<li>TCP让发送方A维护一个称为<strong>接收窗口</strong>的<strong>变量</strong>来提供流量控制。该变量用于告诉发送方，该接收方还有多少可用的缓存空间。</li>
+</ol>
+<h4 id="接收方B的操作"><a href="#接收方B的操作" class="headerlink" title="接收方B的操作"></a>接收方B的操作</h4><p></p><p>B为TCP连接发配一个接收缓存，用RcvBuffer来表示其大小，并定义了以下变量：  </p>
+<ul>
+<li>LastByteRead:主机B上的应用进程从缓存读出的数据流最后一个字节的编号  </li>
+<li>LastByteRcvd：从网络中到达的并且已放入主机B接收缓存中的数据流最后一个一个字节的编号。<br>由于TCP不允许已分配的缓存溢出，则：<br>LastByteRcvd-LastByteRead&lt;=RcvBuffer<br>接收窗口用RcvWindow表示：<br>RcvWindow=RcvBuffer-[LastByteRcvd-LastByteRead]<br><p><strong>主机B通过把当前的RcvWindow值放入它发给主机A的报文段接收窗口字段中，通知主机A它在该连接的缓存中还有多少可用空间</strong>。</p></li>
+</ul>
+<h4 id="发送方A的操作"><a href="#发送方A的操作" class="headerlink" title="发送方A的操作"></a>发送方A的操作</h4><p></p><p>发送方A轮流跟踪两个变量LastByteSend和LastByteAcked，通过将未确认的数据量控制在值RcvWindow以内，就可以保证主机A不会使主机B的接收缓存溢出，即：<br>LastByteSend-LastByteAcked&lt;=RcvWindow  </p>
+<h3 id="死锁问题"><a href="#死锁问题" class="headerlink" title="死锁问题"></a>死锁问题</h3><h4 id="死锁问题出现"><a href="#死锁问题出现" class="headerlink" title="死锁问题出现"></a>死锁问题出现</h4><p></p><p>主机B的接收缓存满了，RcvWindow =0。主机A知道了就会暂停数据发送，等待主机B的接收缓存有空闲。如果此时主机B没有数据发送给A那么A将不可能知道主机B会有缓存空闲，这会导致A被阻塞（主机B仅当他有数据发送或者有确认时才会发送报文段给A） ！</p>
+<h4 id="解决死锁问题"><a href="#解决死锁问题" class="headerlink" title="解决死锁问题"></a>解决死锁问题</h4><p></p><p>当发送方A收到接收方B的窗口为0的通知，便启动一个一个持续计数器，每隔一段时间向B发送只有一个字节数据的零窗口探测报文段。这些报文段将被接收方确认。最终缓存将开始清空，并且确认报文里包含一个非0的RcvWindow 值。</p>
+<h2 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h2><p></p><p>如果网络出现拥塞，分组将会丢失，此时发送方会继续重传，从而导致网络拥塞程度更高。因此当出现拥塞时，应当控制发送方的速率。这一点和流量控制很像，但是出发点不同。流量控制是为了让接收方能来得及接收，而拥塞控制是为了降低整个网络的拥塞程度。<br><img src="/images/拥塞控制的作用.png" alt="">  </p>
+<p></p><p>TCP主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、快重传、快恢复。</p>
+<p></p><p>发送方需要维护一个叫做拥塞窗口（cwnd）的状态变量，注意拥塞窗口与发送方窗口的区别：拥塞窗口只是一个变量，实际决定发送方能发送多少数据的是发送方窗口。<br>为了便于讨论，做如下假设：  </p>
+<ul>
+<li>接收方有足够大的接收缓存，因此不会发生流量控制。  </li>
+<li>虽然TCP的窗口基于字节，但是这里设窗口的大小单位为报文段。<br><img src="/images/拥塞窗口的变化情况.png" alt=""></li>
+</ul>
+<h3 id="1-慢开始与拥塞避免"><a href="#1-慢开始与拥塞避免" class="headerlink" title="1. 慢开始与拥塞避免"></a>1. 慢开始与拥塞避免</h3><p></p><p>发送的最初执行慢开始，令 cwnd = 1，发送方只能发送 1 个报文段；当收到确认后，将 cwnd 加倍，因此之后发送方能够发送的报文段数量为：2、4、8 …</p>
+<p></p><p>注意到慢开始每个轮次都将 cwnd 加倍，这样会让 cwnd 增长速度非常快，从而使得发送方发送的速度增长速度过快，网络拥塞的可能性也就更高。设置一个慢开始门限 ssthresh，当 cwnd &gt;= ssthresh 时，进入拥塞避免，每个轮次只将 cwnd 加 1。  </p>
+<p></p><p>如果出现了超时，则令 ssthresh = cwnd / 2，然后重新执行慢开始。  </p>
+<h3 id="2-快重传与快恢复"><a href="#2-快重传与快恢复" class="headerlink" title="2. 快重传与快恢复"></a>2. 快重传与快恢复</h3><p></p><p>在接收方，要求每次接收到报文段都应该对最后一个已收到的有序报文段进行确认。例如已经接收到 M1 和 M2，此时收到 M4，应当发送对 M2 的确认。</p>
+<p></p><p>在发送方在发生超时之前，如果收到三个重复确认，那么可以知道下一个报文段丢失，此时执行<strong>快重传</strong>，立即重传下一个报文段。例如收到三个 M2，则 M3 丢失，立即重传 M3。</p>
+<p></p><p>    在这种情况下，只是丢失个别报文段，而不是网络拥塞。因此执行<strong>快恢复</strong>，令 ssthresh = cwnd / 2 ，cwnd = ssthresh，注意到此时直接进入拥塞避免。</p>
+<p></p><p>慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。</p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP可靠数据传输"><span class="toc-text">TCP可靠数据传输</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP发送方有3个与发送和重传有关的主要事件"><span class="toc-text">TCP发送方有3个与发送和重传有关的主要事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP协议在工作过程中几种简单情况"><span class="toc-text">TCP协议在工作过程中几种简单情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#超时间隔加倍"><span class="toc-text">超时间隔加倍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速重传"><span class="toc-text">快速重传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#是回退N步还是选择重传"><span class="toc-text">是回退N步还是选择重传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP流量控制"><span class="toc-text">TCP流量控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP如何提供流量控制服务"><span class="toc-text">TCP如何提供流量控制服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#接收方B的操作"><span class="toc-text">接收方B的操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发送方A的操作"><span class="toc-text">发送方A的操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#死锁问题"><span class="toc-text">死锁问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#死锁问题出现"><span class="toc-text">死锁问题出现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决死锁问题"><span class="toc-text">解决死锁问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP拥塞控制"><span class="toc-text">TCP拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-慢开始与拥塞避免"><span class="toc-text">1. 慢开始与拥塞避免</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-快重传与快恢复"><span class="toc-text">2. 快重传与快恢复</span></a></li></ol></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/12/17/leetcode第16题/" class="next">Next post LeetCode第16题最接近的三数之和-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
