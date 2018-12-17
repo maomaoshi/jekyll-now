@@ -16,10 +16,13 @@
   
   
   
-    <meta name="description" content="今天在做leetcode的第二题时，遇到了struct的构造函数，之前都没有遇到这种类型，于是查了一些资料。
-在C语言中，结构体不能包含函数。在面向对象的程序设计中，对象具有状态（属性）和行为，状态保存在成员变量中，行为通过成员方法（函数）来实现。C语言中的结构体只能描述一个对象的状态，不能描述一个对象的行为。在C++中，考虑到C语言到C++语言过渡的连续性，对结构体进行了扩展，C++的结构...">
+    <meta name="description" content="题目
+思路
+d用来表示三数之和与目标值的差的绝对值
+先将数组nums进行排序，然后从左往右依次枚举，在枚举的过程中左右夹逼。  
+枚举位置为i，左、右位置分别用l、r表示，如果nums[i] + nums[l] + nums[r] - target的绝对值小于d时，则更新d为nums[i] + nums[l] + nums[r] - target的绝对值，result 为 三数之和。如果三数...">
   
-  <title>C++之struct的构造函数 [ GWJ_AJ ]</title>
+  <title>LeetCode第16题最接近的三数之和-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,22 +41,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/11/17/leetcode第二题/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第二题及拓展：两数相加-C++
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2018/11/16/leetcode第一题/">
+      <a href="/2018/12/16/leetcode第15题/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第一题：两数之和-C++
+        LeetCode第15题三数之和-C++
       </div>
     </div>
   
@@ -128,11 +122,11 @@
       
       
   <article id="post">
-    <h1>C++之struct的构造函数</h1>
+    <h1>LeetCode第16题最接近的三数之和-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-11-17</span>
+      <span id = "post-title-date">Created at 2018-12-17</span>
       
-        <span id = "post-title-updated">Updated at 2018-11-17</span>
+        <span id = "post-title-updated">Updated at 2018-12-17</span>
       
       
       <span id = "post-title-categories">Category
@@ -141,6 +135,12 @@
         
         
         <a href="/categories/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/C/Leetcode/">Leetcode</a>
       
       </span>
       
@@ -153,35 +153,42 @@
         
         <a href="/tags/C/">C++</a>
       
+        
+          /
+        
+        
+        <a href="/tags/LeetCode/">LeetCode</a>
+      
       </span>
       
     </p>
     
-    <p></p><p>今天在做leetcode的第二题时，遇到了struct的构造函数，之前都没有遇到这种类型，于是查了一些资料。</p>
-<p></p><p>在C语言中，结构体不能包含函数。在面向对象的程序设计中，对象具有状态（属性）和行为，状态保存在成员变量中，行为通过成员方法（函数）来实现。C语言中的结构体只能描述一个对象的状态，不能描述一个对象的行为。在C++中，考虑到C语言到C++语言过渡的连续性，对结构体进行了扩展，C++的结构体可以包含函数，这样，C++的结构体也具有类的功能，与class不同的是，结构体包含的函数默认为public，而不是private。</p>
-<h2 id="struct的定义与声明"><a href="#struct的定义与声明" class="headerlink" title="struct的定义与声明"></a>struct的定义与声明</h2><p></p><p>以下代码是leetcode第二题中结构体的定义：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">struct ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode *next;</div><div class="line">	//构造函数：</div><div class="line">    ListNode(int x) : val(x), next(NULL) &#123;&#125;</div><div class="line">	/*</div><div class="line">	ListNode(int x)&#123;</div><div class="line">		val = x;</div><div class="line">		next = NULL;</div><div class="line">	&#125;</div><div class="line">	*/</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p></p><p>初始化如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//调用构造函数</div><div class="line">ListNode a = ListNode(1);</div><div class="line">cout &lt;&lt; a.val;</div><div class="line">ListNode* b = new ListNode(0);</div><div class="line">cout &lt;&lt; b-&gt;val;</div><div class="line"></div><div class="line">//当类型为指针时，操作符为-&gt;</div></pre></td></tr></table></figure></p>
-
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode16.png" alt=""></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>d用来表示三数之和与目标值的差的绝对值</li>
+<li>先将数组nums进行排序，然后从左往右依次枚举，在枚举的过程中左右夹逼。  </li>
+<li>枚举位置为i，左、右位置分别用l、r表示，如果nums[i] + nums[l] + nums[r] - target的绝对值小于d时，则更新d为nums[i] + nums[l] + nums[r] - target的绝对值，result 为 三数之和。如果三数之和等于target，则返回当前三数之和；如果三数之和小于target，则左边界往右夹逼，否则右边界往左夹逼。</li>
+<li>在步骤2的整个过程中，始终保证l &lt; r。</li>
+</ol>
+<h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int threeSumClosest(vector&lt;int&gt;&amp; nums, int target) &#123;</div><div class="line">        int d = INT_MAX;</div><div class="line">        int result = 0;</div><div class="line">        sort(nums.begin(), nums.end());</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; nums.size(); i++)&#123;</div><div class="line">            <span class="keyword">if</span>(i == 0 || nums[i] != nums[i-1])&#123;</div><div class="line">                int l = i + 1;</div><div class="line">                int r = nums.size() - 1;</div><div class="line">                <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">                    int temp = nums[i] + nums [l] + nums[r];</div><div class="line">                    <span class="keyword">if</span>(abs(temp - target) &lt; d)&#123;</div><div class="line">                        d = abs(temp - target);</div><div class="line">                        result = temp;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span>(temp == target)&#123;</div><div class="line">                        <span class="built_in">return</span> result;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(temp &lt; target) l++;</div><div class="line">                    <span class="keyword">else</span> r--;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#struct的定义与声明"><span class="toc-text">struct的定义与声明</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/11/17/leetcode第二题/" class="prev">&larr; Prev post LeetCode第二题及拓展：两数相加-C++</a>
-  
 
   
 
   
-    <a href="/2018/11/16/leetcode第一题/" class="next">Next post LeetCode第一题：两数之和-C++ &rarr;</a>
+    <a href="/2018/12/16/leetcode第15题/" class="next">Next post LeetCode第15题三数之和-C++ &rarr;</a>
   
 </nav>
 
