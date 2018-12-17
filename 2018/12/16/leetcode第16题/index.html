@@ -16,13 +16,13 @@
   
   
   
-    <meta name="description" content="TCP的三次握手假设A为客户端，B为服务器端  
-
-首先B处于LISTEN（监听）状态，等待客户的连接请求  
-A向B发送连接请求报文，SYN=1,ACK=0,选择一个初始的序列号seq=x，进入SYN-SENT状态  
-B收到连接请求报文，如果同意建立连接，则向A发送连接确认报文，SYN=1,ACK=1,确认号ack=x+1，同时也选择一个初始的序号seq=y，进入SYN-RCVD状态  ...">
+    <meta name="description" content="题目
+思路
+d用来表示三数之和与目标值的差的绝对值
+先将数组nums进行排序，然后从左往右依次枚举，在枚举的过程中左右夹逼。  
+枚举位置为i，左、右位置分别用l、r表示，如果nums[i] + nums[l] + nums[r] - target的绝对值小于d时，则更新d为nums[i] + nums[l] + nums[r] - target的绝对值，result 为 三数之和。如果三数...">
   
-  <title>TCP三次握手，四次挥手 [ GWJ_AJ ]</title>
+  <title>LeetCode第16题最接近的三数之和-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -41,22 +41,13 @@ B收到连接请求报文，如果同意建立连接，则向A发送连接确认
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/12/14/http协议/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        HTTP协议
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2018/12/06/leetcode第13题/">
+      <a href="/2018/12/16/leetcode第15题/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第13题-C++
+        LeetCode第15题三数之和-C++
       </div>
     </div>
   
@@ -131,11 +122,11 @@ B收到连接请求报文，如果同意建立连接，则向A发送连接确认
       
       
   <article id="post">
-    <h1>TCP三次握手，四次挥手</h1>
+    <h1>LeetCode第16题最接近的三数之和-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-12-06</span>
+      <span id = "post-title-date">Created at 2018-12-16</span>
       
-        <span id = "post-title-updated">Updated at 2018-12-07</span>
+        <span id = "post-title-updated">Updated at 2018-12-17</span>
       
       
       <span id = "post-title-categories">Category
@@ -143,7 +134,13 @@ B收到连接请求报文，如果同意建立连接，则向A发送连接确认
       
         
         
-        <a href="/categories/计算机网络/">计算机网络</a>
+        <a href="/categories/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/C/Leetcode/">Leetcode</a>
       
       </span>
       
@@ -154,57 +151,44 @@ B收到连接请求报文，如果同意建立连接，则向A发送连接确认
       
         
         
-        <a href="/tags/计算机网络/">计算机网络</a>
+        <a href="/tags/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/LeetCode/">LeetCode</a>
       
       </span>
       
     </p>
     
-    <h2 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h2><p><img src="/images/tcp.png" alt=""><br>假设A为客户端，B为服务器端  </p>
-<ul>
-<li>首先B处于LISTEN（监听）状态，等待客户的连接请求  </li>
-<li>A向B发送连接请求报文，SYN=1,ACK=0,选择一个初始的序列号seq=x，进入SYN-SENT状态  </li>
-<li>B收到连接请求报文，如果同意建立连接，则向A发送连接确认报文，SYN=1,ACK=1,确认号ack=x+1，同时也选择一个初始的序号seq=y，进入SYN-RCVD状态  </li>
-<li>A收到B的连接确认报文后，还要向B发出确认，确认号ack=y+1，序号为seq=x+1。服务器收到确认报文后，双方都进入ESTABLISHED状态  </li>
-</ul>
-<h3 id="三次握手的原因"><a href="#三次握手的原因" class="headerlink" title="三次握手的原因"></a>三次握手的原因</h3><p></p><p>第三次握手是为了防止失效的连接请求到达服务器，让服务器错误打开连接。</p>
-<p></p><p>客户端发送的连接请求如果在网络中滞留，那么就会隔很长一段时间才能收到服务器端发回的连接确认。客户端等待一个超时重传时间之后，救护重新请求连接。但是这个滞留的连接请求最后还是会到达服务器，如果不进行三次握手，那么服务器就会打开连接。如果有第三次握手，客户端会忽略服务器之后发送的对滞留连接请求的连接确认，不进行第三次握手，因此就不会再次打开连接。</p>
-<h2 id="TCP的四次挥手"><a href="#TCP的四次挥手" class="headerlink" title="TCP的四次挥手"></a>TCP的四次挥手</h2><p><img src="/images/tcp_1.png" alt="">  </p>
-<ul>
-<li>客户端A发送连接释放报文，FIN=1  </li>
-<li>B收到FIN后，发回一个ACK，确认序号为收到的序号加1.此时TCP属于半关闭状态，B能向A发送数据但是A不能想B发送数据。  </li>
-<li>当B不再需要连接时，发送连接释放报文，FIN=1  </li>
-<li>A发回ACK报文确认，并将确认序号设置为收到序号加1，进入TIME-WAIT状态，等待2MSL(最大报文存活时间)后释放连接  </li>
-<li>B收到A的确认后释放连接</li>
-</ul>
-<h3 id="四次挥手的原因"><a href="#四次挥手的原因" class="headerlink" title="四次挥手的原因"></a>四次挥手的原因</h3><p></p><p>客户端发送了FIN连接释放报文之后，服务器收到了这个报文，就进入了CLOSE-WAIT状态。这个状态是为了让服务器端发送还未传送完毕的数据，传送完毕之后，服务器会发送FIN连接释放报文。</p>
-<p></p><p><strong>TIME_WAIT</strong></p>
-<p></p><p>客户端收到服务器端的FIN报文后进入此状态，此时并不是直接进入CLOSED状态，还需要等待一个时间计时器设置的时间2MSL。这么做有两个理由：  </p>
-<ul>
-<li>确保最后一个确认报文能够到达。如果B没收到A发送来的确认报文，那么就会重新发送连接释放请求博文，A等待一段时间就是为了处理这种情况的发生。  </li>
-<li>等待一段时间是为了让本连接连续时间内所产生的所有报文都从网络中消失，使得下一个新的连接不会出现旧的连接请求报文。</li>
-</ul>
-
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode16.png" alt=""></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>d用来表示三数之和与目标值的差的绝对值</li>
+<li>先将数组nums进行排序，然后从左往右依次枚举，在枚举的过程中左右夹逼。  </li>
+<li>枚举位置为i，左、右位置分别用l、r表示，如果nums[i] + nums[l] + nums[r] - target的绝对值小于d时，则更新d为nums[i] + nums[l] + nums[r] - target的绝对值，result 为 三数之和。如果三数之和等于target，则返回当前三数之和；如果三数之和小于target，则左边界往右夹逼，否则右边界往左夹逼。</li>
+<li>在步骤2的整个过程中，始终保证l &lt; r。</li>
+</ol>
+<h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int threeSumClosest(vector&lt;int&gt;&amp; nums, int target) &#123;</div><div class="line">        int d = INT_MAX;</div><div class="line">        int result = 0;</div><div class="line">        sort(nums.begin(), nums.end());</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; nums.size(); i++)&#123;</div><div class="line">            <span class="keyword">if</span>(i == 0 || nums[i] != nums[i-1])&#123;</div><div class="line">                int l = i + 1;</div><div class="line">                int r = nums.size() - 1;</div><div class="line">                <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">                    int temp = nums[i] + nums [l] + nums[r];</div><div class="line">                    <span class="keyword">if</span>(abs(temp - target) &lt; d)&#123;</div><div class="line">                        d = abs(temp - target);</div><div class="line">                        result = temp;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span>(temp == target)&#123;</div><div class="line">                        <span class="built_in">return</span> result;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(temp &lt; target) l++;</div><div class="line">                    <span class="keyword">else</span> r--;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP的三次握手"><span class="toc-text">TCP的三次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三次握手的原因"><span class="toc-text">三次握手的原因</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP的四次挥手"><span class="toc-text">TCP的四次挥手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#四次挥手的原因"><span class="toc-text">四次挥手的原因</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/12/14/http协议/" class="prev">&larr; Prev post HTTP协议</a>
-  
 
   
 
   
-    <a href="/2018/12/06/leetcode第13题/" class="next">Next post LeetCode第13题-C++ &rarr;</a>
+    <a href="/2018/12/16/leetcode第15题/" class="next">Next post LeetCode第15题三数之和-C++ &rarr;</a>
   
 </nav>
 
