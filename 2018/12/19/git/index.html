@@ -1,8 +1,6 @@
 
 
 
-  
-
 
 
 
@@ -18,9 +16,17 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="记一下Git的基本操作和遇到的问题，不定时更新
+
+
+初始化仓库 git init
+删除本地仓库 rm -rf .git
+
+遇到过多的问题0x00问题：git push碰到atal: refusing to merge unrelated histories
+解决方案：（原因在于你github上有README 而本地没有，导致远程分支和本地分支不一样） 
+git pull --rebase o...">
   
-  <title>Tag: php [ GWJ_AJ ]</title>
+  <title>Git基本操作 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,6 +45,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+  
+    <div class="item next">
+      <a href="/2018/12/18/TCP流量控制和拥塞控制/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        TCP的可靠数据传输、流量控制和拥塞控制
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -71,7 +86,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/tags">Tags</a>
             
@@ -110,359 +125,74 @@
     <div id="content-inner">
       
       
-  <div id="tag">
-    <h1>php</h1>
+  <article id="post">
+    <h1>Git基本操作</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-12-19</span>
+      
+        <span id = "post-title-updated">Updated at 2018-12-19</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/git/">git</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/git/">git</a>
+      
+      </span>
+      
+    </p>
     
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-          
-        
-      
-        
-      
-        
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/12/05/cookie，session机制/">
-  
-    cookie/session机制
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">12-5</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/php/">php</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/php/">php</a>
-    
-      
-        /
-      
-      
-      <a href="/tags/cookie/">cookie</a>
-    
-      
-        /
-      
-      
-      <a href="/tags/session/">session</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-        
-      
-      
-    
+    <blockquote>
+<p>记一下Git的基本操作和遇到的问题，不定时更新</p>
+</blockquote>
+<ul>
+<li>初始化仓库 git init</li>
+<li>删除本地仓库 rm -rf .git</li>
+</ul>
+<h2 id="遇到过多的问题"><a href="#遇到过多的问题" class="headerlink" title="遇到过多的问题"></a>遇到过多的问题</h2><h3 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h3><p></p><p>问题：git push碰到atal: refusing to merge unrelated histories</p>
+<p></p><p>解决方案：<br>（原因在于你github上有README 而本地没有，导致远程分支和本地分支不一样） </p>
+<pre><code class="bash">git pull --rebase origin master(这样会在本地仓库新建一个readme文件这样就可以了)
+git push -u origin master
+</code></pre>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#遇到过多的问题"><span class="toc-text">遇到过多的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00"><span class="toc-text">0x00</span></a></li></ol></li></ol>
   </div>
+</div>
 
   
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/12/18/TCP流量控制和拥塞控制/" class="next">Next post TCP的可靠数据传输、流量控制和拥塞控制 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -565,6 +295,8 @@ var turnoffBackgroundImage = false;
 
 
 
+  turnoffBackgroundImage = true;
+
 
 var backgroundColor = "34495E";
 
@@ -583,32 +315,6 @@ $(".fancybox-thumb").fancybox({
 });
 
 // show video with plyr
-$(".video-container iframe").each(function(i){
-  var url = $(this).attr('src');
-  var id = url.split('/').pop();
-  var plyrContainer = document.createElement('div');
-  plyrContainer.className = 'plyr';
-  var plyrElement = document.createElement('div');
-  plyrElement.dataset.videoId = id;
-  switch(true) {
-    case url.search('youtube.com') >= 0:
-      plyrElement.dataset.type = 'youtube';
-      break;
-    case url.search('vimeo.com') >= 0:
-      plyrElement.dataset.type = 'vimeo';
-      break;
-    default:
-      return;
-  };
-  plyrContainer.appendChild(plyrElement);
-  $(this).parent().html(plyrContainer);
-});
-plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
-</script>
-</body>
-</html>
-
-ow video with plyr
 $(".video-container iframe").each(function(i){
   var url = $(this).attr('src');
   var id = url.split('/').pop();
