@@ -38,6 +38,15 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637class 
 <body>
 <div class="side-navigate hide-area">
   
+    <div class="item prev">
+      <a href="/2018/12/23/头条面试编程题/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        头条面试编程题
+      </div>
+    </div>
+  
   
     <div class="item next">
       <a href="/2018/12/20/leetcode17/">
@@ -121,12 +130,12 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637class 
   <article id="post">
     <h1>LeetCode第18题四数之和-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-12-21</span>
+      <span id = "post-title-date">Created at 2018-12-21</span>
       
-        <span id = "post-title-updated">修改于 2018-12-21</span>
+        <span id = "post-title-updated">Updated at 2018-12-21</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -143,7 +152,7 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637class 
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -164,10 +173,10 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637class 
 <h2 id="C-代码"><a href="#C-代码" class="headerlink" title="C++代码"></a>C++代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt;&amp; nums, int target) &#123;</div><div class="line">        sort(nums.begin(),nums.end());</div><div class="line">        vector&lt;vector&lt;int&gt;&gt; result;</div><div class="line">        <span class="keyword">if</span>(nums.size() &lt; 4)&#123;</div><div class="line">            <span class="built_in">return</span> result;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; nums.size()-3; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(i == 0 || nums[i] != nums[i-1])&#123;</div><div class="line">                <span class="keyword">for</span>(int j = i+1; j &lt; nums.size()-2; j++)&#123;</div><div class="line">                    <span class="keyword">if</span>(j == i+1 || nums[j] != nums[j-1])&#123;</div><div class="line">                        int l = j + 1, r = nums.size() - 1;</div><div class="line">                        <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">                            int tempSum = nums[i] + nums[j] + nums[l] + nums[r];</div><div class="line">                            <span class="keyword">if</span>(tempSum == target)&#123;</div><div class="line">                                vector&lt;int&gt; res;</div><div class="line">                                res.push_back(nums[i]);</div><div class="line">                                res.push_back(nums[j]);</div><div class="line">                                res.push_back(nums[l]);</div><div class="line">                                res.push_back(nums[r]);</div><div class="line">                                result.push_back(res);</div><div class="line">                                int templ = nums[l], tempr = nums[r];</div><div class="line">                                <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[l] == templ) l++;</div><div class="line">                                <span class="keyword">while</span>(l &lt; r &amp;&amp; nums[r] == tempr) r--;</div><div class="line">                            &#125;</div><div class="line">                            <span class="keyword">else</span> <span class="keyword">if</span>(tempSum &lt; target) l++;</div><div class="line">                            <span class="keyword">else</span> r--;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-代码"><span class="toc-text">C++代码</span></a></li></ol>
   </div>
 </div>
@@ -175,11 +184,13 @@ C++代码12345678910111213141516171819202122232425262728293031323334353637class 
   
 <nav id="pagination">
   
-
+    <a href="/2018/12/23/头条面试编程题/" class="prev">&larr; Prev post 头条面试编程题</a>
   
 
   
-    <a href="/2018/12/20/leetcode17/" class="next">下一篇 LeetCode第17题电话号码的字母组合-C++ &rarr;</a>
+
+  
+    <a href="/2018/12/20/leetcode17/" class="next">Next post LeetCode第17题电话号码的字母组合-C++ &rarr;</a>
   
 </nav>
 
