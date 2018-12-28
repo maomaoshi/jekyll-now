@@ -16,11 +16,15 @@
   
   
   
-    <meta name="description" content="题目根据一个从小到大排序好的数组，可求出这个数组的中位数。任选这个数组的某个位置，将数组分成左右两部分。这左右两部分调换位置。给出调换位置后的数组，求原先数组的中位数。例如：
-1234原数组：[1,2,3,4,5,6,7]  调换位置后的数组：[4,5,6,7,1,2,3]给出调换位置后的数组，求原数组的中位数
-思路在原数组中我们选择中位数，是以下标0的位置为基点，找到中位数。在例子中，中位...">
+    <meta name="description" content="知湖后端的架构在浏览器输入url后，从客户端到服务器端都发生了什么？
+DHCP配置主机信息
+
+假设主机最开始没有IP地址以及其他信息，那么就需要先使用DHCP来获取。
+主机生成一个DHCP请求报文，并将这个报文放入具有目的端口67和源端口68的UDP报文段中。
+该报文段则被放入在一个具有广播IP目的地址（255.255.255.255）和源IP地址（0.0.0.0）的IP数据报中。
+该数据报...">
   
-  <title>头条面试编程题 [ GWJ_AJ ]</title>
+  <title>头条一面记录 [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -129,11 +133,11 @@
       
       
   <article id="post">
-    <h1>头条面试编程题</h1>
+    <h1>头条一面记录</h1>
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-12-23</span>
       
-        <span id = "post-title-updated">Updated at 2018-12-24</span>
+        <span id = "post-title-updated">Updated at 2018-12-26</span>
       
       
       <span id = "post-title-categories">Category
@@ -142,12 +146,6 @@
         
         
         <a href="/categories/面试/">面试</a>
-      
-        
-          /
-        
-        
-        <a href="/categories/面试/C/">C++</a>
       
       </span>
       
@@ -158,30 +156,66 @@
       
         
         
-        <a href="/tags/C/">C++</a>
-      
-        
-          /
-        
-        
         <a href="/tags/面试/">面试</a>
       
       </span>
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p></p><p>根据一个从小到大排序好的数组，可求出这个数组的中位数。任选这个数组的某个位置，将数组分成左右两部分。这左右两部分调换位置。给出调换位置后的数组，求原先数组的中位数。例如：</p>
+    <h3 id="知湖后端的架构"><a href="#知湖后端的架构" class="headerlink" title="知湖后端的架构"></a>知湖后端的架构</h3><h3 id="在浏览器输入url后，从客户端到服务器端都发生了什么？"><a href="#在浏览器输入url后，从客户端到服务器端都发生了什么？" class="headerlink" title="在浏览器输入url后，从客户端到服务器端都发生了什么？"></a>在浏览器输入url后，从客户端到服务器端都发生了什么？</h3><ol>
+<li><p><strong>DHCP配置主机信息</strong></p>
+<ol>
+<li>假设主机最开始没有IP地址以及其他信息，那么就需要先使用DHCP来获取。</li>
+<li>主机生成一个DHCP请求报文，并将这个报文放入具有目的端口67和源端口68的UDP报文段中。</li>
+<li>该报文段则被放入在一个具有广播IP目的地址（255.255.255.255）和源IP地址（0.0.0.0）的IP数据报中。</li>
+<li>该数据报则被放置在MAC帧中，该帧具有目的地址FF:FF:FF:FF:FF:FF,将广播到与交换机连接的所有设备。</li>
+<li>连接在交换机的DHCP服务器收到广播帧之后，不断地向上分解得到IP数据报、UDP报文段、DHCP请求报文，之后生成DHCP ACK报文，报报文包含以下信息：IP地址、DNS服务器的IP地址、默认网关路由器的IP地址和子网掩码。该报文被放入UDP报文段，UDP报文段白放入到IP数据报中，最后放入MAC帧中。</li>
+<li>该帧的目的地址是请求主机的MAC主机地址，因为交换机具有自学能力，之前主机发送了广播帧之后就记录了MAC地址到其转发接口的交换表项，因此现在交换机就可以直接知道应该向哪个接口发送该帧。</li>
+<li>主机收到该帧后，不断分解得到DHCP报文。之后就配置它的IP地址、子网掩码和DNS服务器的IP地址，并在其IP转发表中安装默认网关。</li>
+</ol>
+</li>
+<li><p><strong>ARP解析MAC地址</strong></p>
+<ol>
+<li>主机通过浏览器生成一个TCP套接字，套接字向HTTP服务器发送HTTP请求。为了生成该套接字，主机需要知道网站的域名对应的IP地址</li>
+<li>主机生成一个DNS查询报文，报文具有53号端口，因为DNS服务器的端口是53.</li>
+<li>该DNS查询报文被放入目的地址为DNS服务器IP数据报中。</li>
+<li>该IP数据报被放入一个以太网帧中，该帧将发送到网关路由器。</li>
+<li>DHCP过程只知道网关路由器的IP地址，为了获取网关路由器的MAC地址，需要使用ARP协议。</li>
+<li>主机生成一个包含目的地址为网关路由器IP地址的ARP查询报文，该ARP查询报文放入一个具有广播目的的地址（FF:FF:FF:FF:FF:FF）的以太网帧中。</li>
+<li>网关路由器接收到该帧后，不断向上分解得到ARP报文发现其中的IP地址与其接口的IP地址匹配，因此就发送一个ARP回答报文，包含了它的MAC地址，发回给主机。</li>
+</ol>
+</li>
+<li><p><strong>DNS解析域名</strong></p>
+<ol>
+<li>知道了网关路由器的MAC地址之后，就可以继续DNS的解析过程了。</li>
+<li>网关路由器接收到包含DNS查询报文的以太网帧后，抽取出IP数据报，并根据转发表决定该IP数据报转发的路由器。</li>
+<li>因为路由器具有内部网关协议（RIP、OSPF)和外部网关协议（BFP）这两种路由选择协议，因此路由表中已经配置了网关路由器到达DNS服务器的路由表项。</li>
+<li>到达DNS服务器之后，DNS服务器抽取出DNS查询报文，并在DNS数据库中查找待解析的域名。</li>
+<li>找到DNS记录之后，发送DNS回答报文，将该回答报文放入UDP报文段中，然后放入IP数据报中，通过路由器反向转发回网关路由器，并经过以太网交换机到达主机。</li>
+</ol>
+</li>
+<li><strong>HTTP请求页面</strong><ol>
+<li>有了HTTP服务器的IP地址之后，主机就能够生成TCP套接字，该套接字将用于向Web服务器发送HTTP GET报文。</li>
+<li>在生成TCP套接字之前，必须先与HTTP服务器进行三次握手来建立连接。生成一个具有目的端口80的TCP SYN报文段，并向HTTP服务器发送该报文段。</li>
+<li>HTTP服务器收到该报文段之后，生成TCP SYNACK报文段，发回给主机。</li>
+<li>连接建立之后，浏览器生成HTTP GET报文，并交付给HTTP服务器。</li>
+<li>HTTP服务器从TCP套接字读取HTTP GET报文，生成一个HTTP响应报文，将Web页面内容放入报文主体中，发回给主机。</li>
+<li>浏览器收到HTTP相应报文后，抽取出Web页面内容，之后进行渲染，显示Web页面。</li>
+</ol>
+</li>
+</ol>
+<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><h3 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手"></a>TCP四次挥手</h3><h3 id="TCP与UDP的区别"><a href="#TCP与UDP的区别" class="headerlink" title="TCP与UDP的区别"></a>TCP与UDP的区别</h3><h3 id="客户端是怎么知道TCP是否丢包，需要重新传输"><a href="#客户端是怎么知道TCP是否丢包，需要重新传输" class="headerlink" title="客户端是怎么知道TCP是否丢包，需要重新传输"></a>客户端是怎么知道TCP是否丢包，需要重新传输</h3><h3 id="http包是怎样的"><a href="#http包是怎样的" class="headerlink" title="http包是怎样的"></a>http包是怎样的</h3><h3 id="http协议头包括了哪些字段"><a href="#http协议头包括了哪些字段" class="headerlink" title="http协议头包括了哪些字段"></a>http协议头包括了哪些字段</h3><h3 id="session与cookie的"><a href="#session与cookie的" class="headerlink" title="session与cookie的"></a>session与cookie的</h3><h3 id="get与post的区别"><a href="#get与post的区别" class="headerlink" title="get与post的区别"></a>get与post的区别</h3><h3 id="PHP异常与错误有什么去辨别"><a href="#PHP异常与错误有什么去辨别" class="headerlink" title="PHP异常与错误有什么去辨别"></a>PHP异常与错误有什么去辨别</h3><h3 id="PHP自动加载机制"><a href="#PHP自动加载机制" class="headerlink" title="PHP自动加载机制"></a>PHP自动加载机制</h3><h3 id="Composer如何实现自动加载"><a href="#Composer如何实现自动加载" class="headerlink" title="Composer如何实现自动加载"></a>Composer如何实现自动加载</h3><h3 id="mysql索引的原理"><a href="#mysql索引的原理" class="headerlink" title="mysql索引的原理"></a>mysql索引的原理</h3><h3 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h3><h3 id="进程之间的通信"><a href="#进程之间的通信" class="headerlink" title="进程之间的通信"></a>进程之间的通信</h3><h3 id="PHP值传递和引用传递的区别"><a href="#PHP值传递和引用传递的区别" class="headerlink" title="PHP值传递和引用传递的区别"></a>PHP值传递和引用传递的区别</h3><h3 id="操作系统如何实现对内存的管理"><a href="#操作系统如何实现对内存的管理" class="headerlink" title="操作系统如何实现对内存的管理"></a>操作系统如何实现对内存的管理</h3><h3 id="在Linux中如何快速找到一个文件名为a的文件"><a href="#在Linux中如何快速找到一个文件名为a的文件" class="headerlink" title="在Linux中如何快速找到一个文件名为a的文件"></a>在Linux中如何快速找到一个文件名为a的文件</h3><h3 id="编程题目1"><a href="#编程题目1" class="headerlink" title="编程题目1"></a>编程题目1</h3><p></p><p>根据一个从小到大排序好的数组，可求出这个数组的中位数。任选这个数组的某个位置，将数组分成左右两部分。这左右两部分调换位置。给出调换位置后的数组，求原先数组的中位数。例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">原数组：[1,2,3,4,5,6,7]  </div><div class="line">调换位置后的数组：[4,5,6,7,1,2,3]</div><div class="line"></div><div class="line">给出调换位置后的数组，求原数组的中位数</div></pre></td></tr></table></figure>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p></p><p>在原数组中我们选择中位数，是以下标0的位置为基点，找到中位数。在例子中，中位数为 a[0 + 7/2]。在调换位置后的数组，我们可看成将基点平移了j（j = 4）个位置，所以中位数为a[(4+(7/2))%7];</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//对一个有序的数组，随机选一个点，进行反转</div><div class="line">//1,2,3,4,5,6,7</div><div class="line">//5,6,7,1,2,3,4</div><div class="line"></div><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line">using namespace std;</div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">	int n, j;</div><div class="line">	cin &gt;&gt; n;</div><div class="line">	int a[n];</div><div class="line">	<span class="keyword">for</span>(int i = 0; i &lt; n; i++)&#123;</div><div class="line">		cin &gt;&gt; a[i];</div><div class="line">		<span class="keyword">if</span>(i != 0 &amp;&amp; a[i] &lt; a[i-1])&#123; //找出基点 </div><div class="line">			j = i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">float</span> result;</div><div class="line">	<span class="keyword">if</span>(n % 2 == 0)&#123;</div><div class="line">		int m1 = (j + (n / 2)) % n; </div><div class="line">		int m2 = (j + (n / 2) - 1) % n;</div><div class="line">		result = (a[m1] + a[m2]) / 2.0;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		int m = (j + (n / 2)) % n;</div><div class="line">		result = a[m];</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; result;</div><div class="line">	<span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p></p><p>在原数组中我们选择中位数，是以下标0的位置为基点，找到中位数。在例子中，中位数为 a[0 + 7/2]。在调换位置后的数组，我们可看成将基点平移了j（j = 4）个位置，所以中位数为a[(4+(7/2))%7];</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//对一个有序的数组，随机选一个点，进行反转</div><div class="line">//1,2,3,4,5,6,7</div><div class="line">//5,6,7,1,2,3,4</div><div class="line"></div><div class="line"><span class="comment">#include &lt;iostream&gt;</span></div><div class="line">using namespace std;</div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">	int n, j;</div><div class="line">	cin &gt;&gt; n;</div><div class="line">	int a[n];</div><div class="line">	<span class="keyword">for</span>(int i = 0; i &lt; n; i++)&#123;</div><div class="line">		cin &gt;&gt; a[i];</div><div class="line">		<span class="keyword">if</span>(i != 0 &amp;&amp; a[i] &lt; a[i-1])&#123; //找出基点 </div><div class="line">			j = i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">float</span> result;</div><div class="line">	<span class="keyword">if</span>(n % 2 == 0)&#123;</div><div class="line">		int m1 = (j + (n / 2)) % n; </div><div class="line">		int m2 = (j + (n / 2) - 1) % n;</div><div class="line">		result = (a[m1] + a[m2]) / 2.0;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">else</span>&#123;</div><div class="line">		int m = (j + (n / 2)) % n;</div><div class="line">		result = a[m];</div><div class="line">	&#125;</div><div class="line">	cout &lt;&lt; result;</div><div class="line">	<span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="编程题目2"><a href="#编程题目2" class="headerlink" title="编程题目2"></a>编程题目2</h3>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#知湖后端的架构"><span class="toc-text">知湖后端的架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在浏览器输入url后，从客户端到服务器端都发生了什么？"><span class="toc-text">在浏览器输入url后，从客户端到服务器端都发生了什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP三次握手"><span class="toc-text">TCP三次握手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP四次挥手"><span class="toc-text">TCP四次挥手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP与UDP的区别"><span class="toc-text">TCP与UDP的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端是怎么知道TCP是否丢包，需要重新传输"><span class="toc-text">客户端是怎么知道TCP是否丢包，需要重新传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http包是怎样的"><span class="toc-text">http包是怎样的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http协议头包括了哪些字段"><span class="toc-text">http协议头包括了哪些字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session与cookie的"><span class="toc-text">session与cookie的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get与post的区别"><span class="toc-text">get与post的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP异常与错误有什么去辨别"><span class="toc-text">PHP异常与错误有什么去辨别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP自动加载机制"><span class="toc-text">PHP自动加载机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composer如何实现自动加载"><span class="toc-text">Composer如何实现自动加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql索引的原理"><span class="toc-text">mysql索引的原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是索引"><span class="toc-text">什么是索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程之间的通信"><span class="toc-text">进程之间的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP值传递和引用传递的区别"><span class="toc-text">PHP值传递和引用传递的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统如何实现对内存的管理"><span class="toc-text">操作系统如何实现对内存的管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在Linux中如何快速找到一个文件名为a的文件"><span class="toc-text">在Linux中如何快速找到一个文件名为a的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编程题目1"><span class="toc-text">编程题目1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编程题目2"><span class="toc-text">编程题目2</span></a></li></ol>
   </div>
 </div>
 
