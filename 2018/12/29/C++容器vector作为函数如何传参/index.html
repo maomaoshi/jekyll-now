@@ -43,22 +43,13 @@ void 函数...">
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
+  
+    <div class="item next">
       <a href="/2018/12/29/leetcode22/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
         LeetCode第22题括号生成-C++
-      </div>
-    </div>
-  
-  
-    <div class="item next">
-      <a href="/2018/12/28/leetcode21/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第21题合并两个有序链表-C++
       </div>
     </div>
   
@@ -135,12 +126,12 @@ void 函数...">
   <article id="post">
     <h1>C++容器vector作为函数如何传参</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-12-29</span>
+      <span id = "post-title-date">Created at 2018-12-29</span>
       
-        <span id = "post-title-updated">修改于 2018-12-29</span>
+        <span id = "post-title-updated">Updated at 2018-12-29</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -151,7 +142,7 @@ void 函数...">
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -188,40 +179,24 @@ void 函数...">
 <h3 id="指针传递"><a href="#指针传递" class="headerlink" title="指针传递"></a>指针传递</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">void vector3(vector&lt;int&gt;* obj)&#123;</div><div class="line">	<span class="keyword">for</span>(int i = 0; i &lt; 5; i++)&#123;</div><div class="line">		obj-&gt;push_back(i);</div><div class="line">	&#125;</div><div class="line">&#125; </div><div class="line"></div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">	vector&lt;int&gt; obj3;</div><div class="line">	obj3.push_back(1);</div><div class="line">	vector3(&amp;obj3);</div><div class="line">	</div><div class="line">	vector&lt;int&gt;::iterator it = obj3.begin();</div><div class="line">	<span class="keyword">while</span>(it &lt; obj3.end())&#123;</div><div class="line">		cout &lt;&lt; *it &lt;&lt; <span class="string">" "</span>;</div><div class="line">		it++;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p></p><p>输出：1 0 1 2 3 4 5。vector3可以给容器obj3添加元素，它采用的是引用传递，在函数内部形参发生改变时，这种改变可以直接“传递”给被调用的实参。</p>
 <p></p><p>在这里引用传递和指针传递的主要区别是在方法的调用上。指针传递：使用‘-&gt;’调用方法，调用函数是vector3(&amp;obj3)。引用传递：使用‘.’调用方法，调用函数是vector2(obj2),不需要加上‘&amp;’符号。</p>
-<h3 id="加上限定词const"><a href="#加上限定词const" class="headerlink" title="加上限定词const"></a>加上限定词const</h3><pre><code class="bash">void vector4(const vector&lt;int&gt;* obj){  
-    /*<span class="keyword">for</span>(int i = 0; i &lt; 5; i++){  
-        obj-&gt;push_back(i);  
-    }*/  
-    cout &lt;&lt; *obj-&gt;begin();  
-}  
-
-void vector5(const vector&lt;int&gt;&amp; obj){  
-    /*<span class="keyword">for</span>(int i = 0; i &lt; 5; i++){  
-        obj-&gt;push_back(i);  
-    }*/  
-    cout &lt;&lt; *obj.begin();  
-}  
-
-int <span class="function"><span class="title">main</span></span>(){  
-    vector&lt;int&gt; obj4;  
-    obj4.push_back(4);  
-    vector4(&amp;obj4);  
-
-    vector&lt;int&gt; obj5;
-    obj5.push_back(5);
-    vector5(obj5);
-    <span class="built_in">return</span> 0;
-}
-</code></pre>
+<h3 id="加上限定词const"><a href="#加上限定词const" class="headerlink" title="加上限定词const"></a>加上限定词const</h3><p>`<br>void vector4(const vector<int><em> obj){<br>    /</em>for(int i = 0; i &lt; 5; i++){<br>        obj-&gt;push_back(i);<br>    }<em>/<br>    cout &lt;&lt; </em>obj-&gt;begin();<br>}  </int></p>
+<p>void vector5(const vector<int>&amp; obj){<br>    /<em>for(int i = 0; i &lt; 5; i++){<br>        obj-&gt;push_back(i);<br>    }</em>/<br>    cout &lt;&lt; *obj.begin();<br>}  </int></p>
+<p>int main(){<br>    vector<int> obj4;<br>    obj4.push_back(4);<br>    vector4(&amp;obj4);  </int></p>
+<pre><code>vector&lt;int&gt; obj5;
+obj5.push_back(5);
+vector5(obj5);
+return 0;
+</code></pre><p>}</p>
+<p>`   </p>
 <p></p><p>加上限定词const后，在函数内部不能改变vector的值，否则会报错。（error:discards qualifiers）</p>
 <p></p><p>参考：<a href="https://blog.csdn.net/w_linux/article/details/72417896" target="_blank" rel="external">https://blog.csdn.net/w_linux/article/details/72417896</a></p>
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#大致类型如下"><span class="toc-text">大致类型如下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分别对应"><span class="toc-text">分别对应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实例值传递问题"><span class="toc-text">代码实例值传递问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#值传递"><span class="toc-text">值传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用传递"><span class="toc-text">引用传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针传递"><span class="toc-text">指针传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加上限定词const"><span class="toc-text">加上限定词const</span></a></li></ol></li></ol>
   </div>
 </div>
@@ -229,13 +204,11 @@ int <span class="function"><span class="title">main</span></span>(){
   
 <nav id="pagination">
   
-    <a href="/2018/12/29/leetcode22/" class="prev">&larr; 上一篇 LeetCode第22题括号生成-C++</a>
-  
 
   
 
   
-    <a href="/2018/12/28/leetcode21/" class="next">下一篇 LeetCode第21题合并两个有序链表-C++ &rarr;</a>
+    <a href="/2018/12/29/leetcode22/" class="next">Next post LeetCode第22题括号生成-C++ &rarr;</a>
   
 </nav>
 
