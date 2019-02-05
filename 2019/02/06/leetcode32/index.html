@@ -17,10 +17,10 @@
   
   
     <meta name="description" content="题目
-思路——一边扫描  
-123456789101112131415161718192021222324class Solution &#123;public:    void nextPermutation(vector&lt;int&gt;&amp; nums) &#123;        int i = nums.size() - 2;        while(i &gt;= 0 ...">
+思路本题通过维护一个记录各个括号位置的堆栈来实现，stack&lt; int &gt;，另外，通过一个变量start记录有效括号的起始位置。（1） 如果是左括号，那么就压入堆栈。右括号是不压入堆栈的。即，堆栈中只存在左括号对应的元素位置。（2）如果是右括号，那么需要分情况处理：  
+1. 如果此时堆栈不为空，那么就说明得到了一对括号。此时，将堆栈中的括号出栈。出栈之后，如果堆栈为空了，...">
   
-  <title>LeetCode第31题下一个排列-C++ [ GWJ_AJ ]</title>
+  <title>LeetCode第32题最长有效括号-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,13 +39,22 @@
 <body>
 <div class="side-navigate hide-area">
   
-  
-    <div class="item next">
-      <a href="/2019/02/06/leetcode32/">
+    <div class="item prev">
+      <a href="/2019/02/06/leetcode31/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第32题最长有效括号-C++
+        LeetCode第31题下一个排列-C++
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2019/01/31/leetcode30/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode第30题实现串联所有单词的子串-C++
       </div>
     </div>
   
@@ -120,7 +129,7 @@
       
       
   <article id="post">
-    <h1>LeetCode第31题下一个排列-C++</h1>
+    <h1>LeetCode第32题最长有效括号-C++</h1>
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2019-02-06</span>
       
@@ -161,27 +170,31 @@
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode31.png" alt=""></p>
-<h2 id="思路——一边扫描"><a href="#思路——一边扫描" class="headerlink" title="思路——一边扫描"></a>思路——一边扫描</h2><p><img src="/images/leetcode31_1.png" alt=""><br><img src="/images/leetcode31_2.png" alt="">  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    void nextPermutation(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">        int i = nums.size() - 2;</div><div class="line">        <span class="keyword">while</span>(i &gt;= 0 &amp;&amp; nums[i + 1] &lt;= nums[i])&#123;</div><div class="line">            i--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(i &gt;= 0)&#123;</div><div class="line">            int j = nums.size() - 1;</div><div class="line">            <span class="keyword">while</span>(j &gt;= 0 &amp;&amp; nums[j] &lt;= nums[i])&#123;</div><div class="line">                j--;</div><div class="line">            &#125;</div><div class="line">            swap(nums, i, j);</div><div class="line">        &#125;</div><div class="line">        sort(nums.begin()+i+1, nums.end());</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">private:</div><div class="line">    void swap(vector&lt;int&gt;&amp; nums, int i, int j)&#123;</div><div class="line">        int temp = nums[j];</div><div class="line">        nums[j] = nums[i];</div><div class="line">        nums[i] = temp;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode32.png" alt=""></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p></p><p>本题通过维护一个记录各个括号位置的堆栈来实现，stack&lt; int &gt;，另外，通过一个变量start记录有效括号的起始位置。<br>（1） 如果是左括号，那么就压入堆栈。右括号是不压入堆栈的。即，堆栈中只存在左括号对应的元素位置。<br>（2）如果是右括号，那么需要分情况处理：  </p>
+<pre><code>1. 如果此时堆栈不为空，那么就说明得到了一对括号。此时，将堆栈中的括号出栈。出栈之后，如果堆栈为空了，那么可以得到最长有效括号的长度为nax(max_len, i-start).如果不为空，那么当前的最大长度为max(max_len, i-temp.top()).
+2. 如果此时堆栈为空，那么当前遇到的有括号必然是非法的，重置起始位置start = i.
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int longestValidParentheses(string s) &#123;</div><div class="line">        int max = 0, len = s.length();</div><div class="line">        int start = -1;</div><div class="line">        stack&lt;int&gt; temp;</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(s[i] == <span class="string">'('</span>)&#123;</div><div class="line">                temp.push(i);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(!temp.empty())&#123;</div><div class="line">                temp.pop();</div><div class="line">                <span class="keyword">if</span>(temp.empty())&#123;</div><div class="line">                    max = max &gt; (i - start) ? max : (i -start); </div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span>&#123;</div><div class="line">                    max = max &gt; (i - temp.top()) ? max : (i - temp.top());</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                start = i;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路——一边扫描"><span class="toc-text">思路——一边扫描</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-
+    <a href="/2019/02/06/leetcode31/" class="prev">&larr; Prev post LeetCode第31题下一个排列-C++</a>
   
 
   
-    <a href="/2019/02/06/leetcode32/" class="next">Next post LeetCode第32题最长有效括号-C++ &rarr;</a>
+
+  
+    <a href="/2019/01/31/leetcode30/" class="next">Next post LeetCode第30题实现串联所有单词的子串-C++ &rarr;</a>
   
 </nav>
 
