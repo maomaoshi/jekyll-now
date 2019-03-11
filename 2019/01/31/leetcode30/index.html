@@ -39,21 +39,21 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2019/02/06/leetcode32/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第32题最长有效括号-C++
-      </div>
-    </div>
-  
-  
-    <div class="item next">
       <a href="/2019/01/31/leetcode29/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
         LeetCode第29题两数相除-C++
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2019/01/20/leetcode27/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode第27题移除元素-C++
       </div>
     </div>
   
@@ -130,12 +130,12 @@
   <article id="post">
     <h1>LeetCode第30题实现串联所有单词的子串-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2019-01-31</span>
+      <span id = "post-title-date">Created at 2019-01-31</span>
       
-        <span id = "post-title-updated">修改于 2019-01-31</span>
+        <span id = "post-title-updated">Updated at 2019-01-31</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -152,7 +152,7 @@
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -174,10 +174,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;int&gt; findSubstring(string s, vector&lt;string&gt;&amp; words) &#123;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        <span class="keyword">if</span>(s.length() == 0 || words.size() == 0)&#123;</div><div class="line">            <span class="built_in">return</span> res;</div><div class="line">        &#125;</div><div class="line">        int slen = s.length(), wsize = words.size(), wlen = words[0].length();</div><div class="line">        <span class="keyword">if</span>(slen &lt; wsize*wlen)&#123;</div><div class="line">            <span class="built_in">return</span> res;</div><div class="line">        &#125;</div><div class="line">        map&lt;string, int&gt; m1;</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; wsize; i++)&#123;</div><div class="line">            m1[words[i]]++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt;= slen-wsize*wlen; i++)&#123;</div><div class="line">            map&lt;string, int&gt; m2;</div><div class="line">            int j = 0;</div><div class="line">            <span class="keyword">for</span>(j = 0; j &lt; wsize; j++)&#123;</div><div class="line">                string t = s.substr(i+j*wlen, wlen);</div><div class="line">                <span class="keyword">if</span>(m1.find(t) == m1.end()) <span class="built_in">break</span>;</div><div class="line">                m2[t]++;</div><div class="line">                <span class="keyword">if</span>(m2[t] &gt; m1[t]) <span class="built_in">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span>(j == wsize)&#123;</div><div class="line">                res.push_back(i);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li></ol>
   </div>
 </div>
@@ -185,13 +185,13 @@
   
 <nav id="pagination">
   
-    <a href="/2019/02/06/leetcode32/" class="prev">&larr; 上一篇 LeetCode第32题最长有效括号-C++</a>
+    <a href="/2019/01/31/leetcode29/" class="prev">&larr; Prev post LeetCode第29题两数相除-C++</a>
   
 
   
 
   
-    <a href="/2019/01/31/leetcode29/" class="next">下一篇 LeetCode第29题两数相除-C++ &rarr;</a>
+    <a href="/2019/01/20/leetcode27/" class="next">Next post LeetCode第27题移除元素-C++ &rarr;</a>
   
 </nav>
 
