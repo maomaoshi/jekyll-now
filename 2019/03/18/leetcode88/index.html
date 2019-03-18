@@ -17,9 +17,12 @@
   
   
     <meta name="description" content="题目
-暴力法123456789101112131415161718class Solution &#123;public:    int maxArea(vector&lt;int&gt;&amp; height) &#123;        int max = 0;        int h, l;        int len = height.size();        for(in...">
+思路一开始的想法是，定义两个变量p1,p2分别表示nums1和nums2的下标。如果nums1[p1] &gt; nums2[p2]，则将nums2[p2]插入nums1[p1]。从头到尾遍历数组nums2，完成合并，类似于合并两个有序的链表。但是我忽略了一个问题，num1后面的元素为0。看了评论里的代码，可从尾到头合并数组。
+class Solution {
+public:
+    ...">
   
-  <title>LeetCode第十一题：盛最多水的容器-C++ [ GWJ_AJ ]</title>
+  <title>LeetCode第88题合并两个有序数组-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,22 +41,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/12/04/依赖注入/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        依赖注入容器
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2018/12/04/PHP反射/">
+      <a href="/2019/03/15/leetcode78/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        PHP反射机制
+        LeetCode第78题子集-C++
       </div>
     </div>
   
@@ -128,11 +122,11 @@
       
       
   <article id="post">
-    <h1>LeetCode第十一题：盛最多水的容器-C++</h1>
+    <h1>LeetCode第88题合并两个有序数组-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-12-04</span>
+      <span id = "post-title-date">Created at 2019-03-18</span>
       
-        <span id = "post-title-updated">Updated at 2018-12-06</span>
+        <span id = "post-title-updated">Updated at 2019-03-18</span>
       
       
       <span id = "post-title-categories">Category
@@ -169,30 +163,46 @@
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode11.png" alt=""></p>
-<h2 id="暴力法"><a href="#暴力法" class="headerlink" title="暴力法"></a>暴力法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxArea(vector&lt;int&gt;&amp; height) &#123;</div><div class="line">        int max = 0;</div><div class="line">        int h, l;</div><div class="line">        int len = height.size();</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; len-1; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = i + 1; j &lt; len; j++)&#123;</div><div class="line">                l = j - i;</div><div class="line">                h = (height[i] &gt; height[j]) ? height[j] : height[i];</div><div class="line">                int temp = l * h;</div><div class="line">                max = (temp &gt; max) ? temp : max;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h2 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h2><p></p><p>思路：我们在由线段长度构成的数组中使用两个指针，一个放在开始，一个置于末尾。 此外，我们会使用变量 max 来持续存储到目前为止所获得的最大面积。 在每一步中，我们会找出指针所指向的两条线段形成的区域，更新 max，并将指向较短线段的指针向较长线段那端移动一步。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxArea(vector&lt;int&gt;&amp; height) &#123;</div><div class="line">        int max = 0;</div><div class="line">        int l = 0, r = height.size() - 1;</div><div class="line">        <span class="keyword">while</span>(l &lt; r)&#123;</div><div class="line">            int temp = (height[l] &lt; height[r]) ? height[l] : height[r];</div><div class="line">            max = (temp * (r - l) &gt; max) ? temp * (r - l) : max;</div><div class="line">            <span class="keyword">if</span>(height[l] &lt; height[r])&#123;</div><div class="line">                l++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                r--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode88.png" alt=""></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p></p><p>一开始的想法是，定义两个变量p1,p2分别表示nums1和nums2的下标。如果nums1[p1] &gt; nums2[p2]，则将nums2[p2]插入nums1[p1]。从头到尾遍历数组nums2，完成合并，类似于合并两个有序的链表。但是我忽略了一个问题，num1后面的元素为0。看了评论里的代码，可从尾到头合并数组。</p>
+<pre><code class="bash">class Solution {
+public:
+    void merge(vector&lt;int&gt;&amp; nums1, int m, vector&lt;int&gt;&amp; nums2, int n) {
+        int p = m-- + n-- -1;
+        <span class="keyword">while</span>(m &gt;= 0 &amp;&amp; n &gt;= 0){
+            <span class="keyword">if</span>(nums1[m] &gt; nums2[n]){
+                nums1[p--] = nums1[m--];
+            }
+            <span class="keyword">else</span>{
+                nums1[p--] = nums2[n--];
+            }
+        }
+        <span class="keyword">while</span>(n &gt;= 0){
+            nums1[p--] = nums2[n--];
+        }
+
+    }
+};
+</code></pre>
+
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暴力法"><span class="toc-text">暴力法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#双指针法"><span class="toc-text">双指针法</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/12/04/依赖注入/" class="prev">&larr; Prev post 依赖注入容器</a>
-  
 
   
 
   
-    <a href="/2018/12/04/PHP反射/" class="next">Next post PHP反射机制 &rarr;</a>
+    <a href="/2019/03/15/leetcode78/" class="next">Next post LeetCode第78题子集-C++ &rarr;</a>
   
 </nav>
 
