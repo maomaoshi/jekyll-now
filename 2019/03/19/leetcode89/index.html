@@ -16,10 +16,12 @@
   
   
   
-    <meta name="description" content="今天在做leetcode的第二题时，遇到了struct的构造函数，之前都没有遇到这种类型，于是查了一些资料。
-在C语言中，结构体不能包含函数。在面向对象的程序设计中，对象具有状态（属性）和行为，状态保存在成员变量中，行为通过成员方法（函数）来实现。C语言中的结构体只能描述一个对象的状态，不能描述一个对象的行为。在C++中，考虑到C语言到C++语言过渡的连续性，对结构体进行了扩展，C++的结构...">
+    <meta name="description" content="题目
+思路当n=0时，格雷码序列为[0]。当n=1时，格雷码序列为[0,1]。当n=2，3，4…时呢？从下图可以看出当n=2时，最低位关于中间那条虚线对称，而高位就是由0变成1。当n=3时，规律也是如此。所以可以先初始化n=0,1时的格雷码序列。从n=2开始，倒序每个元素加上该位置的权值得到temp，再将temp添加到序列的末尾。
+
+12345678910111213141516171819...">
   
-  <title>C++之struct的构造函数 [ GWJ_AJ ]</title>
+  <title>LeetCode第89题格雷编码-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,22 +40,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2018/11/17/leetcode第二题/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第二题及拓展：两数相加-C++
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2018/11/16/leetcode第一题/">
+      <a href="/2019/03/18/leetcode88/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第一题：两数之和-C++
+        LeetCode第88题合并两个有序数组-C++
       </div>
     </div>
   
@@ -128,11 +121,11 @@
       
       
   <article id="post">
-    <h1>C++之struct的构造函数</h1>
+    <h1>LeetCode第89题格雷编码-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-11-17</span>
+      <span id = "post-title-date">Created at 2019-03-19</span>
       
-        <span id = "post-title-updated">Updated at 2018-11-17</span>
+        <span id = "post-title-updated">Updated at 2019-03-19</span>
       
       
       <span id = "post-title-categories">Category
@@ -141,6 +134,12 @@
         
         
         <a href="/categories/C/">C++</a>
+      
+        
+          /
+        
+        
+        <a href="/categories/C/Leetcode/">Leetcode</a>
       
       </span>
       
@@ -153,35 +152,38 @@
         
         <a href="/tags/C/">C++</a>
       
+        
+          /
+        
+        
+        <a href="/tags/LeetCode/">LeetCode</a>
+      
       </span>
       
     </p>
     
-    <p></p><p>今天在做leetcode的第二题时，遇到了struct的构造函数，之前都没有遇到这种类型，于是查了一些资料。</p>
-<p></p><p>在C语言中，结构体不能包含函数。在面向对象的程序设计中，对象具有状态（属性）和行为，状态保存在成员变量中，行为通过成员方法（函数）来实现。C语言中的结构体只能描述一个对象的状态，不能描述一个对象的行为。在C++中，考虑到C语言到C++语言过渡的连续性，对结构体进行了扩展，C++的结构体可以包含函数，这样，C++的结构体也具有类的功能，与class不同的是，结构体包含的函数默认为public，而不是private。</p>
-<h2 id="struct的定义与声明"><a href="#struct的定义与声明" class="headerlink" title="struct的定义与声明"></a>struct的定义与声明</h2><p></p><p>以下代码是leetcode第二题中结构体的定义：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">struct ListNode &#123;</div><div class="line">    int val;</div><div class="line">    ListNode *next;</div><div class="line">	//构造函数：</div><div class="line">    ListNode(int x) : val(x), next(NULL) &#123;&#125;</div><div class="line">	/*</div><div class="line">	ListNode(int x)&#123;</div><div class="line">		val = x;</div><div class="line">		next = NULL;</div><div class="line">	&#125;</div><div class="line">	*/</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p></p><p>初始化如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//调用构造函数</div><div class="line">ListNode a = ListNode(1);</div><div class="line">cout &lt;&lt; a.val;</div><div class="line">ListNode* b = new ListNode(0);</div><div class="line">cout &lt;&lt; b-&gt;val;</div><div class="line"></div><div class="line">//当类型为指针时，操作符为-&gt;</div></pre></td></tr></table></figure></p>
-
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode89.png" alt=""></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p></p><p>当n=0时，格雷码序列为[0]。当n=1时，格雷码序列为[0,1]。当n=2，3，4…时呢？从下图可以看出当n=2时，最低位关于中间那条虚线对称，而高位就是由0变成1。当n=3时，规律也是如此。所以可以先初始化n=0,1时的格雷码序列。从n=2开始，倒序每个元素加上该位置的权值得到temp，再将temp添加到序列的末尾。</p>
+<p><img src="/images/leetcode89_1.png" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;int&gt; grayCode(int n) &#123;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        <span class="keyword">if</span>(n &lt;= 0)&#123;</div><div class="line">            res.push_back(0);</div><div class="line">            <span class="built_in">return</span> res;</div><div class="line">        &#125;</div><div class="line">        res.push_back(0);</div><div class="line">        res.push_back(1);</div><div class="line">        int count = 2;</div><div class="line">        <span class="keyword">while</span>(count &lt;= n)&#123;</div><div class="line">            int len = res.size();</div><div class="line">            <span class="keyword">for</span>(int i = len-1; i &gt;= 0; i--)&#123;</div><div class="line">                int temp = res[i] + pow(2, count-1);</div><div class="line">                res.push_back(temp);</div><div class="line">            &#125;</div><div class="line">            count++;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#struct的定义与声明"><span class="toc-text">struct的定义与声明</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/11/17/leetcode第二题/" class="prev">&larr; Prev post LeetCode第二题及拓展：两数相加-C++</a>
-  
 
   
 
   
-    <a href="/2018/11/16/leetcode第一题/" class="next">Next post LeetCode第一题：两数之和-C++ &rarr;</a>
+    <a href="/2019/03/18/leetcode88/" class="next">Next post LeetCode第88题合并两个有序数组-C++ &rarr;</a>
   
 </nav>
 
