@@ -41,11 +41,11 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2019/02/21/leetcode49/">
+      <a href="/2019/03/09/leetcode53/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第49题字母异位词分组-C++
+        LeetCode第53题最大子序和-C++
       </div>
     </div>
   
@@ -132,12 +132,12 @@
   <article id="post">
     <h1>LeetCode第48题旋转图像-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2019-02-21</span>
+      <span id = "post-title-date">撰写于 2019-02-21</span>
       
-        <span id = "post-title-updated">Updated at 2019-02-21</span>
+        <span id = "post-title-updated">修改于 2019-02-21</span>
       
       
-      <span id = "post-title-categories">Category
+      <span id = "post-title-categories">分类
       
       
         
@@ -154,7 +154,7 @@
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -177,10 +177,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    void rotate(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) &#123;</div><div class="line">        int n = matrix[0].size();</div><div class="line">        //调换对角元素</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; n; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = 0; j &lt; n - i; j++)&#123;</div><div class="line">                swap(matrix[i][j], matrix[n-j-1][n-i-1]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //调换列元素</div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt; n / 2; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = 0; j &lt; n; j++)&#123;</div><div class="line">                swap(matrix[i][j], matrix[n-i-1][j]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li></ol>
   </div>
 </div>
@@ -188,13 +188,13 @@
   
 <nav id="pagination">
   
-    <a href="/2019/02/21/leetcode49/" class="prev">&larr; Prev post LeetCode第49题字母异位词分组-C++</a>
+    <a href="/2019/03/09/leetcode53/" class="prev">&larr; 上一篇 LeetCode第53题最大子序和-C++</a>
   
 
   
 
   
-    <a href="/2019/02/21/leetcode46/" class="next">Next post LeetCode第46题字全排列-C++ &rarr;</a>
+    <a href="/2019/02/21/leetcode46/" class="next">下一篇 LeetCode第46题字全排列-C++ &rarr;</a>
   
 </nav>
 

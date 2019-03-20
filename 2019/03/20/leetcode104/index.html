@@ -17,11 +17,9 @@
   
   
     <meta name="description" content="题目
-思路  
-为了反转这个单链表，我们先让头结点的next域指向结点2，再让结点1的next域指向结点3，最后将结点2的next域指向结点1，就完成了第一次交换，顺序就变成了Header-结点2-结点1-结点3-结点4-NULL，然后进行相同的交换将结点3移动到结点2的前面，然后再将结点4移动到结点3的前面就完成了反转。
-代码12345678910111213141516171819202...">
+思路1：递归12345678910111213141516171819/** * Definition for a binary tree node. * struct TreeNode &#123; *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode(int x) : val(x), l...">
   
-  <title>LeetCode第25题k个一组翻转链表-C++ [ GWJ_AJ ]</title>
+  <title>LeetCode104.二叉树的最大深度-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -40,22 +38,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2019/01/19/leetcode26/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第26题删除排序数组中的重复项-C++
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2019/01/16/leetcode24/">
+      <a href="/2019/03/19/leetcode89/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第24题两两交换链表中的节点-C++
+        LeetCode第89题格雷编码-C++
       </div>
     </div>
   
@@ -130,11 +119,11 @@
       
       
   <article id="post">
-    <h1>LeetCode第25题k个一组翻转链表-C++</h1>
+    <h1>LeetCode104.二叉树的最大深度-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2019-01-17</span>
+      <span id = "post-title-date">撰写于 2019-03-20</span>
       
-        <span id = "post-title-updated">修改于 2019-01-18</span>
+        <span id = "post-title-updated">修改于 2019-03-20</span>
       
       
       <span id = "post-title-categories">分类
@@ -171,30 +160,28 @@
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode25.png" alt=""></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><img src="/images/leetcode25_1.png" alt="">  </p>
-<p></p><p>为了反转这个单链表，我们先让头结点的next域指向结点2，再让结点1的next域指向结点3，最后将结点2的next域指向结点1，就完成了第一次交换，顺序就变成了Header-结点2-结点1-结点3-结点4-NULL，然后进行相同的交换将结点3移动到结点2的前面，然后再将结点4移动到结点3的前面就完成了反转。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition <span class="keyword">for</span> singly-linked list.</div><div class="line"> * struct ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode *next;</div><div class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    ListNode* reverseKGroup(ListNode* head, int k) &#123;</div><div class="line">        ListNode* head0 = new ListNode(0);</div><div class="line">        head0-&gt;next = head;</div><div class="line">        ListNode* curr = head;</div><div class="line">        int len = 0;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            len++;</div><div class="line">            curr = curr-&gt;next;</div><div class="line">        &#125;//len表示链表的长度</div><div class="line">        curr = head0;</div><div class="line">        <span class="keyword">while</span>(len &gt;= k)&#123;</div><div class="line">            <span class="keyword">for</span>(int i = 0; i &lt; k-1; i++)&#123;//如果以k个结点为一组进行反转，就要进行k-1次翻转操作</div><div class="line">                ListNode* temp = curr-&gt;next;//比如k=3，就是两次操作：将2翻转到1前面+将3翻转到1前面</div><div class="line">                curr-&gt;next = head-&gt;next;</div><div class="line">                head-&gt;next = head-&gt;next-&gt;next;</div><div class="line">                curr-&gt;next-&gt;next = temp;</div><div class="line">            &#125;</div><div class="line">            curr = head;</div><div class="line">            head = head-&gt;next;//以k为一组，就要将head移动到已经反转过的结点后面继续以k个结点为一组进行反转</div><div class="line">            len -= k;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> head0-&gt;next;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode104.png" alt=""></p>
+<h2 id="思路1：递归"><a href="#思路1：递归" class="headerlink" title="思路1：递归"></a>思路1：递归</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition <span class="keyword">for</span> a binary tree node.</div><div class="line"> * struct TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode *left;</div><div class="line"> *     TreeNode *right;</div><div class="line"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">   </div><div class="line">    int maxDepth(TreeNode* root) &#123;</div><div class="line">        <span class="keyword">if</span>(root == NULL)&#123;</div><div class="line">            <span class="built_in">return</span> 0;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> max(maxDepth(root-&gt;left), maxDepth(root-&gt;right)) +1 ;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="思路2：迭代"><a href="#思路2：迭代" class="headerlink" title="思路2：迭代"></a>思路2：迭代</h2><p></p><p>使用了层次遍历。将每一层的结点push进队列，深度+1；当访问一个结点的时，若左左结点或右结点不为空，则push进队列。当队列为空时，则访问遍历结束。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition <span class="keyword">for</span> a binary tree node.</div><div class="line"> * struct TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode *left;</div><div class="line"> *     TreeNode *right;</div><div class="line"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxDepth(TreeNode* root) &#123;</div><div class="line">        queue&lt;TreeNode*&gt; q;</div><div class="line">        <span class="keyword">if</span>(root == NULL)&#123;</div><div class="line">            <span class="built_in">return</span> 0;</div><div class="line">        &#125;</div><div class="line">        q.push(root);</div><div class="line">        int depth = 0;</div><div class="line">        <span class="keyword">while</span>(!q.empty())&#123;</div><div class="line">            depth++;</div><div class="line">            int len = q.size();</div><div class="line">            <span class="keyword">while</span>(len--)&#123;</div><div class="line">                TreeNode* temp = q.front();</div><div class="line">                <span class="keyword">if</span>(temp-&gt;left != NULL)&#123;</div><div class="line">                    q.push(temp-&gt;left);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(temp-&gt;right != NULL)&#123;</div><div class="line">                    q.push(temp-&gt;right);</div><div class="line">                &#125;</div><div class="line">                q.pop();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> depth;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路1：递归"><span class="toc-text">思路1：递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路2：迭代"><span class="toc-text">思路2：迭代</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2019/01/19/leetcode26/" class="prev">&larr; 上一篇 LeetCode第26题删除排序数组中的重复项-C++</a>
-  
 
   
 
   
-    <a href="/2019/01/16/leetcode24/" class="next">下一篇 LeetCode第24题两两交换链表中的节点-C++ &rarr;</a>
+    <a href="/2019/03/19/leetcode89/" class="next">下一篇 LeetCode第89题格雷编码-C++ &rarr;</a>
   
 </nav>
 

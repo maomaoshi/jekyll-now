@@ -130,12 +130,12 @@
   <article id="post">
     <h1>LeetCode第36题有效的数独-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2019-02-08</span>
+      <span id = "post-title-date">撰写于 2019-02-08</span>
       
-        <span id = "post-title-updated">Updated at 2019-02-08</span>
+        <span id = "post-title-updated">修改于 2019-02-08</span>
       
       
-      <span id = "post-title-categories">Category
+      <span id = "post-title-categories">分类
       
       
         
@@ -152,7 +152,7 @@
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -175,10 +175,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    bool isValidSudoku(vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;</div><div class="line">        map&lt;int, map&lt;char, int&gt;&gt; rows;</div><div class="line">        map&lt;int, map&lt;char, int&gt;&gt; columns;</div><div class="line">        map&lt;int, map&lt;char, int&gt;&gt; boxes;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(int i = 0; i &lt;9; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = 0; j &lt; 9; j++)&#123;</div><div class="line">                char num = board[i][j];</div><div class="line">                <span class="keyword">if</span>(num != <span class="string">'.'</span>)&#123;</div><div class="line">                    rows[i][num]++;</div><div class="line">                    columns[j][num]++;</div><div class="line">                    int box_index = i / 3 * 3 + j / 3;</div><div class="line">                    boxes[box_index][num] ++;</div><div class="line">                    <span class="keyword">if</span>(rows[i][num] &gt; 1 || columns[j][num] &gt; 1 || boxes[box_index][num] &gt; 1)&#123;</div><div class="line">                        <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路1：三次遍历数独"><span class="toc-text">思路1：三次遍历数独</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路2：一次迭代"><span class="toc-text">思路2：一次迭代</span></a></li></ol>
   </div>
 </div>
@@ -186,13 +186,13 @@
   
 <nav id="pagination">
   
-    <a href="/2019/02/18/leetcode39/" class="prev">&larr; Prev post LeetCode第39题组合总和-C++</a>
+    <a href="/2019/02/18/leetcode39/" class="prev">&larr; 上一篇 LeetCode第39题组合总和-C++</a>
   
 
   
 
   
-    <a href="/2019/02/08/leetcode35/" class="next">Next post LeetCode第35题搜索插入位置-C++ &rarr;</a>
+    <a href="/2019/02/08/leetcode35/" class="next">下一篇 LeetCode第35题搜索插入位置-C++ &rarr;</a>
   
 </nav>
 
