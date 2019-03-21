@@ -1,0 +1,387 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="PHP的自动加载机制
+autoload()当PHP引擎遇到试图实例化未知类的操作时，会调用autoload()方法，并将类名当做字符串参数传递给它。代码如下：  1234567891011121314151617//autoload.phpfunction __autoload($class) &#123;    $file = $class . '.php';    require_onc...">
+  
+  <title>Composer自动加载原理 [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2019/03/20/MVC框架学习笔记/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        MVC框架学习笔记
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2019/03/19/leetcode89/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode第89题格雷编码-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>Composer自动加载原理</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2019-03-20</span>
+      
+        <span id = "post-title-updated">Updated at 2019-03-21</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/PHP/">PHP</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/Composer/">Composer</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="PHP的自动加载机制"><a href="#PHP的自动加载机制" class="headerlink" title="PHP的自动加载机制"></a>PHP的自动加载机制</h2><ol>
+<li><strong>autoload()<br>当PHP引擎遇到试图实例化未知类的操作时，会调用</strong>autoload()方法，并将类名当做字符串参数传递给它。代码如下：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//autoload.php</div><div class="line"><span class="keyword">function</span> __autoload(<span class="variable">$class</span>) &#123;</div><div class="line">    <span class="variable">$file</span> = <span class="variable">$class</span> . <span class="string">'.php'</span>;</div><div class="line">    require_once <span class="variable">$file</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="variable">$text</span> = new <span class="built_in">test</span>();</div><div class="line"></div><div class="line">//test.php</div><div class="line">class <span class="built_in">test</span> &#123;</div><div class="line">  public <span class="keyword">function</span> <span class="function"><span class="title">__construct</span></span>() &#123;</div><div class="line">     <span class="built_in">echo</span> <span class="string">"this is test"</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//输出：</div><div class="line">this is <span class="built_in">test</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>当在index.php中初始化test时，因为找不到对应类，就会调用__autoload()引入对应文件。  </p>
+<p></p><p>当代码改成如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">//autoload.php</div><div class="line"><span class="keyword">function</span> __autoload(<span class="variable">$class</span>) &#123;</div><div class="line">    <span class="variable">$file</span> = <span class="variable">$class</span> . <span class="string">'.php'</span>;</div><div class="line">    require_once <span class="variable">$file</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="variable">$text</span> = new <span class="built_in">test</span>();</div><div class="line"></div><div class="line">//test.php</div><div class="line"><span class="keyword">function</span> __autoload(<span class="variable">$class</span>) </div><div class="line">&#123;</div><div class="line">	<span class="variable">$file</span> = <span class="variable">$class</span> . <span class="string">'.php'</span>;</div><div class="line">	require_once <span class="variable">$file</span>;</div><div class="line">&#125;</div><div class="line">class <span class="built_in">test</span> &#123;</div><div class="line">  public <span class="keyword">function</span> <span class="function"><span class="title">__construct</span></span>() &#123;</div><div class="line">     <span class="built_in">echo</span> <span class="string">"this is test"</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//运行后则会报错：Cannot redeclare __autoload() (previously declared <span class="keyword">in</span> D:\wamp64\www\autoload.php:2)表示__autoload已在autoload.php文件中定义。</div></pre></td></tr></table></figure></p>
+<p></p><p>因为__autoload()在一个进程中只能定义它一次。当我们在进行项目合并的时候，如果出现多个autoload()需要将其合并为一个函数。那么，出现了spl_autoload_register()。 </p>
+<ol>
+<li>spl_autoload_register()<br>上述代码可以写成：  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//autoload.php</div><div class="line"><span class="keyword">function</span> autoload_test(<span class="variable">$class</span>) &#123;</div><div class="line">    <span class="variable">$file</span> = <span class="variable">$class</span> . <span class="string">'.php'</span>;</div><div class="line">    require_once <span class="variable">$file</span>;</div><div class="line">&#125;</div><div class="line">spl_autoload_register(<span class="string">"autoload_test"</span>);</div><div class="line"><span class="variable">$text</span> = new <span class="built_in">test</span>();</div><div class="line"></div><div class="line">//test.php</div><div class="line">class <span class="built_in">test</span> &#123;</div><div class="line">  public <span class="keyword">function</span> <span class="function"><span class="title">__construct</span></span>() &#123;</div><div class="line">     <span class="built_in">echo</span> <span class="string">"this is test"</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p></p><p>使用此函数可以生成一个__autoload()队列，可以注册多个函数。代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//autoload.php</div><div class="line"><span class="keyword">function</span> autoload_test(<span class="variable">$class</span>) &#123;</div><div class="line">    <span class="variable">$file</span> = <span class="variable">$class</span> . <span class="string">'.php'</span>;</div><div class="line">    require_once <span class="variable">$file</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">function</span> autoload_vos(<span class="variable">$class</span>) &#123;</div><div class="line">    <span class="variable">$file</span> = <span class="variable">$class</span> . <span class="string">'.php'</span>;</div><div class="line">    require_once <span class="variable">$file</span>;</div><div class="line">&#125;</div><div class="line">spl_autoload_register(<span class="string">"autoload_test"</span>);</div><div class="line">spl_autoload_register(<span class="string">"autoload_vos"</span>);</div><div class="line"><span class="variable">$text</span> = new <span class="built_in">test</span>();</div></pre></td></tr></table></figure></p>
+<p></p><p><strong>函数执行顺序是先加载的先执行</strong></p>
+<ol>
+<li>如果出现类继承情况：<br>假设文件结构如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">|-autoload.php</div><div class="line">|-child.php</div><div class="line">|-pa.php</div><div class="line">|-grand.php</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>代码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">//autoload.php</div><div class="line"></div><div class="line"><span class="keyword">function</span> loadprint( <span class="variable">$class</span> ) &#123;</div><div class="line">	<span class="built_in">echo</span> <span class="variable">$class</span>.<span class="string">"&lt;br /&gt;"</span>;   //code one</div><div class="line">    <span class="variable">$file</span> = <span class="variable">$class</span> . <span class="string">'.php'</span>;  </div><div class="line">    <span class="keyword">if</span> (is_file(<span class="variable">$file</span>)) &#123;  </div><div class="line">      require_once(<span class="variable">$file</span>);  </div><div class="line">    &#125; </div><div class="line">&#125; </div><div class="line"> </div><div class="line">spl_autoload_register( <span class="string">'loadprint'</span> ); </div><div class="line"> </div><div class="line"><span class="variable">$obj</span> = new child();</div><div class="line"><span class="variable">$obj</span>-&gt;hello();</div><div class="line"></div><div class="line">//child.php</div><div class="line">class child extends pa &#123;</div><div class="line">   //正文部分</div><div class="line">&#125;</div><div class="line"></div><div class="line">//pa.php</div><div class="line">class pa extends grand &#123;</div><div class="line">  //正文部分</div><div class="line">&#125;</div><div class="line"></div><div class="line">//grand.php</div><div class="line">class grand &#123;</div><div class="line">  public <span class="keyword">function</span> <span class="function"><span class="title">hello</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> <span class="string">"im grand"</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行autoload.php结果如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">child</div><div class="line">pa</div><div class="line">grand</div><div class="line">im grand</div></pre></td></tr></table></figure></p>
+<h2 id="composer自动加载方式"><a href="#composer自动加载方式" class="headerlink" title="composer自动加载方式"></a>composer自动加载方式</h2><p></p><p>Composer提供四种自动加载的方式，<strong>分别是PSR-0,PSR-4,生成classmap以及直接包含files</strong>;  </p>
+<ol>
+<li>PSR-0方式，命名空间到类文件路径的映射、相比psr-4，<strong>多了以命名空间作为层级目录（目录层级更深</strong>）。假如composer.json配置如下：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    ……</div><div class="line">    <span class="string">"require"</span>: &#123;</div><div class="line">        <span class="string">"foo/bar"</span>: <span class="string">"2.*"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"autoload"</span>: &#123;</div><div class="line">        <span class="string">"psr-0"</span>: &#123;</div><div class="line">            <span class="string">"Aaa\\Bbb\\"</span>: <span class="string">"src/"</span>,</div><div class="line">            <span class="string">"Ccc_Ddd_"</span>: <span class="string">"tsrc/"</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    ……</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>那么类目录结构如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-composer.json</div><div class="line">|-src</div><div class="line">| |-Aaa</div><div class="line">| | |-Bbb</div><div class="line">| | | |-Jkd.php             /* Aaa\Bbb\Jkd */</div><div class="line">| |-Ccc</div><div class="line">| | |-Ddd</div><div class="line">| | | |-Jkd.php             /* Ccc_Ddd_Jkd */</div><div class="line">|-vendor</div></pre></td></tr></table></figure></p>
+<p></p><p>最终这个配置也以Map的形式写入生成的vendor/composer/autoload_namespaces.php  </p>
+<ol>
+<li>PSR-4方式，是composer推荐使用的一种方式，也是psr-0的替代方案，因为它更易使用并能带来更简洁的目录结构。在composer.json里是这样进行配置的:  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    ……</div><div class="line">    <span class="string">"require"</span>: &#123;</div><div class="line">        <span class="string">"foo/bar"</span>: <span class="string">"2.*"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"autoload"</span>: &#123;</div><div class="line">        <span class="string">"psr-4"</span>: &#123;</div><div class="line">            <span class="string">"App\\"</span>: <span class="string">"app/"</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    ……</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>那么类目录结构如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">|-composer.json</div><div class="line">|-app</div><div class="line">| |-Takk.php            /* App\Takk */</div><div class="line">| |-BAA</div><div class="line">| | |-Uk.php            /* App\BAA\Uk */</div><div class="line">|</div><div class="line">|-vendor</div></pre></td></tr></table></figure></p>
+<p></p><p>psr-4的配置换会被转换成namespace为key，dir path为value的Map的形式，并写入生成的 vendor/composer/autoload_psr4.php 文件之中。    </p>
+<p></p><p><strong>另外注意PSR-4和PSR-0的配置里，”Foo\”结尾的命名空间分隔符必须加上并且进行转义，以防出现”Foo”匹配到了”FooBar”这样的意外发生。</strong></p>
+<ol>
+<li><strong>classmap方式</strong>，则是通过配置指定的目录或文件，然后在Composer安装或更新时，它会扫描指定目录下以.php或.inc结尾的文件中的class，生成class到指定file path的映射，并加入新生成的 vendor/composer/autoload_classmap.php 文件中。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    ……</div><div class="line">    <span class="string">"require"</span>: &#123;</div><div class="line">        <span class="string">"foo/bar"</span>: <span class="string">"2.*"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"autoload"</span>: &#123;</div><div class="line">        <span class="string">"classmap"</span>: [<span class="string">"App"</span>]</div><div class="line">    &#125;,</div><div class="line">    ……</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>那么类目录结构如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/* 注释为根包项目中使用的类名 */</div><div class="line">|-composer.json</div><div class="line">|-App</div><div class="line">| |-Htt</div><div class="line">| | |-Koo.php           /* Htt\Koo */</div><div class="line">|-vendor</div></pre></td></tr></table></figure></p>
+<ol>
+<li><strong>files方式</strong>，就是手动指定供直接加载的文件。比如说我们有一系列全局的helper functions，可以放到一个helper文件里然后直接进行加载。它会生成一个array，包含这些配置中指定的files，再写入新生成的vendor/composer/autoload_files.php  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    ……</div><div class="line">    <span class="string">"require"</span>: &#123;</div><div class="line">        <span class="string">"foo/bar"</span>: <span class="string">"2.*"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="string">"autoload"</span>: &#123;</div><div class="line">        <span class="string">"files"</span>: [<span class="string">"src/Aaa/Hhh/K.php"</span>]</div><div class="line">    &#125;,</div><div class="line">    ……</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>那么类目录结构如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">|-composer.json</div><div class="line">|-src</div><div class="line">| |-Aaa</div><div class="line">| | |-Hhh</div><div class="line">| | | |-K.php</div><div class="line">|-vendor</div></pre></td></tr></table></figure></p>
+<h2 id="实现自动加载的过程"><a href="#实现自动加载的过程" class="headerlink" title="实现自动加载的过程"></a>实现自动加载的过程</h2><p>在composer.json配置完成后，在终端运行<strong>composer install</strong>。运行成功后会在目录下生成一个vendor文件。通常在入口文件index.php下，  </p>
+<pre><code>require &apos;vendor/autoload.php&apos;
+</code></pre><p>所需要的类库都会自动加载。那为啥加载这个文件就能实现自动加载所需要的库呢？可看<a href="https://segmentfault.com/a/1190000014948542" target="_blank" rel="external">深入解析 composer 的自动加载原理</a>。讲得非常详细</p>
+<p></p><p>参考资料：  </p>
+<ul>
+<li>composer自动加载：<a href="https://segmentfault.com/a/1190000006429850" target="_blank" rel="external">https://segmentfault.com/a/1190000006429850</a>  </li>
+<li>spl_autoload_register和__autoload：<a href="https://www.kancloud.cn/qiaodong/php/81229" target="_blank" rel="external">https://www.kancloud.cn/qiaodong/php/81229</a>  </li>
+<li>PHP Composer类自动加载工作原理:<a href="http://yangxikun.github.io/php/2016/07/20/php-composer.html" target="_blank" rel="external">http://yangxikun.github.io/php/2016/07/20/php-composer.html</a>    </li>
+<li>深入解析 composer 的自动加载原理：<a href="https://segmentfault.com/a/1190000014948542" target="_blank" rel="external">https://segmentfault.com/a/1190000014948542</a></li>
+</ul>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP的自动加载机制"><span class="toc-text">PHP的自动加载机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#composer自动加载方式"><span class="toc-text">composer自动加载方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现自动加载的过程"><span class="toc-text">实现自动加载的过程</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+    <a href="/2019/03/20/MVC框架学习笔记/" class="prev">&larr; Prev post MVC框架学习笔记</a>
+  
+
+  
+
+  
+    <a href="/2019/03/19/leetcode89/" class="next">Next post LeetCode第89题格雷编码-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
