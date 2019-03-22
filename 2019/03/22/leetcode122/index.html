@@ -17,9 +17,9 @@
   
   
     <meta name="description" content="题目
-代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849class Solution &#123;public:    string multiply(string num1, string num2) &#123;        /**        num1...">
+思路1：一次遍历刚开始我的想法是用动态规划，dp[i]记录在第i天获得最大利润总和。但是代码运行后答案是错误的。看了评论，发现自己把问题想负责了。比如[7,1,5,6]，我们可以看出来，在第二天买入，第四天卖出收益最大5=6-1;但是在写代码的时候，我们回想怎么判断是第四天卖出，而不是第三天卖出呢？其实我们想复杂了，按照题目要求，同一天可以卖出后再买入。比如第3天可以卖出，再买入，第四...">
   
-  <title>LeetCode第43题字符串相乘-C++ [ GWJ_AJ ]</title>
+  <title>LeetCode 122买卖股票的最佳时机‖-C++ [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,22 +38,13 @@
 <body>
 <div class="side-navigate hide-area">
   
-    <div class="item prev">
-      <a href="/2019/02/21/leetcode48/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        LeetCode第48题旋转图像-C++
-      </div>
-    </div>
-  
   
     <div class="item next">
-      <a href="/2019/02/21/leetcode49/">
+      <a href="/2019/03/21/leetcode121/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第49题字母异位词分组-C++
+        LeetCode 121买卖股票的最佳时机-C++
       </div>
     </div>
   
@@ -128,11 +119,11 @@
       
       
   <article id="post">
-    <h1>LeetCode第43题字符串相乘-C++</h1>
+    <h1>LeetCode 122买卖股票的最佳时机‖-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2019-02-21</span>
+      <span id = "post-title-date">Created at 2019-03-22</span>
       
-        <span id = "post-title-updated">Updated at 2019-02-21</span>
+        <span id = "post-title-updated">Updated at 2019-03-22</span>
       
       
       <span id = "post-title-categories">Category
@@ -169,28 +160,27 @@
       
     </p>
     
-    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode43.png" alt=""></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    string multiply(string num1, string num2) &#123;</div><div class="line">        /**</div><div class="line">        num1的第i位(高位从0开始)和num2的第j位相乘的结果在乘积中的位置是[i+j, i+j+1]</div><div class="line">        例: 123 * 45,  123的第1位 2 和45的第0位 4 乘积 08 存放在结果的第[1, 2]位中</div><div class="line">          index:    0 1 2 3 4  </div><div class="line">              </div><div class="line">                        1 2 3</div><div class="line">                    *     4 5</div><div class="line">                    ---------</div><div class="line">                          1 5</div><div class="line">                        1 0</div><div class="line">                      0 5</div><div class="line">                    ---------</div><div class="line">                      0 6 1 5</div><div class="line">                        1 2</div><div class="line">                      0 8</div><div class="line">                    0 4</div><div class="line">                    ---------</div><div class="line">                    0 5 5 3 5</div><div class="line">        这样我们就可以单独都对每一位进行相乘计算把结果存入相应的index中        </div><div class="line">        **/</div><div class="line">        int len1 = num1.length();</div><div class="line">        int len2 = num2.length();</div><div class="line">        <span class="keyword">if</span>(len1 == 0 || len2 == 0)&#123;</div><div class="line">            <span class="built_in">return</span> <span class="string">""</span>;</div><div class="line">        &#125;</div><div class="line">        vector&lt;int&gt; mul(len1+len2, 0);</div><div class="line">        <span class="keyword">for</span>(int i = len1 - 1; i &gt;= 0; i--)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = len2 - 1; j &gt;= 0; j--)&#123;</div><div class="line">                int bitmul = (num1[i] - <span class="string">'0'</span>) * (num2[j] - <span class="string">'0'</span>);</div><div class="line">                bitmul += mul[i+j+1];</div><div class="line">                mul[i+j] += bitmul / 10; //先加低位判断是否有新的进位</div><div class="line">                mul[i+j+1] = bitmul % 10;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        int i = 0;</div><div class="line">        //去掉前导0</div><div class="line">        <span class="keyword">while</span>(i &lt; len1+len2-1 &amp;&amp; mul[i] == 0)&#123;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        string res;</div><div class="line">        <span class="keyword">for</span>(;i &lt; len1 + len2; i++)&#123;</div><div class="line">            res += char(mul[i] + <span class="string">'0'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+    <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/images/leetcode122.png" alt=""></p>
+<h2 id="思路1：一次遍历"><a href="#思路1：一次遍历" class="headerlink" title="思路1：一次遍历"></a>思路1：一次遍历</h2><p></p><p>刚开始我的想法是用动态规划，dp[i]记录在第i天获得最大利润总和。但是代码运行后答案是错误的。看了评论，发现自己把问题想负责了。比如[7,1,5,6]，我们可以看出来，在第二天买入，第四天卖出收益最大5=6-1;但是在写代码的时候，我们回想怎么判断是第四天卖出，而不是第三天卖出呢？其实我们想复杂了，按照题目要求，同一天可以卖出后再买入。比如第3天可以卖出，再买入，第四天再卖出。总的收益为5=(5-1)+(6-5)。也就是说，只要当天的价格高于昨天的，我们就可以卖出。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;</div><div class="line">        int maxprofit = 0;</div><div class="line">        <span class="keyword">for</span>(int i = 1; i &lt; prices.size(); i++)&#123;</div><div class="line">            <span class="keyword">if</span>(prices[i] &gt; prices[i-1])&#123;</div><div class="line">                maxprofit += (prices[i] - prices[i-1]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> maxprofit;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路1：一次遍历"><span class="toc-text">思路1：一次遍历</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2019/02/21/leetcode48/" class="prev">&larr; Prev post LeetCode第48题旋转图像-C++</a>
-  
 
   
 
   
-    <a href="/2019/02/21/leetcode49/" class="next">Next post LeetCode第49题字母异位词分组-C++ &rarr;</a>
+    <a href="/2019/03/21/leetcode121/" class="next">Next post LeetCode 121买卖股票的最佳时机-C++ &rarr;</a>
   
 </nav>
 
