@@ -1,0 +1,370 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="学习教程：手把手编写PHP MVC框架实例教程
+重定向重定向有几个好处：  
+
+静态文件能访问。如果文件或者目录真实存在，则直接访问存在的文件/目录。  
+程序有单一的入口。如果请求地址不是真实的文件或目录，就把请求传到index.php。在index.php中加载了框架文件，实例了框架类，就可调用框架类的route()函数解析url。将url指向正确的控制器和方法。  
+美化URL  
+
+...">
+  
+  <title>MVC框架学习笔记 [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+    <div class="item next">
+      <a href="/2019/03/26/leetcode160/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode 160相交链表-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>MVC框架学习笔记</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2019-03-27</span>
+      
+        <span id = "post-title-updated">修改于 2019-03-27</span>
+      
+      
+      <span id = "post-title-categories">分类
+      
+      
+        
+        
+        <a href="/categories/PHP/">PHP</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      标签
+      
+      
+        
+        
+        <a href="/tags/MVC/">MVC</a>
+      
+      </span>
+      
+    </p>
+    
+    <p></p><p><strong>学习教程：</strong><a href="https://www.awaimai.com/128.html" target="_blank" rel="external">手把手编写PHP MVC框架实例教程</a></p>
+<h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h2><p></p><p>重定向有几个好处：  </p>
+<ul>
+<li>静态文件能访问。如果文件或者目录真实存在，则直接访问存在的文件/目录。  </li>
+<li>程序有单一的入口。如果请求地址不是真实的文件或目录，就把请求传到index.php。在index.php中加载了框架文件，实例了框架类，就可调用框架类的route()函数解析url。将url指向正确的控制器和方法。  </li>
+<li>美化URL  </li>
+</ul>
+<h2 id="PHP-MVC核心文件"><a href="#PHP-MVC核心文件" class="headerlink" title="PHP MVC核心文件"></a>PHP MVC核心文件</h2><h3 id="入口文件index-php"><a href="#入口文件index-php" class="headerlink" title="入口文件index.php"></a>入口文件index.php</h3><p></p><p>在入口文件中，一般都要加载框架文件，加载配置文件，实例化框架。这里框架相当于容器，而我们将需要的配置注入容器，实例化。这样做的好处的是，当需要更改配置时，只需要在配置文件中进行修改。将配置和框架类代码解耦，也便于维护。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 实例化框架类</div><div class="line">(new fastphp\Fastphp(<span class="variable">$config</span>))-&gt;run(); //注入</div></pre></td></tr></table></figure>
+<p></p><p>这里提到了依赖容器注入，可参考<a href="https://segmentfault.com/a/1190000002424023" target="_blank" rel="external">依赖容器注入</a>。</p>
+<p></p><p>在该教程中，使用以下语句加载框架类。但是当我们所需要的库逐渐增加时，也要一个一个require库文件吗？PHP有自己的包管理工具Composer,可用其实现对库文件的自动加载。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 加载框架文件</div><div class="line">require(APP_PATH . <span class="string">'fastphp/Fastphp.php'</span>);</div></pre></td></tr></table></figure>
+<h4 id="Composer自动加载工作原理"><a href="#Composer自动加载工作原理" class="headerlink" title="Composer自动加载工作原理"></a>Composer自动加载工作原理</h4><p></p><p>那Composer是怎样实现自动加载的呢？为了防止这篇文章过长，我另写了一篇文章<a href="https://maomaoshi.github.io/2019/03/20/composer%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86/" target="_blank" rel="external">composer自动加载原理</a></p>
+<h3 id="框架核心类"><a href="#框架核心类" class="headerlink" title="框架核心类"></a>框架核心类</h3><p></p><p>run()方法调用类自身方法，完成了  </p>
+<ol>
+<li>类自动加载  </li>
+<li>环境检查  </li>
+<li>过滤敏感字符  </li>
+<li>移除全局变量的老用法</li>
+<li>路由处理  </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namespace fastphp;</div><div class="line"></div><div class="line">// 框架根目录</div><div class="line">defined(<span class="string">'CORE_PATH'</span>) or define(<span class="string">'CORE_PATH'</span>, __DIR__);</div><div class="line"></div><div class="line">/**</div><div class="line"> * fastphp框架核心</div><div class="line"> */</div><div class="line">class Fastphp</div><div class="line">&#123;</div><div class="line">    // 配置内容</div><div class="line">    protected <span class="variable">$config</span> = [];</div><div class="line"></div><div class="line">    public <span class="keyword">function</span> __construct(<span class="variable">$config</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="variable">$this</span>-&gt;config = <span class="variable">$config</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 运行程序</div><div class="line">    public <span class="keyword">function</span> run()</div><div class="line">    &#123;</div><div class="line">        spl_autoload_register(array(<span class="variable">$this</span>, <span class="string">'loadClass'</span>));</div><div class="line">        <span class="variable">$this</span>-&gt;setReporting();</div><div class="line">        <span class="variable">$this</span>-&gt;removeMagicQuotes();</div><div class="line">        <span class="variable">$this</span>-&gt;unregisterGlobals();</div><div class="line">        <span class="variable">$this</span>-&gt;setDbConfig();</div><div class="line">        <span class="variable">$this</span>-&gt;route();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="1-类自动加载"><a href="#1-类自动加载" class="headerlink" title="1. 类自动加载"></a>1. 类自动加载</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">// 自动加载类</div><div class="line">    public <span class="keyword">function</span> loadClass(<span class="variable">$className</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="variable">$classMap</span> = <span class="variable">$this</span>-&gt;classMap();</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (isset(<span class="variable">$classMap</span>[<span class="variable">$className</span>])) &#123;</div><div class="line">            // 包含内核文件</div><div class="line">            <span class="variable">$file</span> = <span class="variable">$classMap</span>[<span class="variable">$className</span>];</div><div class="line">        &#125; elseif (strpos(<span class="variable">$className</span>, <span class="string">'\\'</span>) !== <span class="literal">false</span>) &#123;</div><div class="line">            // 包含应用（application目录）文件</div><div class="line">            <span class="variable">$file</span> = APP_PATH . str_replace(<span class="string">'\\'</span>, <span class="string">'/'</span>, <span class="variable">$className</span>) . <span class="string">'.php'</span>;</div><div class="line">            <span class="keyword">if</span> (!is_file(<span class="variable">$file</span>)) &#123;</div><div class="line">                <span class="built_in">return</span>;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="built_in">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        include <span class="variable">$file</span>;</div><div class="line"></div><div class="line">        // 这里可以加入判断，如果名为<span class="variable">$className</span>的类、接口或者性状不存在，则在调试模式下抛出错误</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 内核文件命名空间映射关系</div><div class="line">    protected <span class="keyword">function</span> classMap()</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">return</span> [</div><div class="line">            <span class="string">'fastphp\base\Controller'</span> =&gt; CORE_PATH . <span class="string">'/base/Controller.php'</span>,</div><div class="line">            <span class="string">'fastphp\base\Model'</span> =&gt; CORE_PATH . <span class="string">'/base/Model.php'</span>,</div><div class="line">            <span class="string">'fastphp\base\View'</span> =&gt; CORE_PATH . <span class="string">'/base/View.php'</span>,</div><div class="line">            <span class="string">'fastphp\db\Db'</span> =&gt; CORE_PATH . <span class="string">'/db/Db.php'</span>,</div><div class="line">            <span class="string">'fastphp\db\Sql'</span> =&gt; CORE_PATH . <span class="string">'/db/Sql.php'</span>,</div><div class="line">        ];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p></p><p>在run()方法里面注册了loadClass函数，当需要实例一个未知的类时，则调用该函数寻找相对应的类文件，实现惰性加载。在classmap()中完成了内核文件和命名空间的映射关系。loadClass首先查找内核文件是否有要加载的类文件，有的话就加载文件。否则判断该类名是否有’\’，如果有则类文件可能在app目录，则将类名中’\’改成’/‘，构造文件路径。使用is_file()判断是否含有该文件，如果有则加载，否则返回空。</p>
+<h4 id="2-环境检查"><a href="#2-环境检查" class="headerlink" title="2. 环境检查"></a>2. 环境检查</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 检测开发环境</div><div class="line">   public <span class="keyword">function</span> setReporting()</div><div class="line">   &#123;</div><div class="line">       <span class="keyword">if</span> (APP_DEBUG === <span class="literal">true</span>) &#123;</div><div class="line">           error_reporting(E_ALL);</div><div class="line">           ini_set(<span class="string">'display_errors'</span>,<span class="string">'On'</span>);</div><div class="line">       &#125; <span class="keyword">else</span> &#123;</div><div class="line">           error_reporting(E_ALL);</div><div class="line">           ini_set(<span class="string">'display_errors'</span>,<span class="string">'Off'</span>);</div><div class="line">           ini_set(<span class="string">'log_errors'</span>, <span class="string">'On'</span>);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p></p><p>全局变量APP_DEBUG已在入口文件index.php中定义，当APP_DEBUG为true时，打开调试模式。error_reporting(E_ALL)表示报告所有PHP错误。ini_set(‘display_errors’,’On’)，表示在配置文件里修改配置，打开错误信息，即报错了直接显示在页面中。没有打开调试模式，则将错误信息写入错误日志。</p>
+<h4 id="3-过滤敏感字符"><a href="#3-过滤敏感字符" class="headerlink" title="3. 过滤敏感字符"></a>3. 过滤敏感字符</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// 删除敏感字符</div><div class="line">    public <span class="keyword">function</span> stripSlashesDeep(<span class="variable">$value</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="variable">$value</span> = is_array(<span class="variable">$value</span>) ? array_map(array(<span class="variable">$this</span>, <span class="string">'stripSlashesDeep'</span>), <span class="variable">$value</span>) : stripslashes(<span class="variable">$value</span>);</div><div class="line">        <span class="built_in">return</span> <span class="variable">$value</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">// 检测敏感字符并删除</div><div class="line">    public <span class="keyword">function</span> removeMagicQuotes()</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (get_magic_quotes_gpc()) &#123;</div><div class="line">            <span class="variable">$_GET</span> = isset(<span class="variable">$_GET</span>) ? <span class="variable">$this</span>-&gt;stripSlashesDeep(<span class="variable">$_GET</span> ) : <span class="string">''</span>;</div><div class="line">            <span class="variable">$_POST</span> = isset(<span class="variable">$_POST</span>) ? <span class="variable">$this</span>-&gt;stripSlashesDeep(<span class="variable">$_POST</span> ) : <span class="string">''</span>;</div><div class="line">            <span class="variable">$_COOKIE</span> = isset(<span class="variable">$_COOKIE</span>) ? <span class="variable">$this</span>-&gt;stripSlashesDeep(<span class="variable">$_COOKIE</span>) : <span class="string">''</span>;</div><div class="line">            <span class="variable">$_SESSION</span> = isset(<span class="variable">$_SESSION</span>) ? <span class="variable">$this</span>-&gt;stripSlashesDeep(<span class="variable">$_SESSION</span>) : <span class="string">''</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p></p><p>get_magic_quotes_gpc()返回magic_quotes_gpc的值。magic_quotes_gpc为GPC(GET,POST,COOKIE)操作设置magic_quotes状态。当magic_quotes为on,所有的’（单引号）、”（双引号）、\（反斜杠）和NUL’s被一个反斜杠自动转义。但该特性已自PHP5.3.0起废弃并在PHP5.4.0起移除。array_map()：为数组$value中的每个元素应用stripSlashesDeep()函数，如果$value不是数组，则调用stripslashes($value)，返回一个去除转义反斜线后的字符串。</p>
+<h4 id="4-移除全局变量的老用法"><a href="#4-移除全局变量的老用法" class="headerlink" title="4. 移除全局变量的老用法"></a>4. 移除全局变量的老用法</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// 检测自定义全局变量并移除。因为 register_globals 已经弃用，如果</div><div class="line">    // 已经弃用的 register_globals 指令被设置为 on，那么局部变量也将</div><div class="line">    // 在脚本的全局作用域中可用。 例如， <span class="variable">$_POST</span>[<span class="string">'foo'</span>] 也将以 <span class="variable">$foo</span> 的</div><div class="line">    // 形式存在，这样写是不好的实现，会影响代码中的其他变量。 相关信息，</div><div class="line">    // 参考: http://php.net/manual/zh/faq.using.php<span class="comment">#faq.register-globals</span></div><div class="line">    public <span class="keyword">function</span> unregisterGlobals()</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (ini_get(<span class="string">'register_globals'</span>)) &#123;</div><div class="line">            <span class="variable">$array</span> = array(<span class="string">'_SESSION'</span>, <span class="string">'_POST'</span>, <span class="string">'_GET'</span>, <span class="string">'_COOKIE'</span>, <span class="string">'_REQUEST'</span>, <span class="string">'_SERVER'</span>, <span class="string">'_ENV'</span>, <span class="string">'_FILES'</span>);</div><div class="line">            foreach (<span class="variable">$array</span> as <span class="variable">$value</span>) &#123;</div><div class="line">                foreach (<span class="variable">$GLOBALS</span>[<span class="variable">$value</span>] as <span class="variable">$key</span> =&gt; <span class="variable">$var</span>) &#123;</div><div class="line">                    <span class="keyword">if</span> (<span class="variable">$var</span> === <span class="variable">$GLOBALS</span>[<span class="variable">$key</span>]) &#123;</div><div class="line">                        <span class="built_in">unset</span>(<span class="variable">$GLOBALS</span>[<span class="variable">$key</span>]);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p></p><p>这里就不做解释了，源代码的注释已经说明得很清楚了。</p>
+<h4 id="5-路由处理"><a href="#5-路由处理" class="headerlink" title="5. 路由处理"></a>5. 路由处理</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">// 路由处理</div><div class="line">    public <span class="keyword">function</span> route()</div><div class="line">    &#123;</div><div class="line">        <span class="variable">$controllerName</span> = <span class="variable">$this</span>-&gt;config[<span class="string">'defaultController'</span>];</div><div class="line">        <span class="variable">$actionName</span> = <span class="variable">$this</span>-&gt;config[<span class="string">'defaultAction'</span>];</div><div class="line">        <span class="variable">$param</span> = array();</div><div class="line"></div><div class="line">        <span class="variable">$url</span> = <span class="variable">$_SERVER</span>[<span class="string">'REQUEST_URI'</span>];</div><div class="line">        // 清除?之后的内容</div><div class="line">        <span class="variable">$position</span> = strpos(<span class="variable">$url</span>, <span class="string">'?'</span>);</div><div class="line">        <span class="variable">$url</span> = <span class="variable">$position</span> === <span class="literal">false</span> ? <span class="variable">$url</span> : substr(<span class="variable">$url</span>, 0, <span class="variable">$position</span>);</div><div class="line">        // 删除前后的“/”</div><div class="line">        <span class="variable">$url</span> = trim(<span class="variable">$url</span>, <span class="string">'/'</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (<span class="variable">$url</span>) &#123;</div><div class="line">            // 使用“/”分割字符串，并保存在数组中</div><div class="line">            <span class="variable">$urlArray</span> = explode(<span class="string">'/'</span>, <span class="variable">$url</span>);</div><div class="line">            // 删除空的数组元素</div><div class="line">            <span class="variable">$urlArray</span> = array_filter(<span class="variable">$urlArray</span>);</div><div class="line">            </div><div class="line">            // 获取控制器名</div><div class="line">            <span class="variable">$controllerName</span> = ucfirst(<span class="variable">$urlArray</span>[0]);</div><div class="line">            </div><div class="line">            // 获取动作名</div><div class="line">            array_shift(<span class="variable">$urlArray</span>);</div><div class="line">            <span class="variable">$actionName</span> = <span class="variable">$urlArray</span> ? <span class="variable">$urlArray</span>[0] : <span class="variable">$actionName</span>;</div><div class="line">            </div><div class="line">            // 获取URL参数</div><div class="line">            array_shift(<span class="variable">$urlArray</span>);</div><div class="line">            <span class="variable">$param</span> = <span class="variable">$urlArray</span> ? <span class="variable">$urlArray</span> : array();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 判断控制器和操作是否存在</div><div class="line">        <span class="variable">$controller</span> = <span class="string">'app\\controllers\\'</span>. <span class="variable">$controllerName</span> . <span class="string">'Controller'</span>;</div><div class="line">        <span class="keyword">if</span> (!class_exists(<span class="variable">$controller</span>)) &#123;</div><div class="line">            <span class="built_in">exit</span>(<span class="variable">$controller</span> . <span class="string">'控制器不存在'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (!method_exists(<span class="variable">$controller</span>, <span class="variable">$actionName</span>)) &#123;</div><div class="line">            <span class="built_in">exit</span>(<span class="variable">$actionName</span> . <span class="string">'方法不存在'</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 如果控制器和操作名存在，则实例化控制器，因为控制器对象里面</div><div class="line">        // 还会用到控制器名和操作名，所以实例化的时候把他们俩的名称也</div><div class="line">        // 传进去。结合Controller基类一起看</div><div class="line">        <span class="variable">$dispatch</span> = new <span class="variable">$controller</span>(<span class="variable">$controllerName</span>, <span class="variable">$actionName</span>);</div><div class="line"></div><div class="line">        // <span class="variable">$dispatch</span>保存控制器实例化后的对象，我们就可以调用它的方法，</div><div class="line">        // 也可以像方法中传入参数，以下等同于：<span class="variable">$dispatch</span>-&gt;<span class="variable">$actionName</span>(<span class="variable">$param</span>)</div><div class="line">        call_user_func_array(array(<span class="variable">$dispatch</span>, <span class="variable">$actionName</span>), <span class="variable">$param</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p></p><p>使用$_SERVER[‘REQUEST_URI’]获取路径/controllerName/actionName/queryString。如果url中存在index.php，也将其从字符串中去除掉。只剩下控制器名，动作名和URL参数。ucfirst()将字符串首字母变成大写，array_shift()将数组开头的单元移出数组。使用class_exists()来检查类是否已经定义，一开始没有检查到类的定义，由于之前已经注册了类加载函数loadClass，则调用此函数在app/controller目录下寻找对应的类文件。如果没找到则打印错误，找到就加载对应的类文件。接下来实例化控制器。call_user_func_array()将第一个参数当作回到函数调用，把第一个参数数组作为回调函数的参数传入。</p>
+<h3 id="Controller基类"><a href="#Controller基类" class="headerlink" title="Controller基类"></a>Controller基类</h3><p></p><p>Controller功能是总调度，调用对应模型对数据库进行操作，将数据传给View显示。</p>
+<h3 id="Model基类"><a href="#Model基类" class="headerlink" title="Model基类"></a>Model基类</h3><p></p><p>Model基类中涉及到3个类，一个是Model基类本身，一个是其父类SQL，以及提供数据库连接句柄的Db类。</p>
+<p></p><p>Model.php的构造函数主要是将模型类名称和数据库中的表名进行一对一的映射。而它的父类Sql，实现了对数据库的CURD。当Model继承Sql，则只需调用相对应的接口，提供对应的参数，便可实现对数据库的CURD。大大地减少了数据库的编程工作。在Sql类中调用了Db::pdo()，其提供了一个PDO实例。在Db::pdo()实例化了pdo类，使用PDO连接MySQL数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namespace fastphp\base;</div><div class="line"></div><div class="line">use fastphp\db\Sql;</div><div class="line"></div><div class="line">class Model extends Sql</div><div class="line">&#123;</div><div class="line">    protected <span class="variable">$model</span>;</div><div class="line"></div><div class="line">    public <span class="keyword">function</span> __construct()</div><div class="line">    &#123;</div><div class="line">        // 获取数据库表名</div><div class="line">        <span class="keyword">if</span> (!<span class="variable">$this</span>-&gt;table) &#123;</div><div class="line"></div><div class="line">            // 获取模型类名称</div><div class="line">            <span class="variable">$this</span>-&gt;model = get_class(<span class="variable">$this</span>);</div><div class="line"></div><div class="line">            // 删除类名最后的 Model 字符</div><div class="line">            <span class="variable">$this</span>-&gt;model = substr(<span class="variable">$this</span>-&gt;model, 0, -5);</div><div class="line"></div><div class="line">            // 数据库表名与类名一致</div><div class="line">            <span class="variable">$this</span>-&gt;table = strtolower(<span class="variable">$this</span>-&gt;model);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="View基类"><a href="#View基类" class="headerlink" title="View基类"></a>View基类</h4><p></p><p>View的assign()用来分配变量，render()则负责加载页头文件，页脚文件和视图文件。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="部署模型"><a href="#部署模型" class="headerlink" title="部署模型"></a>部署模型</h3><p></p><p>比如ItemModel.php继承了Model类，且指定当前模型操作item表。因为Model类继承的Sql类没有实现like搜索，所以在ItemModel实现了该功能，提供给Controller调用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">namespace app\models;</div><div class="line"></div><div class="line">use fastphp\base\Model;</div><div class="line">use fastphp\db\Db;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 用户Model</div><div class="line"> */</div><div class="line">class ItemModel extends Model</div><div class="line">&#123;</div><div class="line">    /**</div><div class="line">     * 自定义当前模型操作的数据库表名称，</div><div class="line">     * 如果不指定，默认为类名称的小写字符串，</div><div class="line">     * 这里就是 item 表</div><div class="line">     * @var string</div><div class="line">     */</div><div class="line">    protected <span class="variable">$table</span> = <span class="string">'item'</span>;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 搜索功能，因为Sql父类里面没有现成的like搜索，</div><div class="line">     * 所以需要自己写SQL语句，对数据库的操作应该都放</div><div class="line">     * 在Model里面，然后提供给Controller直接调用</div><div class="line">     * @param <span class="variable">$title</span> string 查询的关键词</div><div class="line">     * @<span class="built_in">return</span> array 返回的数据</div><div class="line">     */</div><div class="line">    public <span class="keyword">function</span> search(<span class="variable">$keyword</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="variable">$sql</span> = <span class="string">"select * from `<span class="variable">$this</span>-&gt;table` where `item_name` like :keyword"</span>;</div><div class="line">        <span class="variable">$sth</span> = Db::pdo()-&gt;prepare(<span class="variable">$sql</span>);</div><div class="line">        <span class="variable">$sth</span> = <span class="variable">$this</span>-&gt;formatParam(<span class="variable">$sth</span>, [<span class="string">':keyword'</span> =&gt; <span class="string">"%<span class="variable">$keyword</span>%"</span>]);</div><div class="line">        <span class="variable">$sth</span>-&gt;execute();</div><div class="line"></div><div class="line">        <span class="built_in">return</span> <span class="variable">$sth</span>-&gt;fetchAll();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="部署控制器"><a href="#部署控制器" class="headerlink" title="部署控制器"></a>部署控制器</h3><p></p><p>在ItemController中，实现的是业务逻辑和将从Model层传回数据传给View模型。其中对数据库的操作都是调用ItemModel来实现。</p>
+<p></p><p>写到这，整个框架差不多都学习完了。一路学习来，对MVC有了更深的了解。感谢博主！</p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#重定向"><span class="toc-text">重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP-MVC核心文件"><span class="toc-text">PHP MVC核心文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#入口文件index-php"><span class="toc-text">入口文件index.php</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Composer自动加载工作原理"><span class="toc-text">Composer自动加载工作原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#框架核心类"><span class="toc-text">框架核心类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-类自动加载"><span class="toc-text">1. 类自动加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-环境检查"><span class="toc-text">2. 环境检查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-过滤敏感字符"><span class="toc-text">3. 过滤敏感字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-移除全局变量的老用法"><span class="toc-text">4. 移除全局变量的老用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-路由处理"><span class="toc-text">5. 路由处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Controller基类"><span class="toc-text">Controller基类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Model基类"><span class="toc-text">Model基类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#View基类"><span class="toc-text">View基类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-text">应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#部署模型"><span class="toc-text">部署模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署控制器"><span class="toc-text">部署控制器</span></a></li></ol></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2019/03/26/leetcode160/" class="next">下一篇 LeetCode 160相交链表-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
