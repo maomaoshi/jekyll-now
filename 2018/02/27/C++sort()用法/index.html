@@ -41,11 +41,11 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2018/10/13/MVC学习/">
+      <a href="/2018/10/13/PHP命名空间/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        MVC
+        PHP命名空间
       </div>
     </div>
   
@@ -132,12 +132,12 @@
   <article id="post">
     <h1>C++ sort()用法</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-02-27</span>
+      <span id = "post-title-date">Created at 2018-02-27</span>
       
-        <span id = "post-title-updated">修改于 2018-10-26</span>
+        <span id = "post-title-updated">Updated at 2018-10-26</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -148,7 +148,7 @@
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -165,10 +165,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#include&lt;iostream&gt;</span></div><div class="line"><span class="comment">#include&lt;algorithm&gt;</span></div><div class="line">using namespace std;</div><div class="line">typedef struct arr&#123;</div><div class="line">	int w,s;</div><div class="line">&#125;struct1;</div><div class="line">bool compar(const struct1&amp;a,const struct1&amp;b)&#123;//据说这里一定要加const,不然会报错，等有时间的时候再研究一下</div><div class="line">	<span class="keyword">if</span>(a.s==b.s) <span class="built_in">return</span> a.w&lt;b.w;//此为升序</div><div class="line">	<span class="built_in">return</span> a.s&lt;b.s;</div><div class="line">&#125;</div><div class="line">int <span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">	int n,k;</div><div class="line">	cin&gt;&gt;n&gt;&gt;k;</div><div class="line">	int a[n];</div><div class="line">	<span class="keyword">for</span>(int i=0;i&lt;n;i++)&#123;</div><div class="line">		a[i]=i+1;</div><div class="line">	&#125;</div><div class="line">	struct1 borrow[k],back[k];</div><div class="line">	<span class="keyword">for</span>(int i=0;i&lt;k;i++)&#123;</div><div class="line">		int c;</div><div class="line">		cin&gt;&gt;borrow[i].w&gt;&gt;borrow[i].s&gt;&gt;c;</div><div class="line">		back[i].w=borrow[i].w;</div><div class="line">		back[i].s=borrow[i].s+c;</div><div class="line">	&#125;</div><div class="line">	sort(borrow,borrow+k,compar);</div><div class="line">	sort(back,back+k,compar);</div><div class="line">	int time=1,p1=0,p2=0;</div><div class="line">	<span class="keyword">while</span>(time&lt;=back[k-1].s)&#123;</div><div class="line">		<span class="keyword">while</span>(time==back[p2].s)&#123;</div><div class="line">			<span class="keyword">for</span>(int i=0;i&lt;n;i++)&#123;</div><div class="line">				<span class="keyword">if</span>(a[i]==0)&#123;</div><div class="line">					a[i]=back[p2].w;</div><div class="line">					p2++;</div><div class="line">					<span class="built_in">break</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">while</span>(time==borrow[p1].s)&#123;</div><div class="line">			<span class="keyword">for</span>(int i=0;i&lt;n;i++)&#123;</div><div class="line">				<span class="keyword">if</span>(a[i]==borrow[p1].w)&#123;</div><div class="line">					a[i]=0;</div><div class="line">					p1++;</div><div class="line">					<span class="built_in">break</span>;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		time++;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">for</span>(int i=0;i&lt;n;i++)&#123;</div><div class="line">		cout&lt;&lt;a[i]&lt;&lt;<span class="string">" "</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="built_in">return</span> 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#0x01-对结构体数组排序"><span class="toc-text">0x01 对结构体数组排序</span></a></li></ol>
   </div>
 </div>
@@ -176,13 +176,13 @@
   
 <nav id="pagination">
   
-    <a href="/2018/10/13/MVC学习/" class="prev">&larr; 上一篇 MVC</a>
+    <a href="/2018/10/13/PHP命名空间/" class="prev">&larr; Prev post PHP命名空间</a>
   
 
   
 
   
-    <a href="/2018/02/27/sqli-labs学习笔记/" class="next">下一篇 sqli-labs学习笔记 &rarr;</a>
+    <a href="/2018/02/27/sqli-labs学习笔记/" class="next">Next post sqli-labs学习笔记 &rarr;</a>
   
 </nav>
 
