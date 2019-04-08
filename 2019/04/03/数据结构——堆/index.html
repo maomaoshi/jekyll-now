@@ -40,21 +40,21 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2019/04/03/leetcode215/">
+      <a href="/2019/04/08/huge源码学习笔记/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode 215数组中第K个最大元素-C++
+        huge源码学习笔记
       </div>
     </div>
   
   
     <div class="item next">
-      <a href="/2019/03/29/leetcode102/">
+      <a href="/2019/04/03/leetcode215/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode94 二叉树的层次遍历-C++
+        LeetCode 215数组中第K个最大元素-C++
       </div>
     </div>
   
@@ -131,12 +131,12 @@
   <article id="post">
     <h1>数据结构-堆-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2019-04-03</span>
+      <span id = "post-title-date">撰写于 2019-04-03</span>
       
-        <span id = "post-title-updated">Updated at 2019-04-03</span>
+        <span id = "post-title-updated">修改于 2019-04-03</span>
       
       
-      <span id = "post-title-categories">Category
+      <span id = "post-title-categories">分类
       
       
         
@@ -147,7 +147,7 @@
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -169,10 +169,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div></pre></td><td class="code"><pre><div class="line">typedef struct HNode *Heap; /* 堆的类型定义 */</div><div class="line">struct HNode &#123;</div><div class="line">    ElementType *Data; /* 存储元素的数组 */</div><div class="line">    int Size;          /* 堆中当前元素个数 */</div><div class="line">    int Capacity;      /* 堆的最大容量 */</div><div class="line">&#125;;</div><div class="line">typedef Heap MaxHeap; /* 最大堆 */</div><div class="line">typedef Heap MinHeap; /* 最小堆 */</div><div class="line"> </div><div class="line"><span class="comment">#define MAXDATA 1000  /* 该值应根据具体情况定义为大于堆中所有可能元素的值 */</span></div><div class="line"> </div><div class="line">MaxHeap CreateHeap( int MaxSize )</div><div class="line">&#123; /* 创建容量为MaxSize的空的最大堆 */</div><div class="line"> </div><div class="line">    MaxHeap H = (MaxHeap)malloc(sizeof(struct HNode));</div><div class="line">    H-&gt;Data = (ElementType *)malloc((MaxSize+1)*sizeof(ElementType));</div><div class="line">    H-&gt;Size = 0;</div><div class="line">    H-&gt;Capacity = MaxSize;</div><div class="line">    H-&gt;Data[0] = MAXDATA; /* 定义<span class="string">"哨兵"</span>为大于堆中所有可能元素的值*/</div><div class="line"> </div><div class="line">    <span class="built_in">return</span> H;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">bool IsFull( MaxHeap H )</div><div class="line">&#123;</div><div class="line">    <span class="built_in">return</span> (H-&gt;Size == H-&gt;Capacity);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">bool Insert( MaxHeap H, ElementType X )</div><div class="line">&#123; /* 将元素X插入最大堆H，其中H-&gt;Data[0]已经定义为哨兵 logn*/ </div><div class="line">    int i;</div><div class="line">  </div><div class="line">    <span class="keyword">if</span> ( IsFull(H) ) &#123; </div><div class="line">        <span class="built_in">printf</span>(<span class="string">"最大堆已满"</span>);</div><div class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">    i = ++H-&gt;Size; /* i指向插入后堆中的最后一个元素的位置 */</div><div class="line">    <span class="keyword">for</span> ( ; H-&gt;Data[i/2] &lt; X; i/=2 )</div><div class="line">        H-&gt;Data[i] = H-&gt;Data[i/2]; /* 上滤X */</div><div class="line">    H-&gt;Data[i] = X; /* 将X插入 */</div><div class="line">    <span class="built_in">return</span> <span class="literal">true</span>;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">#define ERROR -1 /* 错误标识应根据具体情况定义为堆中不可能出现的元素值 */</span></div><div class="line"> </div><div class="line">bool IsEmpty( MaxHeap H )</div><div class="line">&#123;</div><div class="line">    <span class="built_in">return</span> (H-&gt;Size == 0);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">ElementType DeleteMax( MaxHeap H )</div><div class="line">&#123; /* 从最大堆H中取出键值为最大的元素，并删除一个结点 */</div><div class="line">    int Parent, Child;</div><div class="line">    ElementType MaxItem, X;</div><div class="line"> </div><div class="line">    <span class="keyword">if</span> ( IsEmpty(H) ) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"最大堆已为空"</span>);</div><div class="line">        <span class="built_in">return</span> ERROR;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    MaxItem = H-&gt;Data[1]; /* 取出根结点存放的最大值 */</div><div class="line">    /* 用最大堆中最后一个元素从根结点开始向上过滤下层结点 */</div><div class="line">    X = H-&gt;Data[H-&gt;Size--]; /* 注意当前堆的规模要减小 */</div><div class="line">    <span class="keyword">for</span>( Parent=1; Parent*2&lt;=H-&gt;Size; Parent=Child ) &#123;</div><div class="line">        Child = Parent * 2;</div><div class="line">        <span class="keyword">if</span>( (Child!=H-&gt;Size) &amp;&amp; (H-&gt;Data[Child]&lt;H-&gt;Data[Child+1]) )</div><div class="line">            Child++;  /* Child指向左右子结点的较大者 */</div><div class="line">        <span class="keyword">if</span>( X &gt;= H-&gt;Data[Child] ) <span class="built_in">break</span>; /* 找到了合适位置 */</div><div class="line">        <span class="keyword">else</span>  /* 下滤X */</div><div class="line">            H-&gt;Data[Parent] = H-&gt;Data[Child];</div><div class="line">    &#125;</div><div class="line">    H-&gt;Data[Parent] = X;</div><div class="line"> </div><div class="line">    <span class="built_in">return</span> MaxItem;</div><div class="line">&#125; </div><div class="line"> </div><div class="line">/*----------- 建造最大堆 -----------*/</div><div class="line">void PercDown( MaxHeap H, int p )</div><div class="line">&#123; /* 下滤：将H中以H-&gt;Data[p]为根的子堆调整为最大堆 */</div><div class="line">    int Parent, Child;</div><div class="line">    ElementType X;</div><div class="line"> </div><div class="line">    X = H-&gt;Data[p]; /* 取出根结点存放的值 */</div><div class="line">    <span class="keyword">for</span>( Parent=p; Parent*2&lt;=H-&gt;Size; Parent=Child ) &#123;</div><div class="line">        Child = Parent * 2;</div><div class="line">        <span class="keyword">if</span>( (Child!=H-&gt;Size) &amp;&amp; (H-&gt;Data[Child]&lt;H-&gt;Data[Child+1]) )</div><div class="line">            Child++;  /* Child指向左右子结点的较大者 */</div><div class="line">        <span class="keyword">if</span>( X &gt;= H-&gt;Data[Child] ) <span class="built_in">break</span>; /* 找到了合适位置 */</div><div class="line">        <span class="keyword">else</span>  /* 下滤X */</div><div class="line">            H-&gt;Data[Parent] = H-&gt;Data[Child];</div><div class="line">    &#125;</div><div class="line">    H-&gt;Data[Parent] = X;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">void BuildHeap( MaxHeap H )</div><div class="line">&#123; /* 调整H-&gt;Data[]中的元素，使满足最大堆的有序性  */</div><div class="line">  /* 这里假设所有H-&gt;Size个元素已经存在H-&gt;Data[]中 */</div><div class="line"> </div><div class="line">    int i;</div><div class="line"> </div><div class="line">    /* 从最后一个结点的父节点开始，到根结点1 */</div><div class="line">    <span class="keyword">for</span>( i = H-&gt;Size/2; i&gt;0; i-- )</div><div class="line">        PercDown( H, i );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C"><span class="toc-text">C++</span></a></li></ol>
   </div>
 </div>
@@ -180,13 +180,13 @@
   
 <nav id="pagination">
   
-    <a href="/2019/04/03/leetcode215/" class="prev">&larr; Prev post LeetCode 215数组中第K个最大元素-C++</a>
+    <a href="/2019/04/08/huge源码学习笔记/" class="prev">&larr; 上一篇 huge源码学习笔记</a>
   
 
   
 
   
-    <a href="/2019/03/29/leetcode102/" class="next">Next post LeetCode94 二叉树的层次遍历-C++ &rarr;</a>
+    <a href="/2019/04/03/leetcode215/" class="next">下一篇 LeetCode 215数组中第K个最大元素-C++ &rarr;</a>
   
 </nav>
 

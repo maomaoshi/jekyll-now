@@ -39,11 +39,11 @@
   
   
     <div class="item next">
-      <a href="/2019/04/03/leetcode215/">
+      <a href="/2019/04/03/数据结构——堆/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode 215数组中第K个最大元素-C++
+        数据结构-堆-C++
       </div>
     </div>
   
@@ -120,12 +120,12 @@
   <article id="post">
     <h1>huge源码学习笔记</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2019-04-08</span>
+      <span id = "post-title-date">撰写于 2019-04-08</span>
       
-        <span id = "post-title-updated">Updated at 2019-04-08</span>
+        <span id = "post-title-updated">修改于 2019-04-08</span>
       
       
-      <span id = "post-title-categories">Category
+      <span id = "post-title-categories">分类
       
       
         
@@ -136,7 +136,7 @@
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -150,7 +150,7 @@
     <h2 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># this is just a demo .gitignore file, put all the files and folders you want to be ignored by git inside</span></div><div class="line"><span class="comment"># if you work with NetBeans: ignore NetBeans project files</span></div><div class="line">/nbproject/private/</div><div class="line"><span class="comment"># don't commit all the dependencies fetched via Composer</span></div><div class="line">/vendor/</div></pre></td></tr></table></figure>
 <p></p><p>.gitignore文件使得在commit时，指定文件夹不会被commit。比如文件夹vendor。该文件夹里有我们所需要的库。在多人开发时，不同的开发者的开发环境可能不同，所以所需要的库的版本有可能不同。开发者可修改composer.json文件，然后再命令行执行composer install安装库。</p>
 <h2 id="htaccess"><a href="#htaccess" class="headerlink" title=".htaccess"></a>.htaccess</h2><p></p><p>huge/.htaccess用来对路由进行重写,RewriteEngine on是开启重写，RewriteRule将所有路由都重定向到public目录下面。其中(.*)匹配到字符串存储到变量$1。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">RewriteEngine on</div><div class="line">RewriteRule ^(.*) public/<span class="variable">$1</span> [L]</div><div class="line">```  </div><div class="line"></div><div class="line">&lt;p&gt;在public/.htaccess中, 如果请求的不是已存在的目录，不是已存在的文件，不是链接，则重写路由。将路由重定向到index.php?url=<span class="variable">$1</span>,<span class="variable">$1</span>存储的是(.+)的匹配结果。[QSA]是命令服务器在url末尾追加查询字符串</div><div class="line"></div><div class="line">```bash</div><div class="line"><span class="comment"># Necessary to prevent problems when using a controller named "index" and having a root index.php</span></div><div class="line"><span class="comment"># more here: http://httpd.apache.org/docs/2.2/content-negotiation.html</span></div><div class="line">Options -MultiViews</div><div class="line"></div><div class="line"><span class="comment"># Activates URL rewriting (like myproject.com/controller/action/1/2/3)</span></div><div class="line">RewriteEngine On</div><div class="line"></div><div class="line"><span class="comment"># Prevent people from looking directly into folders</span></div><div class="line">Options -Indexes</div><div class="line"></div><div class="line"><span class="comment"># If the following conditions are true, then rewrite the URL:</span></div><div class="line"><span class="comment"># If the requested filename is not a directory,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</div><div class="line"><span class="comment"># and if the requested filename is not a regular file that exists,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</div><div class="line"><span class="comment"># and if the requested filename is not a symbolic link,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-l</div><div class="line"><span class="comment"># then rewrite the URL in the following way:</span></div><div class="line"><span class="comment"># Take the whole request filename and provide it as the value of a</span></div><div class="line"><span class="comment"># "url" query parameter to index.php. Append any query string from</span></div><div class="line"><span class="comment"># the original URL as further query parameters (QSA), and stop</span></div><div class="line"><span class="comment"># processing this .htaccess file (L).</span></div><div class="line">RewriteRule ^(.+)$ index.php?url=<span class="variable">$1</span> [QSA,L]</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">RewriteEngine on</div><div class="line">RewriteRule ^(.*) public/<span class="variable">$1</span> [L]</div><div class="line">```  </div><div class="line"></div><div class="line">&lt;p&gt;在public/.htaccess中, 如果请求的不是已存在的目录，不是已存在的文件，不是链接，则重写路由。将路由重定向到index.php?url=<span class="variable">$1</span>,<span class="variable">$1</span>存储的是(.+)的匹配结果。[QSA]是命令服务器在url末尾追加查询字符串  </div><div class="line"></div><div class="line"></div><div class="line">```bash</div><div class="line"><span class="comment"># Necessary to prevent problems when using a controller named "index" and having a root index.php</span></div><div class="line"><span class="comment"># more here: http://httpd.apache.org/docs/2.2/content-negotiation.html</span></div><div class="line">Options -MultiViews</div><div class="line"></div><div class="line"><span class="comment"># Activates URL rewriting (like myproject.com/controller/action/1/2/3)</span></div><div class="line">RewriteEngine On</div><div class="line"></div><div class="line"><span class="comment"># Prevent people from looking directly into folders</span></div><div class="line">Options -Indexes</div><div class="line"></div><div class="line"><span class="comment"># If the following conditions are true, then rewrite the URL:</span></div><div class="line"><span class="comment"># If the requested filename is not a directory,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</div><div class="line"><span class="comment"># and if the requested filename is not a regular file that exists,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</div><div class="line"><span class="comment"># and if the requested filename is not a symbolic link,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-l</div><div class="line"><span class="comment"># then rewrite the URL in the following way:</span></div><div class="line"><span class="comment"># Take the whole request filename and provide it as the value of a</span></div><div class="line"><span class="comment"># "url" query parameter to index.php. Append any query string from</span></div><div class="line"><span class="comment"># the original URL as further query parameters (QSA), and stop</span></div><div class="line"><span class="comment"># processing this .htaccess file (L).</span></div><div class="line">RewriteRule ^(.+)$ index.php?url=<span class="variable">$1</span> [QSA,L]</div></pre></td></tr></table></figure>
 <p></p><p>参考资料：  </p>
 <ol>
 <li><a href="https://lesca.me/archives/htaccess-rewrite.html#access_control" target="_blank" rel="external">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect)</a>  </li>
@@ -162,16 +162,13 @@
 <li>重定义controller指向真正的controller class/file。  </li>
 <li>加载指定的controller文件，并实例化</li>
 </ol>
-<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><ol>
-<li>Request::get(‘url’)返回$_GET[$key]是index/index</li>
-</ol>
-
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gitignore"><span class="toc-text">.gitignore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#htaccess"><span class="toc-text">.htaccess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#框架核心类Application-php"><span class="toc-text">框架核心类Application.php</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#疑问"><span class="toc-text">疑问</span></a></li></ol>
   </div>
 </div>
@@ -183,7 +180,7 @@
   
 
   
-    <a href="/2019/04/03/leetcode215/" class="next">Next post LeetCode 215数组中第K个最大元素-C++ &rarr;</a>
+    <a href="/2019/04/03/数据结构——堆/" class="next">下一篇 数据结构-堆-C++ &rarr;</a>
   
 </nav>
 
