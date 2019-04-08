@@ -20,7 +20,7 @@
   
     <meta name="description" content="">
   
-  <title>Tag: PHP [ GWJ_AJ ]</title>
+  <title>Tag: php [ GWJ_AJ ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -111,7 +111,45 @@
       
       
   <div id="tag">
-    <h1>PHP</h1>
+    <h1>php</h1>
+    
+      
+      
+        
+      
+      
+    
+      
+      
+        
+      
+      
+    
+      
+      
+        
+      
+      
+    
+      
+      
+        
+      
+      
+    
+      
+      
+        
+      
+        
+      
+      
+    
+      
+      
+        
+      
+      
     
       
       
@@ -151,29 +189,25 @@
       
         
       
+        
+      
       
       <div class="post-title-item">
   
-  <a href="/2018/12/04/PHP反射/">
+  <a href="/2018/12/05/cookie，session机制/">
   
-    PHP反射机制
+    cookie/session机制
   
   </a>
   <p class="page-title-sub">
-    <span id = "post-title-date">12-4</span>
+    <span id = "post-title-date">12-5</span>
     
     <span id = "post-title-categories">Category
     
     
       
       
-      <a href="/categories/PHP/">PHP</a>
-    
-      
-        /
-      
-      
-      <a href="/categories/PHP/反射/">反射</a>
+      <a href="/categories/php/">php</a>
     
     </span>
     
@@ -184,13 +218,19 @@
     
       
       
-      <a href="/tags/PHP/">PHP</a>
+      <a href="/tags/php/">php</a>
     
       
         /
       
       
-      <a href="/tags/反射/">反射</a>
+      <a href="/tags/cookie/">cookie</a>
+    
+      
+        /
+      
+      
+      <a href="/tags/session/">session</a>
     
     </span>
     
@@ -212,26 +252,12 @@
     
       
       
-        
-      
       
     
-      
-      
-        
       
-        
       
         
-      
-      
-    
       
-      
-      
-    
-      
-      
         
       
       
@@ -253,10 +279,6 @@
       
       
         
-      
-      
-    
-      
       
         
       
@@ -306,8 +328,6 @@
       
         
       
-        
-      
       
     
       
@@ -327,15 +347,9 @@
       
     
       
-      
-        
       
         
       
-      
-    
-      
-      
         
       
       
@@ -772,23 +786,15 @@
       
       
     
-      
       
-        
       
         
-      
-      
-    
       
-      
         
       
       
     
-      
       
-        
       
         
       
@@ -803,8 +809,6 @@
       
     
       
-      
-        
       
         
       
@@ -824,11 +828,11 @@
       
         
       
+        
       
-    
       
+    
       
-        
       
         
       
@@ -855,70 +859,25 @@
       
       
         
-      
-        
-      
-      
-    
       
-      
-        
-          
         
       
         
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/12/04/依赖注入/">
-  
-    依赖注入容器
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">12-4</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
       
       
-      <a href="/categories/PHP/">PHP</a>
     
       
-        /
       
+        
       
-      <a href="/categories/PHP/依赖注入/">依赖注入</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
+        
       
       
-      <a href="/tags/PHP/">PHP</a>
     
-      
-        /
       
-      
-      <a href="/tags/依赖注入/">依赖注入</a>
-    
-    </span>
-    
-    
-      <br>
       
+        
       
-    
-  </p>
-  
-</div>
       
     
       
@@ -933,15 +892,9 @@
       
       
     
-      
       
-        
       
         
-      
-      
-    
-      
       
         
       
@@ -1047,6 +1000,61 @@ var isTriggerAnalytics = !( true && isIgnoreHost );
     });
     $(this).find('.fancybox').each(function(){
       $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
+, 'post' + i);
     });
   });
   $(".fancybox").fancybox();
