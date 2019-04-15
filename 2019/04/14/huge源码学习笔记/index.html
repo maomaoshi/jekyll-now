@@ -1,0 +1,387 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content=".gitignore12345# this is just a demo .gitignore file, put all the files and folders you want to be ignored by git inside# if you work with NetBeans: ignore NetBeans project files/nbproject/private/...">
+  
+  <title>huge源码学习笔记 [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2019/04/15/leetcode241/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode 241 为运算表达式设计优先级-C++
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2019/04/10/leetcode169/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        LeetCode169.求众数-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>huge源码学习笔记</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2019-04-14</span>
+      
+        <span id = "post-title-updated">Updated at 2019-04-15</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/PHP/">PHP</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/PHP/">PHP</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="gitignore"><a href="#gitignore" class="headerlink" title=".gitignore"></a>.gitignore</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># this is just a demo .gitignore file, put all the files and folders you want to be ignored by git inside</span></div><div class="line"><span class="comment"># if you work with NetBeans: ignore NetBeans project files</span></div><div class="line">/nbproject/private/</div><div class="line"><span class="comment"># don't commit all the dependencies fetched via Composer</span></div><div class="line">/vendor/</div></pre></td></tr></table></figure>
+<p></p><p>.gitignore文件使得在commit时，指定文件夹不会被commit。比如文件夹vendor。该文件夹里有我们所需要的库。在多人开发时，不同的开发者的开发环境可能不同，所以所需要的库的版本有可能不同。开发者可修改composer.json文件，然后再命令行执行composer install安装库。</p>
+<h2 id="htaccess"><a href="#htaccess" class="headerlink" title=".htaccess"></a>.htaccess</h2><p></p><p>huge/.htaccess用来对路由进行重写,RewriteEngine on是开启重写，RewriteRule将所有路由都重定向到public目录下面。其中(.*)匹配到字符串存储到变量$1。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">RewriteEngine on</div><div class="line">RewriteRule ^(.*) public/<span class="variable">$1</span> [L]</div><div class="line">```  </div><div class="line"></div><div class="line">&lt;p&gt;在public/.htaccess中, 如果请求的不是已存在的目录，不是已存在的文件，不是链接，则重写路由。将路由重定向到index.php?url=<span class="variable">$1</span>,<span class="variable">$1</span>存储的是(.+)的匹配结果。[QSA]是命令服务器在url末尾追加查询字符串  </div><div class="line"></div><div class="line"></div><div class="line">```bash</div><div class="line"><span class="comment"># Necessary to prevent problems when using a controller named "index" and having a root index.php</span></div><div class="line"><span class="comment"># more here: http://httpd.apache.org/docs/2.2/content-negotiation.html</span></div><div class="line">Options -MultiViews</div><div class="line"></div><div class="line"><span class="comment"># Activates URL rewriting (like myproject.com/controller/action/1/2/3)</span></div><div class="line">RewriteEngine On</div><div class="line"></div><div class="line"><span class="comment"># Prevent people from looking directly into folders</span></div><div class="line">Options -Indexes</div><div class="line"></div><div class="line"><span class="comment"># If the following conditions are true, then rewrite the URL:</span></div><div class="line"><span class="comment"># If the requested filename is not a directory,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</div><div class="line"><span class="comment"># and if the requested filename is not a regular file that exists,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</div><div class="line"><span class="comment"># and if the requested filename is not a symbolic link,</span></div><div class="line">RewriteCond %&#123;REQUEST_FILENAME&#125; !-l</div><div class="line"><span class="comment"># then rewrite the URL in the following way:</span></div><div class="line"><span class="comment"># Take the whole request filename and provide it as the value of a</span></div><div class="line"><span class="comment"># "url" query parameter to index.php. Append any query string from</span></div><div class="line"><span class="comment"># the original URL as further query parameters (QSA), and stop</span></div><div class="line"><span class="comment"># processing this .htaccess file (L).</span></div><div class="line">RewriteRule ^(.+)$ index.php?url=<span class="variable">$1</span> [QSA,L]</div></pre></td></tr></table></figure>
+<p></p><p>参考资料：  </p>
+<ol>
+<li><a href="https://lesca.me/archives/htaccess-rewrite.html#access_control" target="_blank" rel="external">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect)</a>  </li>
+<li><a href="https://lesca.me/archives/htaccess-appendix.html#htaccess_regex" target="_blank" rel="external">htaccess附录：正则表达式、重定向代码</a></li>
+</ol>
+<h2 id="application-core核心代码"><a href="#application-core核心代码" class="headerlink" title="application/core核心代码"></a>application/core核心代码</h2><h3 id="框架核心类Application-php"><a href="#框架核心类Application-php" class="headerlink" title="框架核心类Application.php"></a>框架核心类Application.php</h3><p></p><p>构造函数完成的操作：  </p>
+<ol>
+<li>分割url，将url分割成controller,action和parameters.  </li>
+<li>重定义controller指向真正的controller class/file。  </li>
+<li>加载指定的controller文件，并实例化<br><p>splitUrl()分割url:  </p></li>
+<li>通过Request获取url，并去除掉左右两边的‘/’  </li>
+<li>使用filter_var()过滤掉非法字符。  </li>
+<li>将url分割成controller_name,action_name,parameters.<br><p>createControllerAndActionName()构建controller和action:  </p></li>
+<li>如果url中没有controller和action则设置为Config中的默认值。  </li>
+<li>重命名controller_name成实际的controller类。  </li>
+</ol>
+<h3 id="Config-php"><a href="#Config-php" class="headerlink" title="Config.php"></a>Config.php</h3><p></p><p>在Config中，有静态变量$config，和静态方法get()。$config是static，所以全局只有一个副本，符合应用场景。在get()中，<code>!self::$config</code>，保证$conifg只有一个单例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">class Config</div><div class="line">&#123;</div><div class="line">    // this is public to allow better Unit Testing</div><div class="line">    public static <span class="variable">$config</span>;</div><div class="line"></div><div class="line">    public static <span class="keyword">function</span> get(<span class="variable">$key</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (!self::<span class="variable">$config</span>) &#123;</div><div class="line"></div><div class="line">            <span class="variable">$config_file</span> = <span class="string">'../application/config/config.'</span> . Environment::get() . <span class="string">'.php'</span>;</div><div class="line">            //var_dump(<span class="variable">$config_file</span>);</div><div class="line">            <span class="keyword">if</span> (!file_exists(<span class="variable">$config_file</span>)) &#123;</div><div class="line">                <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            self::<span class="variable">$config</span> = require <span class="variable">$config_file</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="built_in">return</span> self::<span class="variable">$config</span>[<span class="variable">$key</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Environment-php"><a href="#Environment-php" class="headerlink" title="Environment.php"></a>Environment.php</h3><p></p><p>如果在Apcach的配置文件中设置了环境变量“APPLICATION_ENV”，则通过getenv()获取环境变量，否则默认返回”development”。如下，就是设置当前为”development”（开发）环境。  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">    <span class="comment">#ServerName </span></div><div class="line">    <span class="comment">#DocumentRoot</span></div><div class="line"></div><div class="line">        SetEnv APPLICATION_ENV <span class="string">"development"</span></div><div class="line"></div><div class="line">    <span class="comment"># Directory</span></div><div class="line">&lt;/VirtualHost&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Environment</div><div class="line">&#123;</div><div class="line">    public static <span class="keyword">function</span> get()</div><div class="line">    &#123;</div><div class="line">        // <span class="keyword">if</span> APPLICATION_ENV constant exists (<span class="built_in">set</span> <span class="keyword">in</span> Apache configs)</div><div class="line">        // <span class="keyword">then</span> <span class="built_in">return</span> content of APPLICATION_ENV</div><div class="line">        // <span class="keyword">else</span> <span class="built_in">return</span> <span class="string">"development"</span></div><div class="line">        // getenv()获取环境变量</div><div class="line">        <span class="built_in">return</span> (getenv(<span class="string">'APPLICATION_ENV'</span>) ? getenv(<span class="string">'APPLICATION_ENV'</span>) : <span class="string">"development"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Controller-php"><a href="#Controller-php" class="headerlink" title="Controller.php"></a>Controller.php</h3><p></p><p>Controller是所有controller的基类，当一个controller创建时，应该要初始化Session,检查session的并发性，检查用户是否登录。  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">/**</div><div class="line"> * This is the <span class="string">"base controller class"</span>. All other <span class="string">"real"</span> controllers extend this class.</div><div class="line"> * Whenever a controller is created, we also</div><div class="line"> * 1. initialize a session</div><div class="line"> * 2. check <span class="keyword">if</span> the user is not logged <span class="keyword">in</span> anymore (session timeout) but has a cookie</div><div class="line"> */</div><div class="line">class Controller</div><div class="line">&#123;</div><div class="line">    /** @var View View The view object */</div><div class="line">    public <span class="variable">$View</span>;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Construct the (base) controller. This happens when a real controller is constructed, like <span class="keyword">in</span></div><div class="line">     * the constructor of IndexController when it says: parent::__construct();</div><div class="line">     */</div><div class="line">    public <span class="keyword">function</span> __construct()</div><div class="line">    &#123;</div><div class="line">        // always initialize a session</div><div class="line">        Session::init();</div><div class="line"></div><div class="line">        // check session concurrency</div><div class="line">        Auth::checkSessionConcurrency();</div><div class="line"></div><div class="line">        // user is not logged <span class="keyword">in</span> but has remember-me-cookie ? <span class="keyword">then</span> try to login with cookie (<span class="string">"remember me"</span> feature)</div><div class="line">        <span class="keyword">if</span> (!Session::userIsLoggedIn() AND Request::cookie(<span class="string">'remember_me'</span>)) &#123;</div><div class="line">            header(<span class="string">'location: '</span> . Config::get(<span class="string">'URL'</span>) . <span class="string">'login/loginWithCookie'</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // create a view object to be able to use it inside a controller, like <span class="variable">$this</span>-&gt;View-&gt;render();</div><div class="line">        <span class="variable">$this</span>-&gt;View = new View();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Session-php"><a href="#Session-php" class="headerlink" title="Session.php"></a>Session.php</h3><p></p><p>1. session_start()的初始化工作：<br>（1）读取请求头部Cookie字段的PHPSESSID，假使为abc123.<br>（2）若读取到Cookie字段的PHPSESSID,创建$_SESSION变量，并从相应的目录中（可以在php.ini中设置session.save_path）读取SESS_abc123（默认是这种命名方式）文件，将字符装在$_SESSION变量中；若没有读取到PHPSESSID这个COOKIE，也会创建$_SESSION变量，同时创建一个sess_abc321(名称为随机值)的session文件,同时将abc321作为PHPSESSID的cookie值返回给浏览器端。  </p>
+<p></p><p>2. session_id()<br>在开启session_start()之后，session_id()返回PHPSESSID</p>
+<p></p><p>参考资料：<br><a href="https://www.cnblogs.com/ant-moon/p/3970557.html" target="_blank" rel="external">PHP之session_start()详解</a></p>
+<p></p><p>isConcurrentSessionExists()判断是否有同时登陆的账号，过程如下：<br>在数据库中每个user对应着一个session_id。userA先登陆账号，Session_id是123。一会userB在另一台电脑登陆和userA同一个账号，userB对应的session_id为456。userB在登录的过程中，将自己的session_id(456)和数据库中的session_id(123)进行比对，发现不一样，则判断当前有多个设备登录同一个账号。  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public static <span class="keyword">function</span> isConcurrentSessionExists()</div><div class="line">    &#123;</div><div class="line">        <span class="variable">$session_id</span> = session_id();</div><div class="line">        <span class="variable">$userId</span>     = Session::get(<span class="string">'user_id'</span>);</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (isset(<span class="variable">$userId</span>) &amp;&amp; isset(<span class="variable">$session_id</span>)) &#123;</div><div class="line"></div><div class="line">            <span class="variable">$database</span> = DatabaseFactory::getFactory()-&gt;getConnection();</div><div class="line">            <span class="variable">$sql</span> = <span class="string">"SELECT session_id FROM users WHERE user_id = :user_id LIMIT 1"</span>;</div><div class="line"></div><div class="line">            <span class="variable">$query</span> = <span class="variable">$database</span>-&gt;prepare(<span class="variable">$sql</span>);</div><div class="line">            <span class="variable">$query</span>-&gt;execute(array(<span class="string">":user_id"</span> =&gt; <span class="variable">$userId</span>));</div><div class="line"></div><div class="line">            <span class="variable">$result</span> = <span class="variable">$query</span>-&gt;fetch();</div><div class="line">            <span class="variable">$userSessionId</span> = !empty(<span class="variable">$result</span>)? <span class="variable">$result</span>-&gt;session_id: null;</div><div class="line"></div><div class="line">            <span class="built_in">return</span> <span class="variable">$session_id</span> !== <span class="variable">$userSessionId</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p></p><p>参考资料：<br><a href="https://www.cnblogs.com/pheye/p/7890065.html" target="_blank" rel="external">如何管理Session(防止恶意共享账号)——理论篇</a></p>
+<h3 id="Auth-php"><a href="#Auth-php" class="headerlink" title="Auth.php"></a>Auth.php</h3><p></p><p>checkSessionConcurrency():<br>判断账户是否已经登录，如果已登录且有有多个用户同时登录，则退出登录。</p>
+<h3 id="Filter-php"><a href="#Filter-php" class="headerlink" title="Filter.php"></a>Filter.php</h3><h3 id="Csrf-php"><a href="#Csrf-php" class="headerlink" title="Csrf.php"></a>Csrf.php</h3><p></p><p>该类用来生成csrf_token和验证csrf_token是否合法。  </p>
+<p></p><p>参考资料：<br><a href="https://blog.csdn.net/m0_37268841/article/details/79960674" target="_blank" rel="external">CSRF跨站点请求伪造(Cross—Site Request Forgery) 攻防战</a></p>
+<h2 id="controller目录"><a href="#controller目录" class="headerlink" title="controller目录"></a>controller目录</h2><h3 id="LoginController-php"><a href="#LoginController-php" class="headerlink" title="LoginController.php"></a>LoginController.php</h3><ol>
+<li>index(),检查是否已经登录，若没有登录，则跳转到登录页面。  </li>
+<li>login()，检查csrf_token是否合法。然后调用LoginModel检查用户名和密码是否正确，如果正确则跳转到用户页面user/index，否则返回到登录页面login/index。  </li>
+<li>logout()退出登录 </li>
+<li>loginWithCookie()，使用Cookie的remember_me进行登录。如果登录失败则删除cookie，并跳转到登录页面。  </li>
+</ol>
+<h2 id="model目录"><a href="#model目录" class="headerlink" title="model目录"></a>model目录</h2><h3 id="LoginModel-php"><a href="#LoginModel-php" class="headerlink" title="LoginModel.php"></a>LoginModel.php</h3><p></p><p>1. login()<br>（1）检查用户名和密码是否为空<br>（2）调用validateAndGetUser($user_name, $user_password)进行相关检查<br>（3）检查该用户是否被删除<br>（4）检查账户是否被停用<br>（5）重置用户失败登录次数，保存登录时间。<br>（6）如果用户设置remember_me，则调用setRememberMeInDatabaseAndCookie($user_id)  </p>
+<p></p><p>2. validateAndGetUser($user_name, $user_password)<br>（1）检查用户登录失败的次数是否&gt;=3,以及最后一次登录时间距离当前时间少于30s。（针对于用户名不正确）<br>（2）若用户登录没有被锁，则调用UserModel::getUserDataByUsername($user_name),通过用户名从user表中获取用户所有信息。<br>（3）如果用户不存在，用户登录失败次数+1，添加最后一次登录失败的时间戳。<br>（4）如果用户名正确，但是登录失败次数超过3次以及最后一次登录时间距离当前时间少于30s,则禁止登录。<br>（5）判断输入的密码的哈希值和数据库中的哈希值是否相等。<br>（6）检查用户是否激活<br>（7）重置用户名不存在的次数为0。</p>
+<p></p><p>3. setRememberMeInDatabaseAndCookie($user_id)<br>（1）随机生成token，存入数据库中。<br>（2）setcookie()  </p>
+<p></p><p>4. logout()<br>(1)self::deleteCookie($user_id);删除cookie<br>(2)销毁session变量<br>(3)更新数据库中的session_id为null</p>
+<p></p><p>5. deleteCookie()<br>（1）更新数据库中的user_remember_me_token为null<br>（2）删除remember_me字段    </p>
+<p></p><p>6. loginWithCookie()<br>（1）将remeber_me字段切割成$user_id,$token,$hash三部分。检测是否正确。<br>（2）登录成功，更新session信息和保存登录时间</p>
+<h3 id="RegistrationModel-php"><a href="#RegistrationModel-php" class="headerlink" title="RegistrationModel.php"></a>RegistrationModel.php</h3><p></p><p>1. registerNewUser()<br>（1）过滤并检验输入的字符串是否合法。<br>（2）检查用户名是否已经存在<br>（3）生成邮箱验证码<br>（4）往数据库中插入新用户的信息<br>（5）发送验证邮件<br>（6）如果验证邮件发送失败，删除掉该用户</p>
+<p>参考资料：<br><a href="https://www.php.net/manual/zh/function.setcookie.php" target="_blank" rel="external">setcookie</a></p>
+<p>## </p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p></p><p>1. 类方法static与non-static的区别？<br>在Application中有这一条语句<code>Request::get(&#39;url&#39;)</code>，然后再去看Request类中看get方法是static。如果把static去掉的话，就会报错<code>Deprecated: Non-static method Request::get() should not be called statically</code>.这是为什么呢？所以我就去了解了一波。如果是static方法的话，那再调用该方法时，不需要将类初始化，可直接用这种形式<code>classname::method()</code>调用类方法。如果是non-static的话，这需要初始化类，比如：<code>$var = new ClassName(); $var-&gt;method();</code><br>static是在程序运行时，就加载到内存中的。而non-static的话是需要实例化后才加载到内存中。所以static方法不能调用non-static方法。  </p>
+<p></p><p>2. XSS攻击</p>
+<p></p><p>3. </p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gitignore"><span class="toc-text">.gitignore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#htaccess"><span class="toc-text">.htaccess</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#application-core核心代码"><span class="toc-text">application/core核心代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#框架核心类Application-php"><span class="toc-text">框架核心类Application.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Config-php"><span class="toc-text">Config.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Environment-php"><span class="toc-text">Environment.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Controller-php"><span class="toc-text">Controller.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Session-php"><span class="toc-text">Session.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Auth-php"><span class="toc-text">Auth.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filter-php"><span class="toc-text">Filter.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Csrf-php"><span class="toc-text">Csrf.php</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#controller目录"><span class="toc-text">controller目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LoginController-php"><span class="toc-text">LoginController.php</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#model目录"><span class="toc-text">model目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LoginModel-php"><span class="toc-text">LoginModel.php</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RegistrationModel-php"><span class="toc-text">RegistrationModel.php</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#疑问"><span class="toc-text">疑问</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+    <a href="/2019/04/15/leetcode241/" class="prev">&larr; Prev post LeetCode 241 为运算表达式设计优先级-C++</a>
+  
+
+  
+
+  
+    <a href="/2019/04/10/leetcode169/" class="next">Next post LeetCode169.求众数-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
