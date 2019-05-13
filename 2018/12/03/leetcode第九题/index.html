@@ -39,21 +39,21 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2018/12/04/leetcode第11题/">
+      <a href="/2018/12/03/排序算法/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        LeetCode第十一题：盛最多水的容器-C++
+        排序算法-C++
       </div>
     </div>
   
   
     <div class="item next">
-      <a href="/2018/12/03/二分查找/">
+      <a href="/2018/12/02/二叉搜索树/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        二分查找-C++
+        二叉搜索树-C++
       </div>
     </div>
   
@@ -130,12 +130,12 @@
   <article id="post">
     <h1>LeetCode第九题：回文数-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-12-03</span>
+      <span id = "post-title-date">撰写于 2018-12-03</span>
       
-        <span id = "post-title-updated">Updated at 2018-12-03</span>
+        <span id = "post-title-updated">修改于 2018-12-03</span>
       
       
-      <span id = "post-title-categories">Category
+      <span id = "post-title-categories">分类
       
       
         
@@ -152,7 +152,7 @@
       
       
       <span id = "post-title-tags">
-      Tag
+      标签
       
       
         
@@ -175,10 +175,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public class Solution &#123;</div><div class="line">    public bool IsPalindrome(int x) &#123;</div><div class="line">        // 特殊情况：</div><div class="line">        // 如上所述，当 x &lt; 0 时，x 不是回文数。</div><div class="line">        // 同样地，如果数字的最后一位是 0，为了使该数字为回文，</div><div class="line">        // 则其第一位数字也应该是 0</div><div class="line">        // 只有 0 满足这一属性</div><div class="line">        <span class="keyword">if</span>(x &lt; 0 || (x % 10 == 0 &amp;&amp; x != 0)) &#123;</div><div class="line">            <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        int revertedNumber = 0;</div><div class="line">        <span class="keyword">while</span>(x &gt; revertedNumber) &#123;</div><div class="line">            revertedNumber = revertedNumber * 10 + x % 10;</div><div class="line">            x /= 10;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 当数字长度为奇数时，我们可以通过 revertedNumber/10 去除处于中位的数字。</div><div class="line">        // 例如，当输入为 12321 时，在 <span class="keyword">while</span> 循环的末尾我们可以得到 x = 12，revertedNumber = 123，</div><div class="line">        // 由于处于中位的数字不影响回文（它总是与自己相等），所以我们可以简单地将其去除。</div><div class="line">        <span class="built_in">return</span> x == revertedNumber || x == revertedNumber/10;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
+    <h2>目录</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路一：反转所有数字"><span class="toc-text">思路一：反转所有数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#官方题解：反转一半数字"><span class="toc-text">官方题解：反转一半数字</span></a></li></ol>
   </div>
 </div>
@@ -186,13 +186,13 @@
   
 <nav id="pagination">
   
-    <a href="/2018/12/04/leetcode第11题/" class="prev">&larr; Prev post LeetCode第十一题：盛最多水的容器-C++</a>
+    <a href="/2018/12/03/排序算法/" class="prev">&larr; 上一篇 排序算法-C++</a>
   
 
   
 
   
-    <a href="/2018/12/03/二分查找/" class="next">Next post 二分查找-C++ &rarr;</a>
+    <a href="/2018/12/02/二叉搜索树/" class="next">下一篇 二叉搜索树-C++ &rarr;</a>
   
 </nav>
 
