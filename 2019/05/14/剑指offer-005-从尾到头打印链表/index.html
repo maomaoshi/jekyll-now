@@ -1,0 +1,352 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="题意题目描述
+输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。牛客网链接
+
+反转链表可以先反转链表再将链表的值按序保存到vector中。  
+
+提醒：但是在面试的时候，如果我们打算修改输入的数据，最好先问问面试官是不是允许修改。通常打印只是一个只读操作，我们肯定不希望输入时候修改链表的内容。
+迭代法反转链表12345678910111213141516171819202122...">
+  
+  <title>005-从尾到头打印链表-C++ [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2019/05/14/剑指offer-004-空格替换/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        004-替换空格-C++
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2019/05/13/剑指offer-003-二维数组中的查找/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        003-二维数组中的查找-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>005-从尾到头打印链表-C++</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2019-05-14</span>
+      
+        <span id = "post-title-updated">修改于 2019-05-14</span>
+      
+      
+      <span id = "post-title-categories">分类
+      
+      
+        
+        
+        <a href="/categories/剑指Offer/">剑指Offer</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      标签
+      
+      
+        
+        
+        <a href="/tags/剑指Offer/">剑指Offer</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><blockquote>
+<p>输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。<a href="https://www.nowcoder.com/practice/4060ac7e3e404ad1a894ef3e17650423?tpId=13&amp;tqId=11155&amp;rp=1&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking" target="_blank" rel="external">牛客网链接</a></p>
+</blockquote>
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p></p><p>可以先反转链表再将链表的值按序保存到vector中。  </p>
+<blockquote>
+<p>提醒：但是在面试的时候，如果我们打算修改输入的数据，最好先问问面试官是不是允许修改。通常打印只是一个只读操作，我们肯定不希望输入时候修改链表的内容。</p>
+<h3 id="迭代法反转链表"><a href="#迭代法反转链表" class="headerlink" title="迭代法反转链表"></a>迭代法反转链表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">*  struct ListNode &#123;</div><div class="line">*        int val;</div><div class="line">*        struct ListNode *next;</div><div class="line">*        ListNode(int x) :</div><div class="line">*              val(x), next(NULL) &#123;</div><div class="line">*        &#125;</div><div class="line">*  &#125;;</div><div class="line">*/</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line"></div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        ListNode* prev = nullptr;</div><div class="line">        ListNode* curr = head;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            ListNode* currNext = curr-&gt;next;</div><div class="line">            curr-&gt;next = prev;</div><div class="line">            prev = curr;</div><div class="line">            curr = currNext;</div><div class="line">        &#125;</div><div class="line">        curr = prev;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            res.push_back(curr-&gt;val);</div><div class="line">            curr = curr-&gt;next;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="利用栈的后进先出特性"><a href="#利用栈的后进先出特性" class="headerlink" title="利用栈的后进先出特性"></a>利用栈的后进先出特性</h2><p></p><p>先遍历链表，将每个结点的值压入栈中。利用栈先进后出的特性，再将栈中的元素弹出来存到vector中，即可从尾到头打印链表。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">*  struct ListNode &#123;</div><div class="line">*        int val;</div><div class="line">*        struct ListNode *next;</div><div class="line">*        ListNode(int x) :</div><div class="line">*              val(x), next(NULL) &#123;</div><div class="line">*        &#125;</div><div class="line">*  &#125;;</div><div class="line">*/</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        stack&lt;int&gt; s;</div><div class="line">        ListNode* curr = head;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            s.push(curr-&gt;val);</div><div class="line">            curr = curr-&gt;next;</div><div class="line">        &#125;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        <span class="keyword">while</span>(!s.empty())&#123;</div><div class="line">            res.push_back(s.top());</div><div class="line">            s.pop();</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="利用递归实现"><a href="#利用递归实现" class="headerlink" title="利用递归实现"></a>利用递归实现</h2><p></p><p>递归到最后一个元素结束，开始将元素存入vector。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    void recurrence(vector&lt;int&gt;&amp; res, ListNode* curr)&#123;</div><div class="line">        <span class="keyword">if</span>(curr == nullptr)&#123;</div><div class="line">            //res.push_back(curr-&gt;val);</div><div class="line">            <span class="built_in">return</span>;</div><div class="line">        &#125;</div><div class="line">        recurrence(res, curr-&gt;next);</div><div class="line">        res.push_back(curr-&gt;val);</div><div class="line">    &#125;</div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        recurrence(res, head);</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p></p><p>由于每次传值都需要带上vector，可将vector设为成员变量。  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;int&gt; res;</div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        <span class="keyword">if</span>(head != nullptr)&#123;</div><div class="line">            printListFromTailToHead(head-&gt;next);</div><div class="line">            res.push_back(head-&gt;val);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反转链表"><span class="toc-text">反转链表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代法反转链表"><span class="toc-text">迭代法反转链表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用栈的后进先出特性"><span class="toc-text">利用栈的后进先出特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用递归实现"><span class="toc-text">利用递归实现</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+    <a href="/2019/05/14/剑指offer-004-空格替换/" class="prev">&larr; 上一篇 004-替换空格-C++</a>
+  
+
+  
+
+  
+    <a href="/2019/05/13/剑指offer-003-二维数组中的查找/" class="next">下一篇 003-二维数组中的查找-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
