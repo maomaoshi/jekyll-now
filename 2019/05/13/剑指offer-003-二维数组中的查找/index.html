@@ -18,13 +18,15 @@
   
     <meta name="description" content="题意题目描述
 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。牛客网题目链接
-输入描述array： 待查找的二维数组 target：查找的数字
+
+输入描述
+array： 待查找的二维数组 target：查找的数字
 
 输出描述
 查找到返回true，查找不到返回false
 
 
-暴力解法使用两层循环，遍历整个二维数组，直到找...">
+暴力解法使用两层循环，遍历整个二维数组，直...">
   
   <title>003-二维数组中的查找-C++ [ GWJ_AJ ]</title>
   
@@ -128,12 +130,12 @@
   <article id="post">
     <h1>003-二维数组中的查找-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2019-05-13</span>
+      <span id = "post-title-date">Created at 2019-05-13</span>
       
-        <span id = "post-title-updated">修改于 2019-05-13</span>
+        <span id = "post-title-updated">Updated at 2019-05-14</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -144,7 +146,7 @@
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -157,12 +159,14 @@
     
     <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><blockquote>
 <p>在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。<a href="https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&amp;tqId=11154&amp;rp=1&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking" target="_blank" rel="external">牛客网题目链接</a></p>
-<h3 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a>输入描述</h3><p>array： 待查找的二维数组 target：查找的数字</p>
+</blockquote>
+<h3 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a>输入描述</h3><blockquote>
+<p>array： 待查找的二维数组 target：查找的数字</p>
 </blockquote>
 <h3 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述"></a>输出描述</h3><blockquote>
 <p>查找到返回true，查找不到返回false</p>
 </blockquote>
-<p><img src="/images/剑指offer-003.png" alt=""></p>
+<p><img src="../images/剑指offer-003.png" alt=""></p>
 <h2 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h2><p></p><p>使用两层循环，遍历整个二维数组，直到找到哦target。时间复杂度为O(n^2);  </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    bool Find(int target, vector&lt;vector&lt;int&gt; &gt; array) &#123;</div><div class="line">        int row = array.size();</div><div class="line">        <span class="keyword">if</span>(row == 0)&#123;</div><div class="line">            <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        int column = array[0].size();</div><div class="line">        <span class="keyword">for</span>(int i = 0;i &lt; row; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(int j = 0; j &lt; column; j++)&#123;</div><div class="line">                <span class="keyword">if</span>(array[i][j] == target)&#123;</div><div class="line">                    <span class="built_in">return</span> <span class="literal">true</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h2 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>从数组中选取一个数和target进行比较，有三种关系：=,&gt;,&lt;  </p>
@@ -185,14 +189,14 @@
 <li>以右上角作为起点，target大于当前的数，则剔除到一行，小于当前的数则剔除一列。  </li>
 <li>也可以从左下角开始  </li>
 </ol>
-<p>例，从右上角开始查找7的轨迹：<br><img src="images/剑指offer-003-1.png" alt=""></p>
+<p>例，从右上角开始查找7的轨迹：<br><img src="../images/剑指offer-003-1.png" alt=""></p>
 <h3 id="从右上角开始"><a href="#从右上角开始" class="headerlink" title="从右上角开始"></a>从右上角开始</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    bool Find(int target, vector&lt;vector&lt;int&gt; &gt; array) &#123;</div><div class="line">        int row = array.size();</div><div class="line">        <span class="keyword">if</span>(row == 0)&#123;</div><div class="line">            <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        int column = array[0].size();</div><div class="line">        //从右上角开始</div><div class="line">        int i = 0, j = column - 1;</div><div class="line">        <span class="keyword">while</span>(i &lt; row &amp;&amp; j &gt;= 0)&#123;</div><div class="line">            <span class="keyword">if</span>(target == array[i][j])&#123;</div><div class="line">                <span class="built_in">return</span> <span class="literal">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(target &gt; array[i][j])&#123;</div><div class="line">                i++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                j--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="comment">### 从左下角开始</span></div><div class="line"></div><div class="line">```bash</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    bool Find(int target, vector&lt;vector&lt;int&gt; &gt; array) &#123;</div><div class="line">        int row = array.size();</div><div class="line">        <span class="keyword">if</span>(row == 0)&#123;</div><div class="line">            <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        int column = array[0].size();</div><div class="line">        //从右上角开始</div><div class="line">        int i = row - 1, j = 0;</div><div class="line">        <span class="keyword">while</span>(i &gt;= 0&amp;&amp; j &lt; column)&#123;</div><div class="line">            <span class="keyword">if</span>(target == array[i][j])&#123;</div><div class="line">                <span class="built_in">return</span> <span class="literal">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(target &gt; array[i][j])&#123;</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                i--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输入描述"><span class="toc-text">输入描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输出描述"><span class="toc-text">输出描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暴力解法"><span class="toc-text">暴力解法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分治法"><span class="toc-text">分治法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从右上角开始"><span class="toc-text">从右上角开始</span></a></li></ol></li></ol>
   </div>
 </div>
@@ -204,7 +208,7 @@
   
 
   
-    <a href="/2019/04/16/leetcode973/" class="next">下一篇 LeetCode 973最接近原点的K个点-C++ &rarr;</a>
+    <a href="/2019/04/16/leetcode973/" class="next">Next post LeetCode 973最接近原点的K个点-C++ &rarr;</a>
   
 </nav>
 
