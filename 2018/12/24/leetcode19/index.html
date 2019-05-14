@@ -130,12 +130,12 @@
   <article id="post">
     <h1>LeetCode第19题删除链表的倒数第N个节点-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2018-12-24</span>
+      <span id = "post-title-date">Created at 2018-12-24</span>
       
-        <span id = "post-title-updated">修改于 2018-12-24</span>
+        <span id = "post-title-updated">Updated at 2018-12-24</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -152,7 +152,7 @@
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -177,10 +177,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition <span class="keyword">for</span> singly-linked list.</div><div class="line"> * struct ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode *next;</div><div class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;</div><div class="line">        ListNode* head0 = new ListNode(0);</div><div class="line">        head0-&gt;next = head;</div><div class="line">        ListNode* first = head0;</div><div class="line">        ListNode* second = head0;</div><div class="line">        <span class="keyword">for</span>(int i = 1; i &lt;= n+1; i++)&#123;</div><div class="line">            first = first-&gt;next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(first != NULL)&#123;</div><div class="line">            first = first-&gt;next;</div><div class="line">            second = second-&gt;next;</div><div class="line">        &#125;</div><div class="line">        second-&gt;next = second-&gt;next-&gt;next;</div><div class="line">        <span class="built_in">return</span> head0-&gt;next;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路一：使用栈"><span class="toc-text">思路一：使用栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路二-官方题解-两次遍历"><span class="toc-text">思路二 官方题解-两次遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路三：官方题解-一次遍历"><span class="toc-text">思路三：官方题解-一次遍历</span></a></li></ol>
   </div>
 </div>
@@ -188,13 +188,13 @@
   
 <nav id="pagination">
   
-    <a href="/2018/12/25/leetcode20/" class="prev">&larr; 上一篇 LeetCode第20题有效的括号-C++</a>
+    <a href="/2018/12/25/leetcode20/" class="prev">&larr; Prev post LeetCode第20题有效的括号-C++</a>
   
 
   
 
   
-    <a href="/2018/12/23/头条面试编程题/" class="next">下一篇 头条一面记录 &rarr;</a>
+    <a href="/2018/12/23/头条面试编程题/" class="next">Next post 头条一面记录 &rarr;</a>
   
 </nav>
 

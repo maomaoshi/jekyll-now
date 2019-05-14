@@ -22,7 +22,8 @@
 反转链表可以先反转链表再将链表的值按序保存到vector中。  
 
 提醒：但是在面试的时候，如果我们打算修改输入的数据，最好先问问面试官是不是允许修改。通常打印只是一个只读操作，我们肯定不希望输入时候修改链表的内容。
-迭代法反转链表12345678910111213141516171819202122...">
+
+迭代法反转链表1234567891011121314151617181920212...">
   
   <title>005-从尾到头打印链表-C++ [ GWJ_AJ ]</title>
   
@@ -135,12 +136,12 @@
   <article id="post">
     <h1>005-从尾到头打印链表-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2019-05-14</span>
+      <span id = "post-title-date">Created at 2019-05-14</span>
       
-        <span id = "post-title-updated">修改于 2019-05-14</span>
+        <span id = "post-title-updated">Updated at 2019-05-15</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -151,7 +152,7 @@
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -168,8 +169,8 @@
 <h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p></p><p>可以先反转链表再将链表的值按序保存到vector中。  </p>
 <blockquote>
 <p>提醒：但是在面试的时候，如果我们打算修改输入的数据，最好先问问面试官是不是允许修改。通常打印只是一个只读操作，我们肯定不希望输入时候修改链表的内容。</p>
-<h3 id="迭代法反转链表"><a href="#迭代法反转链表" class="headerlink" title="迭代法反转链表"></a>迭代法反转链表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">*  struct ListNode &#123;</div><div class="line">*        int val;</div><div class="line">*        struct ListNode *next;</div><div class="line">*        ListNode(int x) :</div><div class="line">*              val(x), next(NULL) &#123;</div><div class="line">*        &#125;</div><div class="line">*  &#125;;</div><div class="line">*/</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line"></div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        ListNode* prev = nullptr;</div><div class="line">        ListNode* curr = head;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            ListNode* currNext = curr-&gt;next;</div><div class="line">            curr-&gt;next = prev;</div><div class="line">            prev = curr;</div><div class="line">            curr = currNext;</div><div class="line">        &#125;</div><div class="line">        curr = prev;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            res.push_back(curr-&gt;val);</div><div class="line">            curr = curr-&gt;next;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 </blockquote>
+<h3 id="迭代法反转链表"><a href="#迭代法反转链表" class="headerlink" title="迭代法反转链表"></a>迭代法反转链表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">*  struct ListNode &#123;</div><div class="line">*        int val;</div><div class="line">*        struct ListNode *next;</div><div class="line">*        ListNode(int x) :</div><div class="line">*              val(x), next(NULL) &#123;</div><div class="line">*        &#125;</div><div class="line">*  &#125;;</div><div class="line">*/</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line"></div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        ListNode* prev = nullptr;</div><div class="line">        ListNode* curr = head;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            ListNode* currNext = curr-&gt;next;</div><div class="line">            curr-&gt;next = prev;</div><div class="line">            prev = curr;</div><div class="line">            curr = currNext;</div><div class="line">        &#125;</div><div class="line">        curr = prev;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            res.push_back(curr-&gt;val);</div><div class="line">            curr = curr-&gt;next;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h2 id="利用栈的后进先出特性"><a href="#利用栈的后进先出特性" class="headerlink" title="利用栈的后进先出特性"></a>利用栈的后进先出特性</h2><p></p><p>先遍历链表，将每个结点的值压入栈中。利用栈先进后出的特性，再将栈中的元素弹出来存到vector中，即可从尾到头打印链表。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">*  struct ListNode &#123;</div><div class="line">*        int val;</div><div class="line">*        struct ListNode *next;</div><div class="line">*        ListNode(int x) :</div><div class="line">*              val(x), next(NULL) &#123;</div><div class="line">*        &#125;</div><div class="line">*  &#125;;</div><div class="line">*/</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        stack&lt;int&gt; s;</div><div class="line">        ListNode* curr = head;</div><div class="line">        <span class="keyword">while</span>(curr)&#123;</div><div class="line">            s.push(curr-&gt;val);</div><div class="line">            curr = curr-&gt;next;</div><div class="line">        &#125;</div><div class="line">        vector&lt;int&gt; res;</div><div class="line">        <span class="keyword">while</span>(!s.empty())&#123;</div><div class="line">            res.push_back(s.top());</div><div class="line">            s.pop();</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h2 id="利用递归实现"><a href="#利用递归实现" class="headerlink" title="利用递归实现"></a>利用递归实现</h2><p></p><p>递归到最后一个元素结束，开始将元素存入vector。</p>
@@ -178,10 +179,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;int&gt; res;</div><div class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</div><div class="line">        <span class="keyword">if</span>(head != nullptr)&#123;</div><div class="line">            printListFromTailToHead(head-&gt;next);</div><div class="line">            res.push_back(head-&gt;val);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反转链表"><span class="toc-text">反转链表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代法反转链表"><span class="toc-text">迭代法反转链表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用栈的后进先出特性"><span class="toc-text">利用栈的后进先出特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用递归实现"><span class="toc-text">利用递归实现</span></a></li></ol>
   </div>
 </div>
@@ -189,13 +190,13 @@
   
 <nav id="pagination">
   
-    <a href="/2019/05/14/剑指offer-004-空格替换/" class="prev">&larr; 上一篇 004-替换空格-C++</a>
+    <a href="/2019/05/14/剑指offer-004-空格替换/" class="prev">&larr; Prev post 004-替换空格-C++</a>
   
 
   
 
   
-    <a href="/2019/05/13/剑指offer-003-二维数组中的查找/" class="next">下一篇 003-二维数组中的查找-C++ &rarr;</a>
+    <a href="/2019/05/13/剑指offer-003-二维数组中的查找/" class="next">Next post 003-二维数组中的查找-C++ &rarr;</a>
   
 </nav>
 
