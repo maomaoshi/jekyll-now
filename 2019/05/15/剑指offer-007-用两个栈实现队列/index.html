@@ -1,0 +1,377 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="GWJ_AJ">
+  
+  
+  
+  
+    <meta name="description" content="题意
+用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。牛客网题目链接
+
+分析
+以s1作为存储空间，s2作为临时缓冲区。
+
+入队时，将元素压入s1。
+
+出队时，将s1的元素倒入s2，将顶上的元素弹出栈。再将s2的所有元素倒回s1。
+
+注意：出队时，s1栈底的元素可不用倒入s2。即将s1.size()-1个元素倒入s2中，再将s1剩下的元素作为出队元素弹出栈并...">
+  
+  <title>006-重建二叉树-C++ [ GWJ_AJ ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2019/05/15/剑指offer-005-重建二叉树/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        006-重建二叉树-C++
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2019/05/14/剑指offer-005-从尾到头打印链表/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        005-从尾到头打印链表-C++
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/1.jpg"/>
+          <div id="homelink">GWJ_AJ</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/stiekel/hexo-theme-random">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>006-重建二叉树-C++</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2019-05-15</span>
+      
+        <span id = "post-title-updated">Updated at 2019-05-16</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/剑指Offer/">剑指Offer</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/剑指Offer/">剑指Offer</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><blockquote>
+<p>用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。<a href="https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=13&amp;tqId=11158&amp;rp=1&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-rankingg" target="_blank" rel="external">牛客网题目链接</a></p>
+</blockquote>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><ol>
+<li><p>以s1作为<strong>存储空间</strong>，s2作为<strong>临时缓冲区</strong>。</p>
+<ul>
+<li><p>入队时，将元素压入s1。</p>
+</li>
+<li><p>出队时，将s1的元素倒入s2，将顶上的元素弹出栈。再将s2的所有元素倒回s1。</p>
+</li>
+<li><p><strong>注意</strong>：出队时，s1栈底的元素可不用倒入s2。即将s1.size()-1个元素倒入s2中，再将s1剩下的元素作为出队元素弹出栈并返回。这样可减少一次压栈操作</p>
+</li>
+<li><p>示例图：</p>
+<p><img src="/images/剑指offer-007-1.png" alt="007"></p>
+</li>
+</ul>
+<p>1.1 变种：</p>
+<ul>
+<li><p>入队时，如果s1不为空，则直接压入s1。如果s1为空，则将s2中元素全部倒回s1，再将入队元素压入s1。</p>
+</li>
+<li><p>出队时，判断s2是否为空。如果s2不为空，则将s2栈顶元素作为出队元素弹出栈。如果s2为空，则先将s1中的元素逐个倒入s2，把最后一个元素弹出并出队。</p>
+<p>该变种和最初思路的区别是：每次出队后不把s2倒回s1。如果下次还是出队操作，则直接从s2弹出。如果是入队操作，就需要将s2中元素倒回s1。两种方法在性能上差别不大。</p>
+</li>
+</ul>
+</li>
+<li><p>以s1作为<strong>输入栈</strong>，s2作为<strong>输出栈</strong></p>
+<ul>
+<li>入队时，将入队元素压入s1。</li>
+<li>出队时，若s2不为空，则直接栈顶元素作为出队元素弹出栈。若s2为空，则将s1的元素逐个倒入s2，把最后一个元素弹出并出队。</li>
+<li>此方法，相比于第一种，就不用来回倒入。只有在s2为空的时候，才倒一次。</li>
+</ul>
+</li>
+</ol>
+<h3 id="思路2的代码"><a href="#思路2的代码" class="headerlink" title="思路2的代码"></a>思路2的代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</div><div class="line">        stack1.push(node);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">```</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(stack2.empty())&#123;</div><div class="line">        <span class="keyword">while</span>(!stack1.empty())&#123;</div><div class="line">            stack2.push(stack1.top());</div><div class="line">            stack1.pop();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> num = stack2.top();</div><div class="line">    stack2.pop();</div><div class="line">    <span class="keyword">return</span> num;</div><div class="line">&#125;</div><div class="line">```</div><div class="line"></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack1;</div><div class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack2;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路2的代码"><span class="toc-text">思路2的代码</span></a></li></ol></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+    <a href="/2019/05/15/剑指offer-005-重建二叉树/" class="prev">&larr; Prev post 006-重建二叉树-C++</a>
+  
+
+  
+
+  
+    <a href="/2019/05/14/剑指offer-005-从尾到头打印链表/" class="next">Next post 005-从尾到头打印链表-C++ &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by GWJ_AJ using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/1.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/stiekel/hexo-theme-random">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
