@@ -17,10 +17,9 @@
   
   
     <meta name="description" content="题意题目描述
-把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。牛客网链接
 
-分析1. 遍历数组寻找最小值该思路很简单，就是遍历一遍数组，找出最小值。时间复杂度：O(n)
-123...">
+分析1. 遍历数组寻找最小值该思路很简单，就是遍历一遍数组，找出最小值。时间复杂度：O(n...">
   
   <title>008-旋转数组的最小数字-C++ [ GWJ_AJ ]</title>
   
@@ -124,12 +123,12 @@
   <article id="post">
     <h1>008-旋转数组的最小数字-C++</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2019-05-16</span>
+      <span id = "post-title-date">Created at 2019-05-16</span>
       
-        <span id = "post-title-updated">修改于 2019-05-16</span>
+        <span id = "post-title-updated">Updated at 2019-05-16</span>
       
       
-      <span id = "post-title-categories">分类
+      <span id = "post-title-categories">Category
       
       
         
@@ -140,7 +139,7 @@
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -152,7 +151,7 @@
     </p>
     
     <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><blockquote>
-<p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
+<p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。<a href="https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?tpId=13&amp;tqId=11159&amp;rp=1&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-rankingg" target="_blank" rel="external">牛客网链接</a></p>
 </blockquote>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="1-遍历数组寻找最小值"><a href="#1-遍历数组寻找最小值" class="headerlink" title="1. 遍历数组寻找最小值"></a>1. 遍历数组寻找最小值</h3><p>该思路很简单，就是遍历一遍数组，找出最小值。时间复杂度：O(n)</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">minNumberInRotateArray</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; rotateArray)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> result = INT_MAX;</div><div class="line">        <span class="keyword">int</span> len = rotateArray.size();</div><div class="line">        <span class="keyword">if</span>(len == <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</div><div class="line">            <span class="keyword">if</span>(rotateArray[i] &lt; result)&#123;</div><div class="line">                result = rotateArray[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
@@ -176,10 +175,10 @@
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-遍历数组寻找最小值"><span class="toc-text">1. 遍历数组寻找最小值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-最大值后面就是最小值"><span class="toc-text">2. 最大值后面就是最小值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-分治——二分查找"><span class="toc-text">3. 分治——二分查找</span></a></li></ol></li></ol>
   </div>
 </div>
@@ -191,7 +190,7 @@
   
 
   
-    <a href="/2019/05/16/剑指offer-007-用两个栈实现队列/" class="next">下一篇 007-用两个栈实现队列-C++ &rarr;</a>
+    <a href="/2019/05/16/剑指offer-007-用两个栈实现队列/" class="next">Next post 007-用两个栈实现队列-C++ &rarr;</a>
   
 </nav>
 
